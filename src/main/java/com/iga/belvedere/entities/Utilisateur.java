@@ -1,6 +1,14 @@
 package com.iga.belvedere.entities;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
+
+@MappedSuperclass
 public class Utilisateur {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int id;
 	public String nom;
 	public String email;
