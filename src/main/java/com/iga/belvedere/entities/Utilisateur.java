@@ -13,6 +13,10 @@ public class Utilisateur {
 	public String nom;
 	public String email;
 	public String password;
+		
+	public Utilisateur() {
+		super();
+	}
 	
 	public Utilisateur(int id, String nom, String email, String password) {
 		super();

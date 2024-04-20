@@ -23,7 +23,9 @@ public class Emploi {
 	@JoinColumn(name="id_employeur")
 	private Employeur employeur;
 	
-	
+	public Emploi() {
+		super();
+	}
 	
 	public Emploi(int id, String titre, String nomEntreprise, String emailEntreprise, String categorie,
 			String localisation, String type, double salaire, int experience, String description, Employeur employeur) {
