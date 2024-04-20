@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.iga.belvedere.entities.Emploi;
 import com.iga.belvedere.entities.Employeur;
 import com.iga.belvedere.repositories.emploiRepository;
+import com.iga.belvedere.repositories.employeurRepository;
 
 @Controller
 public class EmployeurController {
 	@Autowired
-	private com.iga.belvedere.repositories.employeurRepository employeurRepo;
+	private employeurRepository employeurRepo;
 	@Autowired
 	private emploiRepository emploiRepo;
 	@GetMapping("post-job.html")

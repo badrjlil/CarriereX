@@ -106,7 +106,7 @@ public class myController {
 		
 		return "contact";
 	}
-	
+
 	@GetMapping("pricing.html")
 	public String pricing() {
 		return "pricing";
