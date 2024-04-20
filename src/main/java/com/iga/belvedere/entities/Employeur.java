@@ -30,11 +30,6 @@ public class Employeur extends Utilisateur{
 		this.emploi = emploi;
 	}
 
-	public Employeur() {
-      
-    }
-	
-	
 
 	
 
