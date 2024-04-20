@@ -107,10 +107,6 @@ public class myController {
 		return "contact";
 	}
 	
-	@GetMapping("post-job.html")
-	public String postjob() {
-		return "post-job";
-	}
 	@GetMapping("pricing.html")
 	public String pricing() {
 		return "pricing";

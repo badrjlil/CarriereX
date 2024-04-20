@@ -21,7 +21,7 @@ public class EmployeurController {
 	@Autowired
 	private EmploiRepo emploiRepo;
 	@GetMapping("post-job.html")
-	public String postjob(Model model) {
+	public String Ajoutjob(Model model) {
 		Emploi newEmploi = new Emploi();
 		List<Employeur> employeurs = employeurRepo.findAll();
 		model.addAttribute("newEmploi",newEmploi);
