@@ -13,7 +13,6 @@ public class Emploi {
 	private String titre;
 	private String nomEntreprise;
 	private String emailEntreprise;
-	private String categorie;
 	private String localisation;
 	private String type;
 	private double salaire;
@@ -23,22 +22,26 @@ public class Emploi {
 	@JoinColumn(name="id_employeur")
 	private Employeur employeur;
 	
+	@ManyToOne
+	@JoinColumn(name="id_categorie")
+	private Catégorie catégorie;
 	
 	
-	public Emploi(int id, String titre, String nomEntreprise, String emailEntreprise, String categorie,
-			String localisation, String type, double salaire, int experience, String description, Employeur employeur) {
+	
+	public Emploi(int id, String titre, String nomEntreprise, String emailEntreprise, String localisation, String type,
+			double salaire, int experience, String description, Employeur employeur, Catégorie catégorie) {
 		super();
 		this.id = id;
 		this.titre = titre;
 		this.nomEntreprise = nomEntreprise;
 		this.emailEntreprise = emailEntreprise;
-		this.categorie = categorie;
 		this.localisation = localisation;
 		this.type = type;
 		this.salaire = salaire;
 		this.experience = experience;
 		this.description = description;
 		this.employeur = employeur;
+		this.catégorie = catégorie;
 	}
 	public int getId() {
 		return id;
@@ -63,12 +66,6 @@ public class Emploi {
 	}
 	public void setEmailEntreprise(String emailEntreprise) {
 		this.emailEntreprise = emailEntreprise;
-	}
-	public String getCategorie() {
-		return categorie;
-	}
-	public void setCategorie(String categorie) {
-		this.categorie = categorie;
 	}
 	public String getLocalisation() {
 		return localisation;
@@ -106,6 +103,16 @@ public class Emploi {
 	public void setEmployeur(Employeur employeur) {
 		this.employeur = employeur;
 	}
+	public Emploi() {
+		super();
+	}
+	public Catégorie getCatégorie() {
+		return catégorie;
+	}
+	public void setCatégorie(Catégorie catégorie) {
+		this.catégorie = catégorie;
+	}
+	
 	
 	
 }

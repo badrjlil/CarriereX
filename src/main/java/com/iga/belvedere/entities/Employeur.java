@@ -24,6 +24,11 @@ public class Employeur extends Utilisateur{
 	public void setEmploi(List<Emploi> emploi) {
 		this.emploi = emploi;
 	}
+
+	public Employeur() {
+      
+    }
+	
 	
 
 	

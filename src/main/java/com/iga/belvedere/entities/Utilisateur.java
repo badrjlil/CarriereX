@@ -45,6 +45,9 @@ public class Utilisateur {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public Utilisateur() {
+		super();
+	}
 	
 	
 
