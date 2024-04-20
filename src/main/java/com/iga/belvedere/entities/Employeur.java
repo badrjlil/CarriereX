@@ -12,6 +12,11 @@ public class Employeur extends Utilisateur{
 	@OneToMany(mappedBy = "employeur")
 	private List<Emploi> emploi;
 
+	
+	
+	public Employeur() {
+    }
+
 	public Employeur(int id, String nom, String email, String password, List<Emploi> emploi) {
 		super(id, nom, email, password);
 		this.emploi = emploi;

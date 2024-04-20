@@ -82,23 +82,23 @@
 
     <div class="find-section ptb-100">
         <div class="container">
-            <form method="get" action="findJob" class="find-form mt-0">
+            <form class="find-form mt-0">
                 <div class="row">
                     <div class="col-lg-3">
                         <div class="form-group">
                             <input type="text" class="form-control" id="exampleInputEmail1"
-                                placeholder="Titre du poste ou mot-clé" name="keyword">
+                                placeholder="Titre du poste ou mot-clé">
                             <i class="bx bx-search-alt"></i>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="exampleInputEmail2" placeholder="Localisation" name="location">
+                            <input type="text" class="form-control" id="exampleInputEmail2" placeholder="Localisation">
                             <i class="bx bx-location-plus"></i>
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <select class="category" name="category">
+                        <select class="category">
                             <option data-display="Category">Catégorie</option>
                             <option value="1">Web Development</option>
                             <option value="2">Graphics Design</option>
@@ -108,8 +108,10 @@
                         </select>
                     </div>
                     <div class="col-lg-3">
-                        <input type="submit" class="find-btn" value="Trouver un travail">
-                            <!--<i class="bx bx-search"></i>-->
+                        <button type="submit" class="find-btn">
+                            Trouver un travail
+                            <i class="bx bx-search"></i>
+                        </button>
                     </div>
                 </div>
             </form>

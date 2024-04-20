@@ -25,7 +25,7 @@ public class Emploi {
 	@ManyToOne
 	@JoinColumn(name="id_categorie")
 	private Catégorie catégorie;
-	
+
 	
 	
 	public Emploi(int id, String titre, String nomEntreprise, String emailEntreprise, String localisation, String type,
