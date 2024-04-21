@@ -96,24 +96,18 @@
                                         </div>
                                         <div class="col-md-10">
                                             <div class="job-info">
-                                                <h3>Web Designer, Graphic Designer, UI/UX Designer</h3>
+                                                <h3 th:text="${emploi.titre}"></h3>
                                                 <ul>
-                                                    <li>
-                                                        <i class="bx bx-location-plus"></i>
-                                                        Wellesley Rd, London
-                                                    </li>
-                                                    <li>
-                                                        <i class="bx bx-filter-alt"></i>
-                                                        Accountancy
-                                                    </li>
-                                                    <li>
-                                                        <i class="bx bx-briefcase"></i>
-                                                        Freelance
-                                                    </li>
+                                                    <i class="bx bx-location-plus"></i>
+                                                    <li th:text="${emploi.localisation}"></li>
+                                                    <i class="bx bx-filter-alt"></i>
+                                                    <li th:text="${emploi.catégorie.nom}"></li>
+                                                    <i class="bx bx-briefcase"></i>
+                                                    <li th:text="${emploi.type}"></li>
                                                 </ul>
                                                 <span>
                                                     <i class="bx bx-paper-plane"></i>
-                                                    Postuler avant: June 01,2021
+                                                    Postuler avant: <span th:text="${emploi.deadline}"></span>
                                                 </span>
                                             </div>
                                         </div>
@@ -121,23 +115,21 @@
                                 </div>
                                 <div class="details-text">
                                     <h3>Description</h3>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                                    <div th:text="${emploi.description}"></div>
+                                    <!--<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
                                         Ipsum has been the industry's standard dummy text ever since the 1500s, when an
                                         unknown printer took a galley of type and scrambled it to make a type specimen
                                         book. It has survived not only five centuries,but also the leap into essentially
                                         unchanged.</p>
                                     <p>There are many variations of passages of Lorem Ipsum available, but the majority
                                         have suffered alteration in some form, by injected humour, or randomised words
-                                        which don't look even slightly believable.</p>
+                                        which don't look even slightly believable.</p>-->
                                 </div>
                                 <div class="details-text">
                                     <h3>Exigences</h3>
-                                    <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                        Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                        unknown printer took a galley of type and scrambled it to make a type specimen
-                                        book.</p>
-                                    <ul>
-                                        <li>
+                                    <p></p>
+                                    <pre th:text="${emploi.exigences}">
+                                        <!--<li>
                                             <i class="bx bx-check"></i>
                                             Work experience
                                         </li>
@@ -156,8 +148,8 @@
                                         <li>
                                             <i class="bx bx-check"></i>
                                             Guide and mentor junior engineers. Serve as team lead if appropriate.
-                                        </li>
-                                    </ul>
+                                        </li>-->
+                                    </pre>
                                 </div>
                                 <div class="details-text">
                                     <h3>Détails du poste</h3>
@@ -167,22 +159,21 @@
                                                 <tbody>
                                                     <tr>
                                                         <td><span>Entreprise</span></td>
-                                                        <td>Tourt Design LTD</td>
+                                                        <td th:text="${emploi.nomEntreprise}"></td>
                                                     </tr>
                                                     <tr>
                                                         <td><span>Localisation</span></td>
-                                                        <td>Wellesley Rd, London</td>
+                                                        <td th:text="${emploi.localisation}"></td>
                                                     </tr>
                                                     <tr>
                                                         <td><span>Type d'emploi</span></td>
-                                                        <td>Full Time</td>
+                                                        <td th:text="${emploi.type}"></td>
                                                     </tr>
                                                     <tr>
                                                         <td><span>Email</span></td>
                                                         <td><a
-                                                                href="https://templates.hibootstrap.com/cdn-cgi/l/email-protection#c7afa2ababa887a4a8aab7a6a9bee9a4a8aa"><span
-                                                                    class="__cf_email__"
-                                                                    data-cfemail="543c3138383b14373b3924353a2d7a373b39">[email&#160;protected]</span></a>
+                                                                th:href="@{mailto:} + ${emploi.emailEntreprise}"><span
+                                                                    class="__cf_email__" th:text="${emploi.emailEntreprise}"></span></a>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -193,7 +184,7 @@
                                                 <tbody>
                                                     <tr>
                                                         <td><span>Expérience</span></td>
-                                                        <td>2 Years</td>
+                                                        <td th:text="${emploi.experience}"></td>
                                                     </tr>
                                                     <tr>
                                                         <td><span>Langue</span></td>
@@ -201,11 +192,11 @@
                                                     </tr>
                                                     <tr>
                                                         <td><span>Salaire</span></td>
-                                                        <td>5000DH</td>
+                                                        <td th:text="${emploi.salaire_min} + ' - ' + ${emploi.salaire_max}"></td>
                                                     </tr>
                                                     <tr>
                                                         <td><span>Website</span></td>
-                                                        <td><a href="#">www.company.com</a></td>
+                                                        <td><a th:href="@{emploi.website}" th:text="${emploi.website}"></a></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -239,10 +230,10 @@
                     <div class="job-sidebar">
                         <h3>Mots clés</h3>
                         <ul>
-                            <li>
-                                <a href="#">Web Design</a>
+                            <li th:each="keyword : ${emploi.keywords}">
+                                <a th:text="${keyword.nom}"></a>
                             </li>
-                            <li>
+                            <!--<li>
                                 <a href="#">Data Sceince</a>
                             </li>
                             <li>
@@ -265,7 +256,7 @@
                             </li>
                             <li>
                                 <a href="#">Video</a>
-                            </li>
+                            </li>-->
                         </ul>
                     </div>
                     <div class="job-sidebar social-share">

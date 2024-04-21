@@ -1,19 +1,37 @@
 package com.iga.belvedere.controllers;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import com.iga.belvedere.entities.Catégorie;
 import com.iga.belvedere.entities.Emploi;
+import com.iga.belvedere.repositories.catégorieRepo;
 import com.iga.belvedere.repositories.emploiRepository;
+import com.iga.belvedere.repositories.employeurRepository;
+
 
 @Controller
 public class myController {
-	
+	@Autowired
+	private employeurRepository employeurRepo;
+	@Autowired
+	private emploiRepository emploiRepo;
+	@Autowired
+	private catégorieRepo catégorieRepo;
+
+	@GetMapping("/")
+	public String home(Model model) {
+		List<Catégorie> categories = catégorieRepo.findAll();
+		model.addAttribute("categories", categories);
+		List<Emploi> emplois = emploiRepo.findAll();
+		model.addAttribute("emplois", emplois);
+		return "index";
+	}
 	
 	@GetMapping("about.html")
 	public String about() {
@@ -66,11 +84,7 @@ public class myController {
 		
 		return "faq";
 	}
-	@GetMapping("find-job.html")
-	public String findjob() {
-		
-		return "find-job";
-	}
+
 	@GetMapping("job-list.html")
 	public String jobList() {
 		

@@ -64,13 +64,13 @@
 					<div class="banner-content text-center">
 						<p>Trouvez des emplois, des emplois et des opportunités de carrière</p>
 						<h1>Déposez votre CV et obtenez l'emploi de vos rêves !</h1>
-						<form class="banner-form" method="get" action="findEmploi">
+						<form class="banner-form" method="get" action="findJob">
 							<div class="row">
 								<div class="col-md-4">
 									<div class="form-group">
 										<label for="exampleInputEmail1">Mot-clé:</label>
 										<input type="text" class="form-control" id="exampleInputEmail1"
-											placeholder="Titre d'emploi" name="motcle">
+											placeholder="Titre d'emploi" name="keyword">
 									</div>
 								</div>
 								<div class="col-md-4">
@@ -85,6 +85,7 @@
 										Trouver un travail
 										<i class="bx bx-search"></i>
 									</button>
+
 								</div>
 							</div>
 						</form>
@@ -110,16 +111,27 @@
 				<p>Choisissez la catégorie principale qui décrit votre choix dans son ensemble et soyez précis.</p>
 			</div>
 			<div class="row">
-				<div class="col-lg-3 col-md-4 col-sm-6" th:each="c : ${categories}">
-					<a th:href="@{/job-list.html}">
+
+				<div th:each="cat, iterStat : ${categories}" th:if="${iterStat.index} &lt; 7"
+					class="col-lg-3 col-md-4 col-sm-6">
+					<a href="#">
 						<div class="category-card">
 							<i class="flaticon-accounting"></i>
-							<h3 th:text="${c.nom}"></h3>
+							<h3 th:text="${cat.nom}"></h3>
+							<p>301 poste libre</p>
 						</div>
 					</a>
 				</div>
-
-		
+				<div th:if="${#lists.size(categories) > 6}" class="col-lg-3 col-md-4 col-sm-6">
+                    <a href="job-list.html">
+                        <div class="category-card">
+                            <br>
+                            <i class='bx bx-chevron-right'></i>
+                            <h3>Parcourir plus...</h3>
+                            <br>
+                        </div>
+                    </a>
+                </div>
 			</div>
 		</div>
 	</section>
@@ -159,7 +171,7 @@
 										</li>
 										<li>
 											<i class="bx bx-briefcase" th:text="${e.type}"></i>
-											
+									
 										</li>
 									</ul>
 								</div>
@@ -169,12 +181,12 @@
 									<a href="#">
 										<i class="bx bx-heart"></i>
 									</a>
+
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				
 			</div>
 		</div>
 	</section>
@@ -190,6 +202,7 @@
 					<div class="use-text">
 						<span>1</span>
 						<a href="find-job.html"><i class="flaticon-website"></i></a>
+
 						<h3>Parcourir l'emploi</h3>
 						<p>Parcourir toutes les offres d'emploi actuellement publiées sur notre site </p>
 					</div>
@@ -198,6 +211,7 @@
 					<div class="use-text">
 						<span>2</span>
 						<a href="find-job.html"><i class="flaticon-recruitment"></i></a>
+
 						<h3>Trouvez votre poste vacant</h3>
 						<p>Cherchez le poste qui vous convient. </p>
 					</div>
@@ -213,97 +227,6 @@
 			</div>
 		</div>
 	</section>
-
-<!--
-	<section class="company-section pt-100 pb-70">
-		<div class="container">
-			<div class="section-title text-center">
-				<h2>Principales entreprises</h2>
-				<p>Voici une liste des principales entreprises où vous pourriez envisager de soumettre votre
-					candidature.</p>
-			</div>
-			<div class="row">
-				<div class="col-lg-3 col-sm-6">
-					<div class="company-card">
-						<div class="company-logo">
-							<a href="job-grid.html">
-								<img src="assets/img/top-company/1.png" alt="company logo">
-							</a>
-						</div>
-						<div class="company-text">
-							<h3>Trophy & Sans</h3>
-							<p>
-								<i class="bx bx-location-plus"></i>
-								Green Lanes, London
-							</p>
-							<a href="job-grid.html" class="company-btn">
-								25 Poste libre
-							</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-sm-6">
-					<div class="company-card">
-						<div class="company-logo">
-							<a href="job-grid.html">
-								<img src="../assets/img/top-company/2.png" alt="company logo">
-							</a>
-						</div>
-						<div class="company-text">
-							<h3>Trout Design</h3>
-							<p>
-								<i class="bx bx-location-plus"></i>
-								Park Avenue, Mumbai
-							</p>
-							<a href="job-grid.html" class="company-btn">
-								35 Poste libre
-							</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-sm-6">
-					<div class="company-card">
-						<div class="company-logo">
-							<a href="job-grid.html">
-								<img src="assets/img/top-company/3.png" alt="company logo">
-							</a>
-						</div>
-						<div class="company-text">
-							<h3>Resland LTD</h3>
-							<p>
-								<i class="bx bx-location-plus"></i>
-								Betas Quence, London
-							</p>
-							<a href="job-grid.html" class="company-btn">
-								20 Poste libre
-							</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-sm-6">
-					<div class="company-card">
-						<div class="company-logo">
-							<a href="job-grid.html">
-								<img src="../assets/img/top-company/4.png" alt="company logo">
-							</a>
-						</div>
-						<div class="company-text">
-							<h3>Lawn Hopper</h3>
-							<p>
-								<i class="bx bx-location-plus"></i>
-								Wellesley Rd, London
-							</p>
-							<a href="job-grid.html" class="company-btn">
-								45 Poste libre
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
--->
-
 	<section class="why-choose">
 		<div class="container-fluid">
 			<div class="row">

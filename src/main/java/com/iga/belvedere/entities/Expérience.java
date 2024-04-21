@@ -17,7 +17,7 @@ public class Expérience {
 	private String titre;
 	private String entreprise;
 	private Date debut;
-	private Date din;
+	private Date fin;
 	String description;
 	
 	@ManyToOne
@@ -35,7 +35,7 @@ public class Expérience {
 		this.titre = titre;
 		this.entreprise = entreprise;
 		this.debut = debut;
-		this.din = din;
+		this.fin = din;
 		this.description = description;
 		this.profil = profil;
 	}
@@ -73,11 +73,11 @@ public class Expérience {
 	}
 
 	public Date getDin() {
-		return din;
+		return fin;
 	}
 
 	public void setDin(Date din) {
-		this.din = din;
+		this.fin = din;
 	}
 
 	public String getDescription() {

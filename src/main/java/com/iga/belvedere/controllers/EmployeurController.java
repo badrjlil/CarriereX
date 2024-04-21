@@ -50,23 +50,15 @@ public class EmployeurController {
 		return "redirect:/";
 	}
 
-	@GetMapping("/findEmploi")
+	/*@GetMapping("/findEmploi")
 	public String findEmploi(@RequestParam(defaultValue = "") String motcle, @RequestParam String location,
 			Model model) {
 		List<Emploi> emplois = emploiRepo.findAllByKeyword(motcle);
 		model.addAttribute("emplois", emplois);
 
 		return "job-list";
-	}
+	}*/
 
-	@GetMapping("/")
-	public String home(Model model) {
-		List<Catégorie> categories = catégorieRepo.findAll();
-		model.addAttribute("categories", categories);
-		List<Emploi> emplois = emploiRepo.findAll();
-		model.addAttribute("emplois", emplois);
-		return "index";
-	}
 
 	@GetMapping("catagories.html")
 	public String catagories(Model model) {
