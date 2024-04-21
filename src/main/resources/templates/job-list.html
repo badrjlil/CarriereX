@@ -102,30 +102,22 @@
                                         <a href="job-details.html" th:text="${emploi.titre}"></a>
                                     </h3>
                                     <ul>
-                                        <li>
-                                            <i class="bx bx-briefcase"></i>
-                                            Graphics Designer
-                                        </li>
-                                        <li>
-                                            <i class="bx bx-briefcase"></i>
-                                            $35000-$38000
-                                        </li>
-                                        <li>
-                                            <i class="bx bx-location-plus"></i>
-                                            Wellesley Rd, London
-                                        </li>
-                                        <li>
-                                            <i class="bx bx-stopwatch"></i>
-                                            9 days ago
-                                        </li>
+										<i class="bx bx-briefcase"></i>
+                                        <li th:text="${emploi.catégorie.nom}"></li>
+                                        <i class="bx bx-briefcase"></i>
+                                        <li th:text="${emploi.salaire_min} + ' - ' + ${emploi.salaire_max}"></li>
+                                        <i class="bx bx-location-plus"></i>
+                                        <li th:text="${emploi.localisation}"></li>
+                                        <i class="bx bx-stopwatch"></i>
+                                        <li th:text="${T(java.time.temporal.ChronoUnit).DAYS.between(emploi.date.atStartOfDay(), T(java.time.LocalDate).now().atStartOfDay())} + ' days'"></li>
                                     </ul>
                                     <span>Full Time</span>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="theme-btn text-end">
-                                    <a href="job-details.html" class="default-btn">
-                                        Browse Job
+                                    <a th:href="@{/jobDetails?id=} + ${emploi.id}" class="default-btn">
+                                        Parcourir l'emploi
                                     </a>
                                 </div>
                             </div>

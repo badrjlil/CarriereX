@@ -1,6 +1,10 @@
 package com.iga.belvedere.entities;
 
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -15,9 +19,26 @@ public class Emploi {
 	private String emailEntreprise;
 	private String localisation;
 	private String type;
-	private double salaire;
+	private double salaire_min;
+	private double salaire_max;
 	private int experience;
+	@Column(length = 2500)
 	private String description;
+	private Date deadline;
+	@Lob
+    private byte[] imageData;
+	private String website;
+	@Column(length = 1500)
+	private String exigences;
+	private LocalDate date;
+	
+	@OneToMany(mappedBy = "emploi")
+	private List<Keyword> keywords;
+	
+	@ManyToOne
+	@JoinColumn(name = "langue_id")
+	private Langue langue;
+	
 	@ManyToOne
 	@JoinColumn(name="id_employeur")
 	private Employeur employeur;
@@ -26,10 +47,10 @@ public class Emploi {
 	@JoinColumn(name="id_categorie")
 	private Catégorie catégorie;
 
-	
-	
 	public Emploi(int id, String titre, String nomEntreprise, String emailEntreprise, String localisation, String type,
-			double salaire, int experience, String description, Employeur employeur, Catégorie catégorie) {
+			double salaire_min, double salaire_max, int experience, String description, Date deadline, byte[] imageData,
+			String website, String exigences, LocalDate date, List<Keyword> keywords, Langue langue,
+			Employeur employeur, Catégorie catégorie) {
 		super();
 		this.id = id;
 		this.titre = titre;
@@ -37,9 +58,17 @@ public class Emploi {
 		this.emailEntreprise = emailEntreprise;
 		this.localisation = localisation;
 		this.type = type;
-		this.salaire = salaire;
+		this.salaire_min = salaire_min;
+		this.salaire_max = salaire_max;
 		this.experience = experience;
 		this.description = description;
+		this.deadline = deadline;
+		this.imageData = imageData;
+		this.website = website;
+		this.exigences = exigences;
+		this.date = date;
+		this.keywords = keywords;
+		this.langue = langue;
 		this.employeur = employeur;
 		this.catégorie = catégorie;
 	}
@@ -78,12 +107,18 @@ public class Emploi {
 	}
 	public void setType(String type) {
 		this.type = type;
+	}	
+	public double getSalaire_min() {
+		return salaire_min;
 	}
-	public double getSalaire() {
-		return salaire;
+	public void setSalaire_min(double salaire_min) {
+		this.salaire_min = salaire_min;
 	}
-	public void setSalaire(double salaire) {
-		this.salaire = salaire;
+	public double getSalaire_max() {
+		return salaire_max;
+	}
+	public void setSalaire_max(double salaire_max) {
+		this.salaire_max = salaire_max;
 	}
 	public int getExperience() {
 		return experience;
@@ -112,6 +147,50 @@ public class Emploi {
 	public void setCatégorie(Catégorie catégorie) {
 		this.catégorie = catégorie;
 	}
+	public Date getDeadline() {
+		return deadline;
+	}
+	public void setDeadline(Date deadline) {
+		this.deadline = deadline;
+	}
+	public byte[] getImageData() {
+		return imageData;
+	}
+	public void setImageData(byte[] imageData) {
+		this.imageData = imageData;
+	}
+	public String getWebsite() {
+		return website;
+	}
+	public void setWebsite(String website) {
+		this.website = website;
+	}
+	public Langue getLangue() {
+		return langue;
+	}
+	public void setLangue(Langue langue) {
+		this.langue = langue;
+	}
+	public String getExigences() {
+		return exigences;
+	}
+	public void setExigences(String exigences) {
+		this.exigences = exigences;
+	}
+	public List<Keyword> getKeywords() {
+		return keywords;
+	}
+	public void setKeywords(List<Keyword> keywords) {
+		this.keywords = keywords;
+	}
+	public LocalDate getDate() {
+		return date;
+	}
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
+
+	
 	
 	
 	

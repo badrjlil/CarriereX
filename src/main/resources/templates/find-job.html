@@ -98,13 +98,8 @@
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <select class="category" name="category">
-                            <option data-display="Category">Catégorie</option>
-                            <option value="1">Web Development</option>
-                            <option value="2">Graphics Design</option>
-                            <option value="4">Data Entry</option>
-                            <option value="5">Visual Editor</option>
-                            <option value="6">Office Assistant</option>
+                        <select class="category" name="category" th:object="${catégories}">
+                            <option data-display="Category" th:each="cat:${catégories}" th:text="${cat.nom}" th:value="${cat.id}"></option>
                         </select>
                     </div>
                     <div class="col-lg-3">

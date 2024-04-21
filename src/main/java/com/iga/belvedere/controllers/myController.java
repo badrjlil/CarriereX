@@ -5,10 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class myController {
-	@GetMapping("/")
-	public String home() {
-		return "index";
-	}
+
 	@GetMapping("index-five.html")
 	public String index5() {
 		return "index-five";
@@ -80,11 +77,7 @@ public class myController {
 		
 		return "faq";
 	}
-	@GetMapping("find-job.html")
-	public String findjob() {
-		
-		return "find-job";
-	}
+
 	@GetMapping("job-list.html")
 	public String jobList() {
 		
