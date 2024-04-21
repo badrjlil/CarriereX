@@ -25,7 +25,7 @@ public class EmployeurController {
 	@Autowired
 	private catégorieRepo catégorieRepo;
 
-	@GetMapping("post-job.html")
+	@GetMapping("/post-job")
 	public String Ajoutjob(Model model) {
 		Emploi newEmploi = new Emploi();
 		List<Employeur> employeurs = employeurRepo.findAll();
@@ -60,7 +60,7 @@ public class EmployeurController {
 	}*/
 
 
-	@GetMapping("catagories.html")
+	@GetMapping("/catagories")
 	public String catagories(Model model) {
 		List<Catégorie> categories = catégorieRepo.findAll();
 		model.addAttribute("categories", categories);

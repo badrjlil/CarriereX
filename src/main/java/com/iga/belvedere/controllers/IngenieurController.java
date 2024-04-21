@@ -24,7 +24,7 @@ public class IngenieurController {
 	@Autowired
 	private categorieRepository repoCatégorie;
 
-	@GetMapping("find-job.html")
+	@GetMapping("/find-job")
 	public String findjob(Model model) {
 		List<Catégorie> catégories = repoCatégorie.findAll();
 		model.addAttribute("catégories", catégories);
@@ -48,7 +48,7 @@ public class IngenieurController {
 	}
 
 
-	@GetMapping("/jobDetails")
+	@GetMapping("/job-details")
 	public String jobDetails(@RequestParam int id, Model model) {
 		Emploi emploi = repoEmploi.getById(id);
 		model.addAttribute("emploi", emploi);

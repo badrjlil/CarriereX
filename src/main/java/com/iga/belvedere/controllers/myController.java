@@ -28,136 +28,127 @@ public class myController {
 	public String home(Model model) {
 		List<Catégorie> categories = catégorieRepo.findAll();
 		model.addAttribute("categories", categories);
+		System.out.println(categories.size());
 		List<Emploi> emplois = emploiRepo.findAll();
 		model.addAttribute("emplois", emplois);
 		return "index";
 	}
 	
-	@GetMapping("about.html")
+	@GetMapping("/about")
 	public String about() {
 		
 		return "about";
 	}
-	@GetMapping("account.html")
+	@GetMapping("/account")
 	public String account() {
 		
 		return "account";
 	}
-	@GetMapping("blog.html")
+	@GetMapping("/blog")
 	public String blog() {
 		
 		return "blog";
 	}
-	@GetMapping("blog-details.html")
+	@GetMapping("/blog-details")
 	public String blogdetails() {
 		
 		return "blog-details";
 	}
-	@GetMapping("blog-two.html")
+	@GetMapping("/blog-two")
 	public String blogtwo() {
 		
 		return "blog-two";
 	}
-	@GetMapping("blog-two-2.html")
-	public String blogtwos() {
-		
-		return "blog-two-2";
-	}
-	@GetMapping("candidate.html")
+	@GetMapping("/candidate")
 	public String candidate() {
 		
 		return "candidate";
 	}
-	@GetMapping("candidate-details.html")
+	@GetMapping("/candidate-details")
 	public String candidatedetails() {
 		
 		return "candidate-details";
 	}
 	
-	@GetMapping("company.html")
+	@GetMapping("/company")
 	public String company() {
 		
 		return "company";
 	}
-	@GetMapping("faq.html")
+	@GetMapping("/faq")
 	public String faq() {
 		
 		return "faq";
 	}
 
-	@GetMapping("job-list.html")
+	@GetMapping("/job-list")
 	public String jobList() {
 		
 		return "job-list";
 	}
 	
-	@GetMapping("job-details.html")
-	public String jobDetail() {
-		
-		return "job-details";
-	}
-	@GetMapping("job-grid.html")
+	@GetMapping("/job-grid")
 	public String jobgrid() {
 		return "job-grid";
 	}
 	
-	@GetMapping("contact.html")
+	@GetMapping("/contact")
 	public String contact() {
 		
 		return "contact";
 	}
 
-	@GetMapping("pricing.html")
+	@GetMapping("/pricing")
 	public String pricing() {
 		return "pricing";
 	}
-	@GetMapping("privacy.html")
+	@GetMapping("/privacy")
 	public String privacy() {
 		return "privacy";
 	}
-	@GetMapping("privacy-policy.html")
+	@GetMapping("/privacy-policy")
 	public String privacypolicy() {
 		return "privacy-policy";
 	}
-	@GetMapping("reset-password.html")
+	@GetMapping("/reset-password")
 	public String password() {
 		return "reset-password";
 	}
-	@GetMapping("resume.html")
+	@GetMapping("/resume")
 	public String resume() {
 		return "resume";
 	}
-	@GetMapping("signin.html")
+	@GetMapping("/signin")
 	public String signin() {
 		return "signin";
 	}
-	@GetMapping("sign-in.html")
+	@GetMapping("/sign-in")
 	public String signin1() {
 		return "sign-in";
 	}
-	@GetMapping("signup.html")
+	@GetMapping("/signup")
 	public String signup() {
 		return "signup";
 	}
-	@GetMapping("sign-up.html")
+	@GetMapping("/sign-up")
 	public String signup2() {
 		return "sign-up";
 	}
-	@GetMapping("terms.html")
+	@GetMapping("/terms")
 	public String terms() {
 		return "terms";
 	}
-	@GetMapping("terms-condition.html")
+	@GetMapping("/terms-condition")
 	public String termscondition() {
 		return "terms-condition";
 	}
-	@GetMapping("testimonial.html")
+	@GetMapping("/testimonial")
 	public String testimonial() {
 		
 		return "testimonial";
 	}
 	
-	@GetMapping("404.html")
+	@GetMapping("/404")
 	public String error404() {
 		
 		return "404";
