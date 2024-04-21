@@ -34,11 +34,6 @@ public class IngenieurController {
 	@GetMapping("/")
 	public String home(Model model) {
 		List<Catégorie> categories = repoCatégorie.findAll();
-		for(Catégorie cat : categories) {
-			if(cat.getImageData() != null) {
-				System.out.println(cat.getImageData().length);
-			}
-		}
 		model.addAttribute("categories", categories);
 		return "index";
 	}
@@ -70,19 +65,6 @@ public class IngenieurController {
 	@GetMapping("/add-categorie")
 	public String addCat() {
 		return "add-categorie";
-	}
-	
-	@PostMapping("/saveCategorie")
-	public String saveCat(@RequestParam String nom, @RequestParam("image") MultipartFile image) {
-		try {
-            Catégorie catégorie = new Catégorie();
-            catégorie.setNom(nom);
-            catégorie.setImageData(image.getBytes());
-            repoCatégorie.save(catégorie);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-		return "redirect:/add-categorie";
 	}
 
 }

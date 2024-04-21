@@ -115,7 +115,7 @@
 					<a href="#">
 						<div class="category-card">
 							<!--<i class="flaticon-accounting"></i-->
-							<img th:src="@{data:image/png;base64,${#strings.bytesToBase64(cat.imageData)}}">
+							<img th:src="'data:image/png;base64,' + ${cat.imageData}">
 							<h3 th:text="${cat.nom}"></h3>
 							<p>301 poste libre</p>
 						</div>

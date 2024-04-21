@@ -19,9 +19,6 @@ public class Catégorie {
 	private int id;
 	private String nom;
 	
-	@Lob
-	@Column(columnDefinition = "LONGBLOB")
-    private byte[] imageData;
 	
 	@OneToMany(mappedBy = "catégorie")
 	private List<Emploi> emploi;
@@ -30,11 +27,10 @@ public class Catégorie {
 		super();
 	}
 	
-	public Catégorie(int id, String nom, byte[] imageData, List<Emploi> emploi) {
+	public Catégorie(int id, String nom, List<Emploi> emploi) {
 		super();
 		this.id = id;
 		this.nom = nom;
-		this.imageData = imageData;
 		this.emploi = emploi;
 	}
 
@@ -55,14 +51,6 @@ public class Catégorie {
 	}
 	public void setEmploi(List<Emploi> emploi) {
 		this.emploi = emploi;
-	}
-
-	public byte[] getImageData() {
-		return imageData;
-	}
-
-	public void setImageData(byte[] imageData) {
-		this.imageData = imageData;
 	}
 	
 	
