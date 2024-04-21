@@ -1,30 +1,20 @@
 package com.iga.belvedere.controllers;
 
-import org.springframework.stereotype.Controller; 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.iga.belvedere.entities.Emploi;
+import com.iga.belvedere.repositories.emploiRepository;
 
 @Controller
 public class myController {
-	@GetMapping("/")
-	public String home() {
-		return "index";
-	}
-	@GetMapping("index-five.html")
-	public String index5() {
-		return "index-five";
-	}
-	@GetMapping("index-four.html")
-	public String index4() {
-		return "index-four";
-	}
-	@GetMapping("index-three.html")
-	public String index3() {
-		return "index-three";
-	}
-	@GetMapping("index-two.html")
-	public String index2() {
-		return "index-two";
-	}
+	
+	
 	@GetMapping("about.html")
 	public String about() {
 		
@@ -65,11 +55,7 @@ public class myController {
 		
 		return "candidate-details";
 	}
-	@GetMapping("catagories.html")
-	public String catagories() {
-		
-		return "catagories";
-	}
+	
 	@GetMapping("company.html")
 	public String company() {
 		
