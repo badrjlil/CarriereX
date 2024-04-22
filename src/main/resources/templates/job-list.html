@@ -99,7 +99,7 @@
                             <div class="col-md-8">
                                 <div class="job-info">
                                     <h3>
-                                        <a href="job-details.html" th:text="${emploi.titre}"></a>
+                                        <a th:href="@{job-details?id=} + ${emploi.id}" th:text="${emploi.titre}"></a>
                                     </h3>
                                     <ul>
 										<i class="bx bx-briefcase"></i>
@@ -116,7 +116,7 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="theme-btn text-end">
-                                    <a th:href="@{/jobDetails?id=} + ${emploi.id}" class="default-btn">
+                                    <a th:href="@{/job-details?id=} + ${emploi.id}" class="default-btn">
                                         Parcourir l'emploi
                                     </a>
                                 </div>
