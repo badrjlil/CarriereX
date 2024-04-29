@@ -92,19 +92,24 @@
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <div class="form-group">
+                        <!--div class="form-group">
                             <input type="text" class="form-control" id="exampleInputEmail2" placeholder="Localisation" name="location">
                             <i class="bx bx-location-plus"></i>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <select class="category" name="category" th:object="${catégories}">
-                            <option data-display="Category" th:each="cat:${catégories}" th:text="${cat.nom}" th:value="${cat.id}"></option>
+                        </div-->
+						<select name="ville" th:object="${ville}">
+                            <option th:each="ville:${villes}" th:text="${ville.nom}" th:value="${ville.id}"></option>
                         </select>
                     </div>
                     <div class="col-lg-3">
-                        <input type="submit" class="find-btn" value="Trouver un travail">
-                            <!--<i class="bx bx-search"></i>-->
+                        <select class="category" name="category" th:object="${catégories}">
+                            <option th:each="cat:${catégories}" th:text="${cat.nom}" th:value="${cat.id}"></option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3">
+                        <button type="submit" class="find-btn">
+							Trouver un travail
+                            <i class="bx bx-search"></i>
+                        </button>
                     </div>
                 </div>
             </form>

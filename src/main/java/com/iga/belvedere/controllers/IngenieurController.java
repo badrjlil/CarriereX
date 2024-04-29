@@ -13,8 +13,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.iga.belvedere.entities.Catégorie;
 import com.iga.belvedere.entities.Emploi;
+import com.iga.belvedere.entities.Ville;
 import com.iga.belvedere.repositories.categorieRepository;
 import com.iga.belvedere.repositories.emploiRepository;
+import com.iga.belvedere.repositories.villeRepository;
 
 @Controller
 public class IngenieurController {
@@ -23,25 +25,32 @@ public class IngenieurController {
 	private emploiRepository repoEmploi;
 	@Autowired
 	private categorieRepository repoCatégorie;
+	@Autowired
+	private villeRepository villeRepo;
 
 	@GetMapping("/find-job")
 	public String findjob(Model model) {
+		List<Ville> villes = villeRepo.findAll();
+		model.addAttribute("villes", villes);
 		List<Catégorie> catégories = repoCatégorie.findAll();
 		model.addAttribute("catégories", catégories);
 		return "find-job";
 	}
 
 	@GetMapping("/findJob")
-	public String findJob(@RequestParam String keyword, @RequestParam String location,
+	public String findJob(@RequestParam String keyword, @RequestParam(required = false) Integer ville,
 			@RequestParam(required = false) Integer category, Model model) {
+		System.out.println("keyword: " + keyword);
+		System.out.println("location: " + ville);
+		System.out.println("category: " + category);
 		LocalDate date = LocalDate.now();
 	    model.addAttribute("date", date);
 
 	    if (category != null) {
-	        List<Emploi> emplois = repoEmploi.findAllByKeyword(keyword, location, category);
+	        List<Emploi> emplois = repoEmploi.findAllByKeyword(keyword, ville, category);
 	        model.addAttribute("emplois", emplois);
 	    } else {
-	        List<Emploi> emplois = repoEmploi.findAllByKeyword(keyword, location);
+	        List<Emploi> emplois = repoEmploi.findAllByKeyword(keyword, ville);
 	        model.addAttribute("emplois", emplois);
 	    }
 		return "job-list";

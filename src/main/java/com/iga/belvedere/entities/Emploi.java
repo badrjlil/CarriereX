@@ -17,7 +17,6 @@ public class Emploi {
 	private String titre;
 	private String nomEntreprise;
 	private String emailEntreprise;
-	private String localisation;
 	private String type;
 	private double salaire_min;
 	private double salaire_max;
@@ -46,17 +45,22 @@ public class Emploi {
 	@ManyToOne
 	@JoinColumn(name="id_categorie")
 	private Catégorie catégorie;
+	
+	@ManyToOne
+	@JoinColumn(name="id_ville")
+	private Ville ville;
 
-	public Emploi(int id, String titre, String nomEntreprise, String emailEntreprise, String localisation, String type,
+	
+
+	public Emploi(int id, String titre, String nomEntreprise, String emailEntreprise, String type,
 			double salaire_min, double salaire_max, int experience, String description, Date deadline, byte[] imageData,
 			String website, String exigences, LocalDate date, List<Keyword> keywords, Langue langue,
-			Employeur employeur, Catégorie catégorie) {
+			Employeur employeur, Catégorie catégorie, Ville ville) {
 		super();
 		this.id = id;
 		this.titre = titre;
 		this.nomEntreprise = nomEntreprise;
 		this.emailEntreprise = emailEntreprise;
-		this.localisation = localisation;
 		this.type = type;
 		this.salaire_min = salaire_min;
 		this.salaire_max = salaire_max;
@@ -71,6 +75,7 @@ public class Emploi {
 		this.langue = langue;
 		this.employeur = employeur;
 		this.catégorie = catégorie;
+		this.ville = ville;
 	}
 	public int getId() {
 		return id;
@@ -95,12 +100,6 @@ public class Emploi {
 	}
 	public void setEmailEntreprise(String emailEntreprise) {
 		this.emailEntreprise = emailEntreprise;
-	}
-	public String getLocalisation() {
-		return localisation;
-	}
-	public void setLocalisation(String localisation) {
-		this.localisation = localisation;
 	}
 	public String getType() {
 		return type;
@@ -188,6 +187,12 @@ public class Emploi {
 	}
 	public void setDate(LocalDate date) {
 		this.date = date;
+	}
+	public Ville getVille() {
+		return ville;
+	}
+	public void setVille(Ville ville) {
+		this.ville = ville;
 	}
 
 	

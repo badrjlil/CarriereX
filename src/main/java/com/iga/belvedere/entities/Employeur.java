@@ -17,10 +17,14 @@ public class Employeur extends Utilisateur{
 	public Employeur() {
     }
 
-	public Employeur(int id, String nom, String email, String password, List<Emploi> emploi) {
-		super(id, nom, email, password);
+	
+
+	public Employeur(List<Emploi> emploi) {
+		super();
 		this.emploi = emploi;
 	}
+
+
 
 	public List<Emploi> getEmploi() {
 		return emploi;
@@ -30,6 +34,7 @@ public class Employeur extends Utilisateur{
 		this.emploi = emploi;
 	}
 
+	
 
 	
 

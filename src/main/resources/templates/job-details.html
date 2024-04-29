@@ -99,7 +99,7 @@
                                                 <h3 th:text="${emploi.titre}"></h3>
                                                 <ul>
                                                     <i class="bx bx-location-plus"></i>
-                                                    <li th:text="${emploi.localisation}"></li>
+                                                    <li th:text="${emploi.ville.nom}"></li>
                                                     <i class="bx bx-filter-alt"></i>
                                                     <li th:text="${emploi.catégorie.nom}"></li>
                                                     <i class="bx bx-briefcase"></i>
@@ -163,7 +163,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td><span>Localisation</span></td>
-                                                        <td th:text="${emploi.localisation}"></td>
+                                                        <td th:text="${emploi.ville.nom}"></td>
                                                     </tr>
                                                     <tr>
                                                         <td><span>Type d'emploi</span></td>

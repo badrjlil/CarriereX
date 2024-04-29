@@ -10,14 +10,9 @@ public class Ingenieur extends Utilisateur{
 	private Profil profil;
 
 
-	public Ingenieur(int id, String nom, String email, String password, Profil profil) {
-		super(id, nom, email, password);
+	public Ingenieur(Profil profil) {
+		super();
 		this.profil = profil;
-	}
-
-
-	public Ingenieur(int id, String nom, String email, String password) {
-		super(id, nom, email, password);
 	}
 
 
