@@ -10,25 +10,28 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.iga.belvedere.entities.Catégorie;
 import com.iga.belvedere.entities.Emploi;
-import com.iga.belvedere.repositories.catégorieRepo;
+import com.iga.belvedere.entities.Ville;
+import com.iga.belvedere.repositories.categorieRepository;
 import com.iga.belvedere.repositories.emploiRepository;
 import com.iga.belvedere.repositories.employeurRepository;
+import com.iga.belvedere.repositories.villeRepository;
 
 
 @Controller
 public class myController {
 	@Autowired
-	private employeurRepository employeurRepo;
-	@Autowired
 	private emploiRepository emploiRepo;
 	@Autowired
-	private catégorieRepo catégorieRepo;
+	private categorieRepository catégorieRepo;
+	@Autowired
+	private villeRepository villeRepo;
 
 	@GetMapping("/")
 	public String home(Model model) {
+		List<Ville> villes = villeRepo.findAll();
+		model.addAttribute("villes", villes);
 		List<Catégorie> categories = catégorieRepo.findAll();
 		model.addAttribute("categories", categories);
-		System.out.println(categories.size());
 		List<Emploi> emplois = emploiRepo.findAll();
 		model.addAttribute("emplois", emplois);
 		return "index";
@@ -38,11 +41,6 @@ public class myController {
 	public String about() {
 		
 		return "about";
-	}
-	@GetMapping("/account")
-	public String account() {
-		
-		return "account";
 	}
 	@GetMapping("/blog")
 	public String blog() {
@@ -117,14 +115,6 @@ public class myController {
 	@GetMapping("/resume")
 	public String resume() {
 		return "resume";
-	}
-	@GetMapping("/signin")
-	public String signin() {
-		return "signin";
-	}
-	@GetMapping("/sign-in")
-	public String signin1() {
-		return "sign-in";
 	}
 	@GetMapping("/signup")
 	public String signup() {

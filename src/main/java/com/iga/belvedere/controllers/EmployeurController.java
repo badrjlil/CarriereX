@@ -14,7 +14,7 @@ import com.iga.belvedere.entities.Emploi;
 import com.iga.belvedere.entities.Employeur;
 import com.iga.belvedere.entities.Langue;
 import com.iga.belvedere.repositories.LangueRepository;
-import com.iga.belvedere.repositories.catégorieRepo;
+import com.iga.belvedere.repositories.categorieRepository;
 import com.iga.belvedere.repositories.emploiRepository;
 import com.iga.belvedere.repositories.employeurRepository;
 
@@ -25,9 +25,10 @@ public class EmployeurController {
 	@Autowired
 	private emploiRepository emploiRepo;
 	@Autowired
-	private catégorieRepo catégorieRepo;
+	private categorieRepository catégorieRepo;
 	@Autowired
 	private LangueRepository langueRepo;
+
 
 	@GetMapping("/post-job")
 	public String Ajoutjob(Model model) {

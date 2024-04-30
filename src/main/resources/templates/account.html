@@ -87,8 +87,8 @@
                     <div class="account-information">
                         <div class="profile-thumb">
                             <img src="assets/img/account.jpg" alt="account holder image">
-                            <h3>John Smith</h3>
-                            <p>Web Developer</p>
+                            <h3 th:text="${ing.prenom} + ' ' + ${ing.nom}" ></h3>
+                            <p th:text="${ing.titre}"></p>
                         </div>
                         <ul>
                             <li>
@@ -98,7 +98,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="resume.html">
+                                <a href="/resume">
                                     <i class="bx bxs-file-doc"></i>
                                     Mon CV
                                 </a>
@@ -145,57 +145,62 @@
                 <div class="col-md-8">
                     <div class="account-details">
                         <h3>Informations de base</h3>
-                        <form class="basic-info">
+                        <form class="basic-info" action="saveBasicInfo" method="post">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Votre nom</label>
-                                        <input type="text" class="form-control" placeholder="nom">
+                                        <input name="nom" type="text" class="form-control" placeholder="nom" th:value="${ing.nom}">
+                                    </div>
+                                </div>
+                              <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Votre prénom</label>
+                                        <input name="prenom" type="text" class="form-control" placeholder="nom" th:value="${ing.prenom}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Votre Email</label>
-                                        <input type="email" class="form-control" placeholder="Email">
+                                        <input name="email" type="email" class="form-control" placeholder="Email" th:value="${ing.email}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Votre Téléphone</label>
-                                        <input type="number" class="form-control" placeholder="Phone">
+                                        <input name="telephone" type="tel" class="form-control" placeholder="Phone" th:value="${ing.telephone}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Titre d'emploi</label>
-                                        <input type="text" class="form-control" placeholder="Titre d'emploi">
+                                        <input name="titre" type="text" class="form-control" placeholder="Titre d'emploi" th:value="${ing.titre}">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <button type="submit" class="account-btn">Modifier</button>
                                     <button type="submit" class="account-btn">Sauvegarder</button>
                                 </div>
                             </div>
                         </form>
                         <h3>Adresse</h3>
-                        <form class="-candidate-address">
+                        <form action="saveAddress" method="post" class="-candidate-address">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Votre pays</label>
-                                        <input type="text" class="form-control" placeholder="Votre pays">
+                                        <input name="pays" type="text" class="form-control" placeholder="Votre pays" th:value="${ing.pays}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Ta ville</label>
-                                        <input type="text" class="form-control" placeholder="Ta ville">
+                                        <input name="ville" type="text" class="form-control" placeholder="Ta ville" th:value="${ing.ville}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Region</label>
-                                        <input type="text" class="form-control" placeholder="Your Region">
+                                        <input name="region" type="text" class="form-control" placeholder="Your Region" th:value="${ing.region}">
                                     </div>
                                 </div>
                                 <div class="col-md-12">

@@ -105,9 +105,9 @@
 										<i class="bx bx-briefcase"></i>
                                         <li th:text="${emploi.catégorie.nom}"></li>
                                         <i class="bx bx-briefcase"></i>
-                                        <li th:text="${emploi.salaire_min} + ' - ' + ${emploi.salaire_max}"></li>
+                                        <li th:text="${emploi.salaire_max} + ' - ' + ${emploi.salaire_min}"></li>
                                         <i class="bx bx-location-plus"></i>
-                                        <li th:text="${emploi.localisation}"></li>
+                                        <li th:text="${emploi.ville.nom}"></li>
                                         <i class="bx bx-stopwatch"></i>
                                         <li th:text="${T(java.time.temporal.ChronoUnit).DAYS.between(emploi.date.atStartOfDay(), T(java.time.LocalDate).now().atStartOfDay())} + ' days'"></li>
                                     </ul>
