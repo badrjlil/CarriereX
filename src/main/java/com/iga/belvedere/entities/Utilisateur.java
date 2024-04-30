@@ -12,24 +12,26 @@ public class Utilisateur {
 	private int id;
 	private String nom;
 	private String prenom;
-	private String username;
 	public String email;
 	public String password;
+	private String telephone;
 		
 	public Utilisateur() {
 		super();
 	}
 	
-	
-	public Utilisateur(int id, String nom, String prenom, String username, String email, String password) {
+	public Utilisateur(int id, String nom, String prenom, String email, String password, String telephone) {
 		super();
 		this.id = id;
 		this.nom = nom;
 		this.prenom = prenom;
-		this.username = username;
 		this.email = email;
 		this.password = password;
+		this.telephone = telephone;
 	}
+
+
+
 
 
 	public int getId() {
@@ -57,26 +59,20 @@ public class Utilisateur {
 		this.password = password;
 	}
 
-
 	public String getPrenom() {
 		return prenom;
 	}
-
 
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
 
-
-	public String getUsername() {
-		return username;
+	public String getTelephone() {
+		return telephone;
 	}
 
-
-	public void setUsername(String username) {
-		this.username = username;
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
 	}
-	
-	
 
 }

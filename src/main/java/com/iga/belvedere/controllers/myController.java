@@ -42,11 +42,6 @@ public class myController {
 		
 		return "about";
 	}
-	@GetMapping("/account")
-	public String account() {
-		
-		return "account";
-	}
 	@GetMapping("/blog")
 	public String blog() {
 		
@@ -120,14 +115,6 @@ public class myController {
 	@GetMapping("/resume")
 	public String resume() {
 		return "resume";
-	}
-	@GetMapping("/signin")
-	public String signin() {
-		return "signin";
-	}
-	@GetMapping("/sign-in")
-	public String signin1() {
-		return "sign-in";
 	}
 	@GetMapping("/signup")
 	public String signup() {
