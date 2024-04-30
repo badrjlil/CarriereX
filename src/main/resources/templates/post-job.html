@@ -116,6 +116,13 @@
 					</div>
 					<div class="col-md-6">
 						<div class="form-group">
+							<label>website</label>
+							<input type="text" name="website" class="form-control" id="exampleInput7"
+								placeholder="website.com">
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
 							<label>Localisation</label>
 							<input type="text" class="form-control" id="exampleInput5" placeholder="g. London"
 								name="localisation" required>
@@ -135,8 +142,15 @@
 
 					<div class="col-md-6">
 						<div class="form-group">
-							<label>Salaire</label>
-							<input type="number" name="salaire" class="form-control" id="exampleInput7"
+							<label>Salaire_min</label>
+							<input type="number" name="salaire_min" class="form-control" id="exampleInput7"
+								placeholder="e. 3500DH">
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Salaire_max</label>
+							<input type="number" name="salaire_max" class="form-control" id="exampleInput7"
 								placeholder="e. 3500DH">
 						</div>
 					</div>
@@ -145,6 +159,35 @@
 							<label>Expérience</label>
 							<input type="text" class="form-control" name="experience" id="exampleInput8"
 								placeholder="e. 1 year" required>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Langue</label>
+							<select class="langue" name="langue" th:object="${langue}">
+								<option th:each="l:${langues}" th:text="${l.nom}" th:value="${l.id}"></option>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Date</label>
+							<input type="date" class="form-control" name="date" id="exampleInput8"
+								placeholder="" required>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Deadline</label>
+							<input type="date" class="form-control" name="deadline" id="exampleInput8"
+								placeholder="" required>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Exigences</label>
+							<input type="text" class="form-control" name="exigences" id="exampleInput8"
+								placeholder="e. notre exigences" required>
 						</div>
 					</div>
 					<div class="col-md-12">
