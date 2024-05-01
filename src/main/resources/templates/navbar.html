@@ -62,7 +62,7 @@
                                                 <a href="#" class="nav-link dropdown-toggle">Membre</a>
                                                 <ul class="dropdown-menu">
                                                     <li class="nav-item">
-                                                        <a href="/account" class="nav-link">Se connecter</a>
+                                                        <a href="/" class="nav-link">Se connecter</a>
                                                     </li>
                                                     <li class="nav-item">
                                                         <a href="/sign-up" class="nav-link">S'inscrire</a>
@@ -106,7 +106,7 @@
                         </ul>
                         <div th:if="${session.userId == null}" class="other-option">
                             <a href="/sign-up" class="signup-btn">S'inscrire</a>
-                            <a href="/account" class="signin-btn">Se connecter</a>
+                            <a href="/" class="signin-btn">Se connecter</a>
                         </div>
                         <div th:if="${session.userId != null}" class="other-option">
                             <a href="/account" class="signup-btn">Mon compte</a>

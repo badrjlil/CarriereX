@@ -13,7 +13,7 @@ public class Compétence {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String nom;
-	private int level;
+	
 	
 	@ManyToOne
 	@JoinColumn(name = "id_profil")
@@ -23,11 +23,11 @@ public class Compétence {
 		super();
 	}
 
-	public Compétence(int id, String nom, int level, Profil profil) {
+	public Compétence(int id, String nom,Profil profil) {
 		super();
 		this.id = id;
 		this.nom = nom;
-		this.level = level;
+		
 		this.profil = profil;
 	}
 
@@ -47,13 +47,7 @@ public class Compétence {
 		this.nom = nom;
 	}
 
-	public int getLevel() {
-		return level;
-	}
-
-	public void setLevel(int level) {
-		this.level = level;
-	}
+	
 
 	public Profil getProfil() {
 		return profil;

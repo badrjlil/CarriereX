@@ -2,7 +2,9 @@ package com.iga.belvedere.controllers;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,13 +14,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.iga.belvedere.entities.Catégorie;
+import com.iga.belvedere.entities.Compétence;
 import com.iga.belvedere.entities.Emploi;
 import com.iga.belvedere.entities.Expérience;
 import com.iga.belvedere.entities.Formation;
 import com.iga.belvedere.entities.Ingenieur;
+import com.iga.belvedere.entities.Langue;
 import com.iga.belvedere.entities.Profil;
 import com.iga.belvedere.entities.Ville;
+import com.iga.belvedere.repositories.LangueRepository;
 import com.iga.belvedere.repositories.categorieRepository;
+import com.iga.belvedere.repositories.compétenceRepository;
 import com.iga.belvedere.repositories.emploiRepository;
 import com.iga.belvedere.repositories.expérienceRepository;
 import com.iga.belvedere.repositories.formationRepository;
@@ -45,7 +51,10 @@ public class IngenieurController {
 	private profilRepository profilRepo;
 	@Autowired
 	private expérienceRepository expérienceRepo;
-
+	@Autowired
+	private compétenceRepository compétenceRepo;
+	@Autowired
+	private LangueRepository langueRepo;
 	@GetMapping("/find-job")
 	public String findjob(Model model) {
 		List<Ville> villes = villeRepo.findAll();
@@ -96,14 +105,23 @@ public class IngenieurController {
 
 	@GetMapping("/account")
 	public String account(Model model, HttpSession session) {
-		if (session.getAttribute("userId") != null) {
-			Ingenieur ing = ingenieurRepo.getById((int) session.getAttribute("userId"));
-			model.addAttribute("ing", ing);
-			return "account";
-		} else {
-			return "/sign-in";
-		}
+	    if (session.getAttribute("userId") != null) {
+	        Ingenieur ing = ingenieurRepo.getById((int) session.getAttribute("userId"));
+	        List<Compétence> competences = ing.getProfil().getCompétences();
+	        String competencesString = competences.stream().map(Compétence::getNom).collect(Collectors.joining(","));
+	        model.addAttribute("ing", ing);
+	        model.addAttribute("competencesString", competencesString);
+	        
+	        List<Langue> langue = ing.getProfil().getLangues();
+	        String languesString = langue.stream().map(Langue::getNom).collect(Collectors.joining(","));
+	        model.addAttribute("languesString", languesString);
+	        
+	        return "account";
+	    } else {
+	        return "/sign-in";
+	    }
 	}
+
 
 	@GetMapping("/sign-out")
 	public String sign_out(HttpSession session) {
@@ -113,21 +131,71 @@ public class IngenieurController {
 	
 	@PostMapping("/saveBasicInfo")
 	public String saveBasicInfo(HttpSession session, @RequestParam String nom, @RequestParam String prenom, @RequestParam String email,
-			@RequestParam String telephone, @RequestParam String titre,@RequestParam int age) {
-		if (session.getAttribute("userId") != null) {
-			Ingenieur ing = ingenieurRepo.getById((int) session.getAttribute("userId"));
-			ing.setNom(nom);
-			ing.setPrenom(prenom);
-			ing.setEmail(email);
-			ing.setTelephone(telephone);
-			ing.setTitre(titre);
-			ing.setAge(age);
-			ingenieurRepo.save(ing);
-			return "redirect:/account";
-		}else {
-			return "/sign-in";
-		}
+	        @RequestParam String telephone, @RequestParam String titre, @RequestParam int age, @RequestParam String competences, @RequestParam String langues) {
+	    if (session.getAttribute("userId") != null) {
+	        Ingenieur ing = ingenieurRepo.getById((int) session.getAttribute("userId"));
+	        ing.setNom(nom);
+	        ing.setPrenom(prenom);
+	        ing.setEmail(email);
+	        ing.setTelephone(telephone);
+	        ing.setTitre(titre);
+	        ing.setAge(age);
+	        ingenieurRepo.save(ing);
+
+	        
+	        Profil profil = ing.getProfil();
+	        if (profil == null) {
+	        	return "/sign-in";
+	        }
+
+	        List<Compétence> existingCompetences = profil.getCompétences();
+	        String[] newCompetenceArray = competences.split(",");
+	        
+	        // kimseh man la base de données dakchi li n9asnah
+	        for (Compétence existingCompetence : existingCompetences) {
+	            if (!Arrays.asList(newCompetenceArray).contains(existingCompetence.getNom())) {
+	                compétenceRepo.delete(existingCompetence);
+	            }
+	        }
+
+	        //kizid f la base de données dakchi li makayench
+	        for (String competenceName : newCompetenceArray) {
+	            String CompetenceName = competenceName.trim();
+	            if (existingCompetences.stream().noneMatch(c -> c.getNom().equals(CompetenceName))) {
+	                Compétence newCompetence = new Compétence();
+	                newCompetence.setNom(CompetenceName);
+	                newCompetence.setProfil(profil);
+	                compétenceRepo.save(newCompetence);
+	            }
+	        }
+	        
+	        List<Langue> existingLangue = profil.getLangues();
+	        String[] newLangueArray = langues.split(",");
+	        
+	        
+	        for (Langue existingLangues : existingLangue) {
+	            if (!Arrays.asList(newLangueArray).contains(existingLangues.getNom())) {
+	            	langueRepo.delete(existingLangues);
+	            }
+	        }
+	        
+	        for (String LangueNom : newLangueArray) {
+	            String LangueName = LangueNom.trim();
+	            if (existingLangue.stream().noneMatch(c -> c.getNom().equals(LangueName))) {
+	                Langue newLangue = new Langue();
+	                newLangue.setNom(LangueName);
+	                newLangue.setProfil(profil);
+	                langueRepo.save(newLangue);
+	            }
+	        }
+
+	        return "redirect:/account";
+	    } else {
+	        return "/sign-in";
+	    }
 	}
+
+
 	
 	@PostMapping("/saveAddress")
 	public String saveAddress(HttpSession session, @RequestParam String pays, @RequestParam String ville, @RequestParam String region) {

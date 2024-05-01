@@ -27,13 +27,36 @@ public class Profil {
 	private List<Expérience> expériences;
 	@OneToMany(mappedBy = "profil")
 	private List<Certification> certifications;
+	@OneToMany(mappedBy = "profil")
+	private List<Langue> langues;
+	
 	
 	public Profil() {
 		super();
 	}
 
+	
+
+
+
+	public List<Langue> getLangues() {
+		return langues;
+	}
+
+
+
+
+
+	public void setLangues(List<Langue> langues) {
+		this.langues = langues;
+	}
+
+
+
+
+
 	public Profil(int id, String aperçu, Ingenieur ingenieur, List<Formation> formations, List<Compétence> compétences,
-			List<Expérience> expériences, List<Certification> certifications) {
+			List<Expérience> expériences, List<Certification> certifications, List<Langue> langues) {
 		super();
 		this.id = id;
 		this.aperçu = aperçu;
@@ -42,7 +65,10 @@ public class Profil {
 		this.compétences = compétences;
 		this.expériences = expériences;
 		this.certifications = certifications;
+		this.langues = langues;
 	}
+
+
 
 
 
