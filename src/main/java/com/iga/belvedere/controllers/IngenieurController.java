@@ -95,7 +95,7 @@ public class IngenieurController {
 	@GetMapping("/sign-out")
 	public String sign_out(HttpSession session) {
 		session.invalidate();
-		return "redirect:/";
+		return "redirect:/account";
 	}
 	
 	@PostMapping("/saveBasicInfo")
@@ -127,6 +127,27 @@ public class IngenieurController {
 		}else {
 			return "/sign-in";
 		}
+	}
+	
+	@GetMapping("/sign-up")
+	public String sign_up(HttpSession session) {
+		if (session.getAttribute("userId") != null) {
+			return "redirect:/account";
+		}else {
+			return "sign-up";
+		}
+	}
+	
+	@PostMapping("/sign-up")
+	public String sign_up(@RequestParam String email, @RequestParam String password,
+			@RequestParam String prenom, @RequestParam String nom) {
+		Ingenieur ing = new Ingenieur();
+		ing.setPrenom(prenom);
+		ing.setNom(nom);
+		ing.setEmail(email);
+		ing.setPassword(password);
+		ingenieurRepo.save(ing);
+		return "redirect:/account";
 	}
 
 	
