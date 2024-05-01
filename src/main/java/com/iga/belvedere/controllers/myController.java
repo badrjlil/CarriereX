@@ -120,10 +120,6 @@ public class myController {
 	public String signup() {
 		return "signup";
 	}
-	@GetMapping("/sign-up")
-	public String signup2() {
-		return "sign-up";
-	}
 	@GetMapping("/terms")
 	public String terms() {
 		return "terms";
