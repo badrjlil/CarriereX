@@ -1,6 +1,9 @@
 package com.iga.belvedere.entities;
 
+
+
 import jakarta.persistence.Entity;
+
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -10,22 +13,31 @@ public class Ingenieur extends Utilisateur{
 	private String pays;
 	private String ville;
 	private String region;
+	private int age;
 	
 	@OneToOne
 	private Profil profil;
+
+	
+	
 
 	public Ingenieur() {
 		super();
 	}
 
-	public Ingenieur(String titre, String pays, String ville, String region, Profil profil) {
+	
+
+	public Ingenieur(String titre, String pays, String ville, String region, int age, Profil profil) {
 		super();
 		this.titre = titre;
 		this.pays = pays;
 		this.ville = ville;
 		this.region = region;
+		this.age = age;
 		this.profil = profil;
 	}
+
+
 
 	public Profil getProfil() {
 		return profil;
@@ -65,6 +77,18 @@ public class Ingenieur extends Utilisateur{
 
 	public void setRegion(String region) {
 		this.region = region;
+	}
+
+
+
+	public int getAge() {
+		return age;
+	}
+
+
+
+	public void setAge(int age) {
+		this.age = age;
 	}
 	
 	

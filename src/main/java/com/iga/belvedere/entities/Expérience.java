@@ -72,11 +72,11 @@ public class Expérience {
 		this.debut = debut;
 	}
 
-	public Date getDin() {
+	public Date getFin() {
 		return fin;
 	}
 
-	public void setDin(Date din) {
+	public void setFin(Date din) {
 		this.fin = din;
 	}
 
