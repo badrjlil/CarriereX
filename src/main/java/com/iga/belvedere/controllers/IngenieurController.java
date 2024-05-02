@@ -99,8 +99,7 @@ public class IngenieurController {
 	public String sign_in(HttpSession session, @RequestParam String email, @RequestParam String password, Model model) {
 		Ingenieur ing = ingenieurRepo.fetchUser(email, password);
 		session.setAttribute("userId", ing.getId());
-		model.addAttribute("ing", ing);
-		return "account";
+		return "redirect:/account";
 	}
 
 	@GetMapping("/account")
