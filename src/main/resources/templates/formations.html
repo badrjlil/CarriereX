@@ -144,189 +144,52 @@
 				</div>
 				<div class="col-md-8">
 					<div class="account-details">
-						<h3>Informations de base</h3>
-						<form class="basic-info" action="saveBasicInfo" method="post">
+						<h3>Mes formations</h3>
+						<form th:each="formation:${formations}" class="cadidate-others" action="modifyFormation"
+							method="post">
 							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label>Votre nom</label>
-										<input name="nom" type="text" class="form-control" placeholder="Nom"
-											th:value="${ing.nom}">
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label>Votre prénom</label>
-										<input name="prenom" type="text" class="form-control" placeholder="Prénom	"
-											th:value="${ing.prenom}">
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label>Votre Email</label>
-										<input name="email" type="email" class="form-control" placeholder="Email"
-											th:value="${ing.email}">
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label>Votre Téléphone</label>
-										<input name="telephone" type="tel" class="form-control" placeholder="Phone"
-											th:value="${ing.telephone}">
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label>Titre d'emploi</label>
-										<input name="titre" type="text" class="form-control"
-											placeholder="Titre d'emploi" th:value="${ing.titre}">
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label>Age</label>
-										<input type="number" name="age" class="form-control" placeholder="Votre Age"
-											th:value="${ing.age}">
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label>Langue</label>
-										<input type="text" name="langues" class="form-control" placeholder="Langue"
-											th:value="${languesString}">
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label>Compétence</label>
-										<input type="text" name="competences" class="form-control"
-											placeholder="Compétences" th:value="${competencesString}">
-									</div>
-								</div>
-								<div class="col-md-12">
-									<button type="submit" class="account-btn">Sauvegarder</button>
-								</div>
-							</div>
-						</form>
-						<h3>Adresse</h3>
-						<form action="saveAddress" method="post" class="-candidate-address">
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label>Votre pays</label>
-										<input name="pays" type="text" class="form-control" placeholder="Votre pays"
-											th:value="${ing.pays}">
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label>Ta ville</label>
-										<input name="ville" type="text" class="form-control" placeholder="Ta ville"
-											th:value="${ing.ville}">
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label>Region</label>
-										<input name="region" type="text" class="form-control" placeholder="Your Region"
-											th:value="${ing.region}">
-									</div>
-								</div>
-								<div class="col-md-12">
-									<button type="submit" class="account-btn">Sauvegarder</button>
-								</div>
-							</div>
-						</form>
-						<h3>Formations</h3>
-						<form class="cadidate-others" action="saveFormation" method="post">
-							<div class="row">
-								<div class="col-md-12">
-								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Date début</label>
-										<input type="date" name="debut" class="form-control"
-											placeholder="La date de début de formation">
+										<input th:value="${formation.debut}" type="date" name="debut"
+											class="form-control" placeholder="La date de début de formation">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Date fin</label>
-										<input type="date" name="fin" class="form-control"
+										<input th:value="${formation.fin}" type="date" name="fin" class="form-control"
 											placeholder="La date de fin formation">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Institution</label>
-										<input type="text" name="institution" class="form-control"
-											placeholder="Institution">
+										<input th:value="${formation.institution}" type="text" name="institution"
+											class="form-control" placeholder="Institution">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Spécialité</label>
-										<input type="text" name="spécialité" class="form-control"
-											placeholder="Votre spécialité">
+										<input th:value="${formation.spécialité}" type="text" name="spécialité"
+											class="form-control" placeholder="Votre spécialité">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Niveau</label>
-										<input type="text" name="niveau" class="form-control" placeholder="Niveau">
+										<input th:value="${formation.niveau}" type="text" name="niveau"
+											class="form-control" placeholder="Niveau">
 									</div>
 								</div>
 								<div class="col-md-12">
-									<button type="submit" class="account-btn">Ajouter</button>
-									<a href="/formations" class="account-btn">Modifier mes formations</a>
+									<input name="id" th:value="${formation.id}" hidden>
+									<button type="submit" class="account-btn">Sauvegarder</button>
+									<a class="account-btn" th:href="'/deleteFormation?id=' + ${formation.id}">Supprimer</a>
 								</div>
 							</div>
 						</form>
-						<h3>L'expérience</h3>
-						<form class="cadidate-others" action="saveExpérience" method="post">
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label>Date début</label>
-										<input type="date" name="debut" class="form-control"
-											placeholder="La date de début de l'expérience">
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label>Date fin</label>
-										<input type="date" name="fin" class="form-control"
-											placeholder="La date de fin l'expérience">
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label>Titre</label>
-										<input type="text" name="titre" class="form-control"
-											placeholder="Le titre de l'expérience">
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label>Entreprise</label>
-										<input type="text" name="entreprise" class="form-control"
-											placeholder="Le nom de l'entreprise">
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-group">
-										<label>Description</label>
-										<input type="text" name="description" class="form-control"
-											placeholder="Description du l'expérience">
-									</div>
-								</div>
-								<div class="col-md-12">
-									<button type="submit" class="account-btn">Ajouter</button>
-									<a href="/experiences" class="account-btn">Modifier mes expériences</a>
-								</div>
-							</div>
-						</form>
-
 					</div>
 				</div>
 			</div>

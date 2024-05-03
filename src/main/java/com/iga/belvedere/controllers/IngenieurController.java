@@ -1,6 +1,7 @@
 package com.iga.belvedere.controllers;
 
 import java.sql.Date;
+import java.text.Normalizer.Form;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -55,6 +56,7 @@ public class IngenieurController {
 	private compétenceRepository compétenceRepo;
 	@Autowired
 	private LangueRepository langueRepo;
+
 	@GetMapping("/find-job")
 	public String findjob(Model model) {
 		List<Ville> villes = villeRepo.findAll();
@@ -104,100 +106,97 @@ public class IngenieurController {
 
 	@GetMapping("/account")
 	public String account(Model model, HttpSession session) {
-	    if (session.getAttribute("userId") != null) {
-	        Ingenieur ing = ingenieurRepo.getById((int) session.getAttribute("userId"));
-	        List<Compétence> competences = ing.getProfil().getCompétences();
-	        String competencesString = competences.stream().map(Compétence::getNom).collect(Collectors.joining(","));
-	        model.addAttribute("ing", ing);
-	        model.addAttribute("competencesString", competencesString);
-	        
-	        List<Langue> langue = ing.getProfil().getLangues();
-	        String languesString = langue.stream().map(Langue::getNom).collect(Collectors.joining(","));
-	        model.addAttribute("languesString", languesString);
-	        
-	        return "account";
-	    } else {
-	        return "/sign-in";
-	    }
-	}
+		if (session.getAttribute("userId") != null) {
+			Ingenieur ing = ingenieurRepo.getById((int) session.getAttribute("userId"));
+			List<Compétence> competences = ing.getProfil().getCompétences();
+			String competencesString = competences.stream().map(Compétence::getNom).collect(Collectors.joining(","));
+			model.addAttribute("ing", ing);
+			model.addAttribute("competencesString", competencesString);
 
+			List<Langue> langue = ing.getProfil().getLangues();
+			String languesString = langue.stream().map(Langue::getNom).collect(Collectors.joining(","));
+			model.addAttribute("languesString", languesString);
+			
+			return "account";
+		} else {
+			return "/sign-in";
+		}
+	}
 
 	@GetMapping("/sign-out")
 	public String sign_out(HttpSession session) {
 		session.invalidate();
 		return "redirect:/account";
 	}
-	
+
 	@PostMapping("/saveBasicInfo")
-	public String saveBasicInfo(HttpSession session, @RequestParam String nom, @RequestParam String prenom, @RequestParam String email,
-	        @RequestParam String telephone, @RequestParam String titre, @RequestParam int age, @RequestParam String competences, @RequestParam String langues) {
-	    if (session.getAttribute("userId") != null) {
-	        Ingenieur ing = ingenieurRepo.getById((int) session.getAttribute("userId"));
-	        ing.setNom(nom);
-	        ing.setPrenom(prenom);
-	        ing.setEmail(email);
-	        ing.setTelephone(telephone);
-	        ing.setTitre(titre);
-	        ing.setAge(age);
-	        ingenieurRepo.save(ing);
+	public String saveBasicInfo(HttpSession session, @RequestParam String nom, @RequestParam String prenom,
+			@RequestParam String email, @RequestParam String telephone, @RequestParam String titre,
+			@RequestParam int age, @RequestParam String competences, @RequestParam String langues) {
+		if (session.getAttribute("userId") != null) {
+			Ingenieur ing = ingenieurRepo.getById((int) session.getAttribute("userId"));
+			ing.setNom(nom);
+			ing.setPrenom(prenom);
+			ing.setEmail(email);
+			ing.setTelephone(telephone);
+			ing.setTitre(titre);
+			ing.setAge(age);
+			ingenieurRepo.save(ing);
 
-	        
-	        Profil profil = ing.getProfil();
-	        if (profil == null) {
-	        	return "/sign-in";
-	        }
+			Profil profil = ing.getProfil();
+			if (profil == null) {
+				return "/sign-in";
+			}
 
-	        List<Compétence> existingCompetences = profil.getCompétences();
-	        String[] newCompetenceArray = competences.split(",");
-	        
-	        // kimseh man la base de données dakchi li n9asnah
-	        for (Compétence existingCompetence : existingCompetences) {
-	            if (!Arrays.asList(newCompetenceArray).contains(existingCompetence.getNom())) {
-	                compétenceRepo.delete(existingCompetence);
-	            }
-	        }
+			List<Compétence> existingCompetences = profil.getCompétences();
+			String[] newCompetenceArray = competences.split(",");
 
-	        //kizid f la base de données dakchi li makayench
-	        for (String competenceName : newCompetenceArray) {
-	            String CompetenceName = competenceName.trim();
-	            if (existingCompetences.stream().noneMatch(c -> c.getNom().equals(CompetenceName))) {
-	                Compétence newCompetence = new Compétence();
-	                newCompetence.setNom(CompetenceName);
-	                newCompetence.setProfil(profil);
-	                compétenceRepo.save(newCompetence);
-	            }
-	        }
-	        
-	        List<Langue> existingLangue = profil.getLangues();
-	        String[] newLangueArray = langues.split(",");
-	        
-	        
-	        for (Langue existingLangues : existingLangue) {
-	            if (!Arrays.asList(newLangueArray).contains(existingLangues.getNom())) {
-	            	langueRepo.delete(existingLangues);
-	            }
-	        }
-	        
-	        for (String LangueNom : newLangueArray) {
-	            String LangueName = LangueNom.trim();
-	            if (existingLangue.stream().noneMatch(c -> c.getNom().equals(LangueName))) {
-	                Langue newLangue = new Langue();
-	                newLangue.setNom(LangueName);
-	                newLangue.setProfil(profil);
-	                langueRepo.save(newLangue);
-	            }
-	        }
+			// kimseh man la base de données dakchi li n9asnah
+			for (Compétence existingCompetence : existingCompetences) {
+				if (!Arrays.asList(newCompetenceArray).contains(existingCompetence.getNom())) {
+					compétenceRepo.delete(existingCompetence);
+				}
+			}
 
-	        return "redirect:/account";
-	    } else {
-	        return "/sign-in";
-	    }
+			// kizid f la base de données dakchi li makayench
+			for (String competenceName : newCompetenceArray) {
+				String CompetenceName = competenceName.trim();
+				if (existingCompetences.stream().noneMatch(c -> c.getNom().equals(CompetenceName))) {
+					Compétence newCompetence = new Compétence();
+					newCompetence.setNom(CompetenceName);
+					newCompetence.setProfil(profil);
+					compétenceRepo.save(newCompetence);
+				}
+			}
+
+			List<Langue> existingLangue = profil.getLangues();
+			String[] newLangueArray = langues.split(",");
+
+			for (Langue existingLangues : existingLangue) {
+				if (!Arrays.asList(newLangueArray).contains(existingLangues.getNom())) {
+					langueRepo.delete(existingLangues);
+				}
+			}
+
+			for (String LangueNom : newLangueArray) {
+				String LangueName = LangueNom.trim();
+				if (existingLangue.stream().noneMatch(c -> c.getNom().equals(LangueName))) {
+					Langue newLangue = new Langue();
+					newLangue.setNom(LangueName);
+					newLangue.setProfil(profil);
+					langueRepo.save(newLangue);
+				}
+			}
+
+			return "redirect:/account";
+		} else {
+			return "/sign-in";
+		}
 	}
 
-
-	
 	@PostMapping("/saveAddress")
-	public String saveAddress(HttpSession session, @RequestParam String pays, @RequestParam String ville, @RequestParam String region) {
+	public String saveAddress(HttpSession session, @RequestParam String pays, @RequestParam String ville,
+			@RequestParam String region) {
 		if (session.getAttribute("userId") != null) {
 			Ingenieur ing = ingenieurRepo.getById((int) session.getAttribute("userId"));
 			ing.setPays(pays);
@@ -205,74 +204,71 @@ public class IngenieurController {
 			ing.setRegion(region);
 			ingenieurRepo.save(ing);
 			return "redirect:/account";
-		}else {
+		} else {
 			return "/sign-in";
 		}
 	}
 
 	@PostMapping("/saveFormation")
 	public String saveFormation(HttpSession session, @RequestParam String niveau, @RequestParam String spécialité,
-	                            @RequestParam String institution, @RequestParam Date debut, @RequestParam Date fin) {
-	    if (session.getAttribute("userId") != null) {
-	        Integer userId = ((Integer) session.getAttribute("userId")).intValue();    
-	        Profil profil = profilRepo.findById(userId).orElse(null);
-	        if (profil == null) {
-	            return "/sign-in";
-	        }
-	        Formation formation = new Formation();
-	        formation.setNiveau(niveau);
-	        formation.setSpécialité(spécialité);
-	        formation.setInstitution(institution);
-	        formation.setDebut(debut);
-	        formation.setFin(fin);
-	        formation.setProfil(profil);
-	        formationRepo.save(formation);
+			@RequestParam String institution, @RequestParam Date debut, @RequestParam Date fin) {
+		if (session.getAttribute("userId") != null) {
+			Integer userId = ((Integer) session.getAttribute("userId")).intValue();
+			Profil profil = profilRepo.findById(userId).orElse(null);
+			if (profil == null) {
+				return "/sign-in";
+			}
+			Formation formation = new Formation();
+			formation.setNiveau(niveau);
+			formation.setSpécialité(spécialité);
+			formation.setInstitution(institution);
+			formation.setDebut(debut);
+			formation.setFin(fin);
+			formation.setProfil(profil);
+			formationRepo.save(formation);
 
-	        return "redirect:/account";
-	    } else {
-	        return "/sign-in";
-	    }
+			return "redirect:/account";
+		} else {
+			return "/sign-in";
+		}
 	}
 
 	@PostMapping("/saveExpérience")
 	public String saveExpérience(HttpSession session, @RequestParam String titre, @RequestParam String entreprise,
-	                            @RequestParam String description, @RequestParam Date debut, @RequestParam Date fin) {
-	    if (session.getAttribute("userId") != null) {
-	        Integer userId = ((Integer) session.getAttribute("userId")).intValue();    
-	        Profil profil = profilRepo.findById(userId).orElse(null);
-	        if (profil == null) {
-	            return "/sign-in";
-	        }
-	        Expérience e = new Expérience();
-	        e.setTitre(titre);
-	        e.setEntreprise(entreprise);
-	        e.setDescription(description);
-	        e.setDebut(debut);
-	        e.setFin(fin);
-	        e.setProfil(profil);
-	        expérienceRepo.save(e);
+			@RequestParam String description, @RequestParam Date debut, @RequestParam Date fin) {
+		if (session.getAttribute("userId") != null) {
+			Integer userId = ((Integer) session.getAttribute("userId")).intValue();
+			Profil profil = profilRepo.findById(userId).orElse(null);
+			if (profil == null) {
+				return "/sign-in";
+			}
+			Expérience e = new Expérience();
+			e.setTitre(titre);
+			e.setEntreprise(entreprise);
+			e.setDescription(description);
+			e.setDebut(debut);
+			e.setFin(fin);
+			e.setProfil(profil);
+			expérienceRepo.save(e);
 
-	        return "redirect:/account";
-	    } else {
-	        return "/sign-in";
-	    }
+			return "redirect:/account";
+		} else {
+			return "/sign-in";
+		}
 	}
 
-
-
-	
 	@GetMapping("/sign-up")
 	public String sign_up(HttpSession session) {
 		if (session.getAttribute("userId") != null) {
 			return "redirect:/account";
-		}else {
+		} else {
 			return "sign-up";
 		}
 	}
-	
+
 	@PostMapping("/sign-up")
-	public String sign_up(@RequestParam String email, @RequestParam String password,
-			@RequestParam String prenom, @RequestParam String nom) {
+	public String sign_up(@RequestParam String email, @RequestParam String password, @RequestParam String prenom,
+			@RequestParam String nom) {
 		Ingenieur ing = new Ingenieur();
 		ing.setPrenom(prenom);
 		ing.setNom(nom);
@@ -282,6 +278,67 @@ public class IngenieurController {
 		return "redirect:/account";
 	}
 
+	@GetMapping("/formations")
+	public String fomrations(Model model, HttpSession session) {
+		if (session.getAttribute("userId") != null) {
+			Ingenieur ing = ingenieurRepo.getById((int) session.getAttribute("userId"));
+			model.addAttribute("ing", ing);
 
+			List<Formation> formations = formationRepo.findAllByProfil(ing.getProfil());
+			model.addAttribute("formations", formations);
+		}
+		return "formations";
+	}
+	
+	@PostMapping("/modifyFormation")
+	public String modifyFormation(Model model, @RequestParam int id, @RequestParam Date debut, @RequestParam Date fin,
+			@RequestParam String institution, @RequestParam String spécialité, @RequestParam String niveau) {
+		Formation f = formationRepo.getById(id);
+		f.setDebut(debut);
+		f.setFin(fin);
+		f.setInstitution(institution);
+		f.setSpécialité(spécialité);
+		f.setNiveau(niveau);
+		formationRepo.save(f);		
+		return "redirect:/formations";
+	}
+	
+	@GetMapping("/deleteFormation")
+	public String deleteFormation(@RequestParam int id) {
+		formationRepo.deleteById(id);
+		return "redirect:/formations";
+	}
+	
+	@GetMapping("/experiences")
+	public String expériences(Model model, HttpSession session) {
+		if (session.getAttribute("userId") != null) {
+			Ingenieur ing = ingenieurRepo.getById((int) session.getAttribute("userId"));
+			model.addAttribute("ing", ing);
+
+			List<Expérience> expériences =  expérienceRepo.findAllByProfil(ing.getProfil());
+			model.addAttribute("expériences", expériences);
+		}
+		return "experiences";
+	}
+	
+	@PostMapping("/modifyExperience")
+	public String modifyExpérience(Model model, @RequestParam int id, @RequestParam Date debut, @RequestParam Date fin,
+			@RequestParam String titre, @RequestParam String entreprise, @RequestParam String description) {
+		Expérience e = expérienceRepo.getById(id);
+		e.setDebut(debut);
+		e.setFin(fin);
+		e.setTitre(titre);
+		e.setEntreprise(entreprise);
+		e.setDescription(description);
+		expérienceRepo.save(e);		
+		return "redirect:/experiences";
+	}
+	
+	@GetMapping("/deleteExperience")
+	public String deleteExpérience(@RequestParam int id) {
+		expérienceRepo.deleteById(id);
+		return "redirect:/experiences";
+	}
+	
 	
 }
