@@ -88,7 +88,7 @@
 						<div class="profile-thumb">
 							<img src="assets/img/account.jpg" alt="account holder image">
 							<h3 th:text="${ing.prenom} + ' ' + ${ing.nom}"></h3>
-							<p th:text="${profil.titre}"></p>
+							<p th:text="${ing.profil.titre}"></p>
 						</div>
 						<ul>
 							<li>
@@ -191,6 +191,20 @@
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
+										<label>Experience</label>
+										<input type="number" name="experience" class="form-control" placeholder="Votre éxperience"
+											th:value="${profil.experience}">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Catégorie</label>
+										<input type="text" name="Category" class="form-control" placeholder="Votre catégorie"
+											th:value="${profil.Category}">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
 										<label>Langue</label>
 										<input type="text" name="langues" class="form-control" placeholder="Langue"
 											th:value="${languesString}">
@@ -274,6 +288,13 @@
 									<div class="form-group">
 										<label>Niveau</label>
 										<input type="text" name="niveau" class="form-control" placeholder="Niveau">
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="form-group">
+										<label>Description</label>
+										<textarea style="height: 200px;" name="description" class="form-control"
+											placeholder="Description du formation"></textarea>
 									</div>
 								</div>
 								<div class="col-md-12">

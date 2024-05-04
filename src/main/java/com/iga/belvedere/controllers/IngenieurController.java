@@ -135,8 +135,8 @@ public class IngenieurController {
 
 	@PostMapping("/saveBasicInfo")
 	public String saveBasicInfo(HttpSession session, @RequestParam String nom, @RequestParam String prenom,
-			@RequestParam String email, @RequestParam String telephone, @RequestParam String titre,
-			@RequestParam int age, @RequestParam String competences, @RequestParam String langues) {
+			@RequestParam String email, @RequestParam String telephone, @RequestParam String titre,@RequestParam String Category,
+			@RequestParam int age,@RequestParam int experience, @RequestParam String competences, @RequestParam String langues) {
 		if (session.getAttribute("userId") != null) {
 			Ingenieur ing = ingenieurRepo.getById((int) session.getAttribute("userId"));
 			Profil profil = profilRepo.findByIng(ing);
@@ -145,6 +145,8 @@ public class IngenieurController {
 			ing.setEmail(email);
 			ing.setTelephone(telephone);
 			profil.setTitre(titre);
+			profil.setExperience(experience);
+			profil.setCategory(Category);
 			ing.setAge(age);
 			ingenieurRepo.save(ing);
 
@@ -212,7 +214,7 @@ public class IngenieurController {
 	}
 
 	@PostMapping("/saveFormation")
-	public String saveFormation(HttpSession session, @RequestParam String niveau, @RequestParam String spécialité,
+	public String saveFormation(HttpSession session, @RequestParam String niveau,@RequestParam String description, @RequestParam String spécialité,
 			@RequestParam String institution, @RequestParam Date debut, @RequestParam Date fin) {
 		if (session.getAttribute("userId") != null) {
 			Integer userId = ((Integer) session.getAttribute("userId")).intValue();
@@ -227,6 +229,7 @@ public class IngenieurController {
 			formation.setDebut(debut);
 			formation.setFin(fin);
 			formation.setProfil(profil);
+			formation.setDescription(description);
 			formationRepo.save(formation);
 
 			return "redirect:/account";
@@ -296,7 +299,7 @@ public class IngenieurController {
 	}
 
 	@PostMapping("/modifyFormation")
-	public String modifyFormation(Model model, @RequestParam int id, @RequestParam Date debut, @RequestParam Date fin,
+	public String modifyFormation(Model model, @RequestParam int id, @RequestParam Date debut,@RequestParam String description, @RequestParam Date fin,
 			@RequestParam String institution, @RequestParam String spécialité, @RequestParam String niveau) {
 		Formation f = formationRepo.getById(id);
 		f.setDebut(debut);
@@ -304,6 +307,7 @@ public class IngenieurController {
 		f.setInstitution(institution);
 		f.setSpécialité(spécialité);
 		f.setNiveau(niveau);
+		f.setDescription(description);
 		formationRepo.save(f);
 		return "redirect:/formations";
 	}

@@ -184,9 +184,18 @@
 									</div>
 								</div>
 								<div class="col-md-12">
+									<div class="form-group">
+										<label>Description</label>
+										<textarea style="height: 200px;" name="description" class="form-control"
+											placeholder="Description du formation">[[${formation.description}]]
+</textarea>
+									</div>
+								</div>
+								<div class="col-md-12">
 									<input name="id" th:value="${formation.id}" hidden>
 									<button type="submit" class="account-btn">Sauvegarder</button>
-									<a class="account-btn" th:href="'/deleteFormation?id=' + ${formation.id}">Supprimer</a>
+									<a class="account-btn"
+										th:href="'/deleteFormation?id=' + ${formation.id}">Supprimer</a>
 								</div>
 							</div>
 						</form>
