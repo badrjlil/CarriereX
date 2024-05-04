@@ -2,6 +2,7 @@ package com.iga.belvedere.entities;
 
 import java.sql.Date;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,17 +20,19 @@ public class Formation {
 	private String institution;
 	private Date debut;
 	private Date fin;
-	
+	@Column(length = 300)
+	private String description;
+
 	@ManyToOne
 	@JoinColumn(name = "id_profil")
 	private Profil profil;
-	
+
 	public Formation() {
 		super();
 	}
 
 	public Formation(int id, String niveau, String spécialité, String institution, Date debut, Date fin,
-			Profil profil) {
+			String description, Profil profil) {
 		super();
 		this.id = id;
 		this.niveau = niveau;
@@ -37,6 +40,7 @@ public class Formation {
 		this.institution = institution;
 		this.debut = debut;
 		this.fin = fin;
+		this.description = description;
 		this.profil = profil;
 	}
 
@@ -95,7 +99,13 @@ public class Formation {
 	public void setProfil(Profil profil) {
 		this.profil = profil;
 	}
-	
-	
-	
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 }

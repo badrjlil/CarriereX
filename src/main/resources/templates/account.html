@@ -88,7 +88,7 @@
 						<div class="profile-thumb">
 							<img src="assets/img/account.jpg" alt="account holder image">
 							<h3 th:text="${ing.prenom} + ' ' + ${ing.nom}"></h3>
-							<p th:text="${ing.titre}"></p>
+							<p th:text="${profil.titre}"></p>
 						</div>
 						<ul>
 							<li>
@@ -179,7 +179,7 @@
 									<div class="form-group">
 										<label>Titre d'emploi</label>
 										<input name="titre" type="text" class="form-control"
-											placeholder="Titre d'emploi" th:value="${ing.titre}">
+											placeholder="Titre d'emploi" th:value="${profil.titre}">
 									</div>
 								</div>
 								<div class="col-md-6">
@@ -215,21 +215,21 @@
 									<div class="form-group">
 										<label>Votre pays</label>
 										<input name="pays" type="text" class="form-control" placeholder="Votre pays"
-											th:value="${ing.pays}">
+											th:value="${profil.pays}">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Ta ville</label>
 										<input name="ville" type="text" class="form-control" placeholder="Ta ville"
-											th:value="${ing.ville}">
+											th:value="${profil.ville}">
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Region</label>
 										<input name="region" type="text" class="form-control" placeholder="Your Region"
-											th:value="${ing.region}">
+											th:value="${profil.region}">
 									</div>
 								</div>
 								<div class="col-md-12">
@@ -313,11 +313,11 @@
 											placeholder="Le nom de l'entreprise">
 									</div>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-12">
 									<div class="form-group">
 										<label>Description</label>
-										<input type="text" name="description" class="form-control"
-											placeholder="Description du l'expérience">
+										<textarea style="height: 200px;" name="description" class="form-control"
+											placeholder="Description du l'expérience"></textarea>
 									</div>
 								</div>
 								<div class="col-md-12">

@@ -108,15 +108,19 @@ public class IngenieurController {
 	public String account(Model model, HttpSession session) {
 		if (session.getAttribute("userId") != null) {
 			Ingenieur ing = ingenieurRepo.getById((int) session.getAttribute("userId"));
+			model.addAttribute("ing", ing);
+
+			Profil profil = profilRepo.findByIng(ing);
+			model.addAttribute("profil", profil);
+
 			List<Compétence> competences = ing.getProfil().getCompétences();
 			String competencesString = competences.stream().map(Compétence::getNom).collect(Collectors.joining(","));
-			model.addAttribute("ing", ing);
 			model.addAttribute("competencesString", competencesString);
 
 			List<Langue> langue = ing.getProfil().getLangues();
 			String languesString = langue.stream().map(Langue::getNom).collect(Collectors.joining(","));
 			model.addAttribute("languesString", languesString);
-			
+
 			return "account";
 		} else {
 			return "/sign-in";
@@ -135,18 +139,15 @@ public class IngenieurController {
 			@RequestParam int age, @RequestParam String competences, @RequestParam String langues) {
 		if (session.getAttribute("userId") != null) {
 			Ingenieur ing = ingenieurRepo.getById((int) session.getAttribute("userId"));
+			Profil profil = profilRepo.findByIng(ing);
 			ing.setNom(nom);
 			ing.setPrenom(prenom);
 			ing.setEmail(email);
 			ing.setTelephone(telephone);
-			ing.setTitre(titre);
+			profil.setTitre(titre);
 			ing.setAge(age);
 			ingenieurRepo.save(ing);
 
-			Profil profil = ing.getProfil();
-			if (profil == null) {
-				return "/sign-in";
-			}
 
 			List<Compétence> existingCompetences = profil.getCompétences();
 			String[] newCompetenceArray = competences.split(",");
@@ -199,10 +200,11 @@ public class IngenieurController {
 			@RequestParam String region) {
 		if (session.getAttribute("userId") != null) {
 			Ingenieur ing = ingenieurRepo.getById((int) session.getAttribute("userId"));
-			ing.setPays(pays);
-			ing.setVille(ville);
-			ing.setRegion(region);
-			ingenieurRepo.save(ing);
+			Profil profil = profilRepo.findByIng(ing);
+			profil.setPays(pays);
+			profil.setVille(ville);
+			profil.setRegion(region);
+			profilRepo.save(profil);
 			return "redirect:/account";
 		} else {
 			return "/sign-in";
@@ -284,12 +286,15 @@ public class IngenieurController {
 			Ingenieur ing = ingenieurRepo.getById((int) session.getAttribute("userId"));
 			model.addAttribute("ing", ing);
 
+			Profil profil = profilRepo.findByIng(ing);
+			model.addAttribute("profil", profil);
+
 			List<Formation> formations = formationRepo.findAllByProfil(ing.getProfil());
 			model.addAttribute("formations", formations);
 		}
 		return "formations";
 	}
-	
+
 	@PostMapping("/modifyFormation")
 	public String modifyFormation(Model model, @RequestParam int id, @RequestParam Date debut, @RequestParam Date fin,
 			@RequestParam String institution, @RequestParam String spécialité, @RequestParam String niveau) {
@@ -299,28 +304,31 @@ public class IngenieurController {
 		f.setInstitution(institution);
 		f.setSpécialité(spécialité);
 		f.setNiveau(niveau);
-		formationRepo.save(f);		
+		formationRepo.save(f);
 		return "redirect:/formations";
 	}
-	
+
 	@GetMapping("/deleteFormation")
 	public String deleteFormation(@RequestParam int id) {
 		formationRepo.deleteById(id);
 		return "redirect:/formations";
 	}
-	
+
 	@GetMapping("/experiences")
 	public String expériences(Model model, HttpSession session) {
 		if (session.getAttribute("userId") != null) {
 			Ingenieur ing = ingenieurRepo.getById((int) session.getAttribute("userId"));
 			model.addAttribute("ing", ing);
 
-			List<Expérience> expériences =  expérienceRepo.findAllByProfil(ing.getProfil());
+			Profil profil = profilRepo.findByIng(ing);
+			model.addAttribute("profil", profil);
+			
+			List<Expérience> expériences = expérienceRepo.findAllByProfil(ing.getProfil());
 			model.addAttribute("expériences", expériences);
 		}
 		return "experiences";
 	}
-	
+
 	@PostMapping("/modifyExperience")
 	public String modifyExpérience(Model model, @RequestParam int id, @RequestParam Date debut, @RequestParam Date fin,
 			@RequestParam String titre, @RequestParam String entreprise, @RequestParam String description) {
@@ -330,15 +338,33 @@ public class IngenieurController {
 		e.setTitre(titre);
 		e.setEntreprise(entreprise);
 		e.setDescription(description);
-		expérienceRepo.save(e);		
+		expérienceRepo.save(e);
 		return "redirect:/experiences";
 	}
-	
+
 	@GetMapping("/deleteExperience")
 	public String deleteExpérience(@RequestParam int id) {
 		expérienceRepo.deleteById(id);
 		return "redirect:/experiences";
 	}
-	
-	
+
+	@GetMapping("/resume")
+	public String resume(HttpSession session, Model model) {
+		if (session.getAttribute("userId") != null) {
+			Ingenieur ing = ingenieurRepo.getById((int) session.getAttribute("userId"));
+			model.addAttribute("ing", ing);
+			Profil p = profilRepo.findByIng(ing);
+			model.addAttribute("profil", p);
+			List<Formation> formations = formationRepo.findAllByProfil(p);
+			model.addAttribute("formations", formations);
+			List<Expérience> expériences = expérienceRepo.findAllByProfil(p);
+			model.addAttribute("expériences", expériences);
+			List<Compétence> compétences = compétenceRepo.findAllByProfil(p);
+			model.addAttribute("compétences", compétences);
+			return "resume";
+		} else {
+			return "/sign-in";
+		}
+	}
+
 }

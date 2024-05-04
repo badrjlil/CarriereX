@@ -112,10 +112,6 @@ public class myController {
 	public String password() {
 		return "reset-password";
 	}
-	@GetMapping("/resume")
-	public String resume() {
-		return "resume";
-	}
 	@GetMapping("/signup")
 	public String signup() {
 		return "signup";

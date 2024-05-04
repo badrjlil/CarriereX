@@ -58,21 +58,13 @@ public class EmployeurController {
 		return "redirect:/";
 	}
 
-	/*@GetMapping("/findEmploi")
-	public String findEmploi(@RequestParam(defaultValue = "") String motcle, @RequestParam String location,
-			Model model) {
-		List<Emploi> emplois = emploiRepo.findAllByKeyword(motcle);
-		model.addAttribute("emplois", emplois);
-
-		return "job-list";
-	}*/
-
-
 	@GetMapping("/catagories")
 	public String catagories(Model model) {
 		List<Catégorie> categories = catégorieRepo.findAll();
 		model.addAttribute("categories", categories);
 		return "catagories";
 	}
+	
+	
 
 }

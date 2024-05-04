@@ -86,22 +86,8 @@
                     <div class="col-md-12">
                         <div class="resume-thumb-area text-center">
                             <img src="assets/img/account.jpg" alt="account image">
-                            <h3>Lula Wallace</h3>
-                            <p>Web Developer</p>
-                            <div class="social-links">
-                                <a href="#" target="-blank">
-                                    <i class="bx bxl-facebook"></i>
-                                </a>
-                                <a href="#" target="-blank">
-                                    <i class="bx bxl-twitter"></i>
-                                </a>
-                                <a href="#" target="-blank">
-                                    <i class="bx bxl-github"></i>
-                                </a>
-                                <a href="#" target="-blank">
-                                    <i class="bx bxl-linkedin"></i>
-                                </a>
-                            </div>
+                            <h3 th:text="${ing.prenom} + ' ' + ${ing.nom}"></h3>
+                            <p th:text="${profil.titre}"></p>
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -110,11 +96,7 @@
                                 <i class="bx bx-user-circle"></i>
                                 About Me
                             </h3>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                                has been the industry's standard dummy text ever since the 1500s, when an unknown
-                                printer took a galley of type and scrambled it to make a type specimen book. It has
-                                survived not only five centuries, but also the leap into electronic typesetting,
-                                remaining essentially unchanged.</p>
+                            <p th:text="${profil.aperçu}"></p>
                         </div>
                         <div class="resume-content basic-info-text">
                             <h3>
@@ -124,116 +106,60 @@
                             <ul>
                                 <li>
                                     <span>Age:</span>
-                                    26
+                                    <a th:text="${ing.age}"></a>
+                                    
                                 </li>
                                 <li>
                                     <span>Category:</span>
-                                    Web Development
+                                    <a  th:text="${profil.category}"></a>
                                 </li>
                                 <li>
                                     <span>Experience:</span>
-                                    4 years
+                                    <a  th:text="${profil.experience}"></a>
                                 </li>
                                 <li>
                                     <span>Gender:</span>
-                                    Male
+                                    <a th:text="${ing.sexe}"></a>
                                 </li>
                                 <li>
                                     <span>Status:</span>
-                                    Full Time
-                                </li>
-                                <li>
-                                    <span>Experience:</span>
-                                    4 years
+                                    Full Time???????
                                 </li>
                             </ul>
                         </div>
                         <div class="resume-content education-text">
                             <h3>
                                 <i class="bx bx-book-reader"></i>
-                                Education Background
+                                Formations
                             </h3>
-                            <div class="education-info">
-                                <span>2014-2018</span>
-                                <h5>Diploma in Computer engineering</h5>
-                                <h4>Columbia University</h4>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                    unknown printer took a galley of type and scrambled it to make a type specimen book.
-                                </p>
-                            </div>
-                            <div class="education-info">
-                                <span>2010-2014</span>
-                                <h5>Bachelor in Computer Science</h5>
-                                <h4>Oxford university, UK</h4>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                    unknown printer took a galley of type and scrambled it to make a type specimen book.
-                                </p>
-                            </div>
-                            <div class="education-info">
-                                <span>2008-2010</span>
-                                <h5>Higher School certificate</h5>
-                                <h4>Stanton College, USA</h4>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                    unknown printer took a galley of type and scrambled it to make a type specimen book.
-                                </p>
+                            <div th:each="formation:${formations}" class="education-info">
+                                <span th:text="${#dates.format(formation.debut, 'yyyy')} + '-' + ${#dates.format(formation.fin, 'yyyy')}"></span>
+                                <h5 th:text="${formation.niveau} + ' ' + ${formation.spécialité} "></h5>
+                                <h4 th:text="${formation.institution}"></h4>
+                                <p th:text="${formation.description}"></p>
                             </div>
                         </div>
                         <div class="resume-content  experience-text">
                             <h3>
                                 <i class="bx bx-briefcase"></i>
-                                Work Expericence
+                                Expéricences
                             </h3>
-                            <div class="experience-info">
-                                <span>2016-2018</span>
-                                <h5>Junior Web Developer</h5>
-                                <h4>Stack LTD Company</h4>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                    unknown printer took a galley of type and scrambled it to make a type specimen book.
-                                </p>
-                            </div>
-                            <div class="experience-info">
-                                <span>2018-2021</span>
-                                <h5>Full Stack Developer</h5>
-                                <h4>Sanders IT</h4>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                    unknown printer took a galley of type and scrambled it to make a type specimen book.
-                                </p>
+                            <div th:each="expérience:${expériences}" class="experience-info">
+                                <span th:text="${#dates.format(expérience.debut, 'yyyy')} + '-' + ${#dates.format(expérience.fin, 'yyyy')}">2016-2018</span>
+                                <h5 th:text="${expérience.titre}"></h5>
+                                <h4 th:text="${expérience.entreprise}"></h4>
+                                <p th:text="${expérience.description}"></p>
                             </div>
                         </div>
                         <div class="resume-content skill">
                             <h3>
                                 <i class="bx bx-check-shield"></i>
-                                Skills
+                                Compétences
                             </h3>
-                            <span>HTMl</span>
-                            <div class="progress">
-                                <div class="progress-bar bg-success" role="progressbar" style="width: 80%"
-                                    aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">80%</div>
-                            </div>
-                            <span>JS</span>
-                            <div class="progress">
-                                <div class="progress-bar bg-info" role="progressbar" style="width: 90%"
-                                    aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">90%</div>
-                            </div>
-                            <span>PHP</span>
-                            <div class="progress">
-                                <div class="progress-bar bg-warning" role="progressbar" style="width: 85%"
-                                    aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">85%</div>
-                            </div>
-                            <span>SQL</span>
-                            <div class="progress">
-                                <div class="progress-bar bg-danger" role="progressbar" style="width: 95%"
-                                    aria-valuenow="95" aria-valuemin="0" aria-valuemax="100">95%</div>
-                            </div>
-                        </div>
+                            <span th:each="compétence:${compétences}" th:text="${compétence.nom} + ' - '"> </span>
                         <div class="theme-btn">
                             <a href="#" class="default-btn">
-                                Download
+                                Télécharger
                                 <i class="bx bx-download bx-fade-down"></i>
                             </a>
                         </div>

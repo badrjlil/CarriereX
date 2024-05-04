@@ -1,43 +1,44 @@
 package com.iga.belvedere.entities;
 
-
-
 import jakarta.persistence.Entity;
 
 import jakarta.persistence.OneToOne;
 
 @Entity
-public class Ingenieur extends Utilisateur{
-	
-	private String titre;
-	private String pays;
-	private String ville;
-	private String region;
+public class Ingenieur extends Utilisateur {
+
 	private int age;
-	
+	private String sexe;
+
 	@OneToOne
 	private Profil profil;
-
-	
-	
 
 	public Ingenieur() {
 		super();
 	}
 
-	
-
-	public Ingenieur(String titre, String pays, String ville, String region, int age, Profil profil) {
+	public Ingenieur(int age, String sexe, Profil profil) {
 		super();
-		this.titre = titre;
-		this.pays = pays;
-		this.ville = ville;
-		this.region = region;
 		this.age = age;
+		this.sexe = sexe;
 		this.profil = profil;
 	}
 
+	public int getAge() {
+		return age;
+	}
 
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public String getSexe() {
+		return sexe;
+	}
+
+	public void setSexe(String sexe) {
+		this.sexe = sexe;
+	}
 
 	public Profil getProfil() {
 		return profil;
@@ -47,49 +48,4 @@ public class Ingenieur extends Utilisateur{
 		this.profil = profil;
 	}
 
-	public String getTitre() {
-		return titre;
-	}
-
-	public void setTitre(String titre) {
-		this.titre = titre;
-	}
-
-	public String getPays() {
-		return pays;
-	}
-
-	public void setPays(String pays) {
-		this.pays = pays;
-	}
-
-	public String getVille() {
-		return ville;
-	}
-
-	public void setVille(String ville) {
-		this.ville = ville;
-	}
-
-	public String getRegion() {
-		return region;
-	}
-
-	public void setRegion(String region) {
-		this.region = region;
-	}
-
-
-
-	public int getAge() {
-		return age;
-	}
-
-
-
-	public void setAge(int age) {
-		this.age = age;
-	}
-	
-	
 }

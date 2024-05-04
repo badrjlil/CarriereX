@@ -88,7 +88,7 @@
 						<div class="profile-thumb">
 							<img src="assets/img/account.jpg" alt="account holder image">
 							<h3 th:text="${ing.prenom} + ' ' + ${ing.nom}"></h3>
-							<p th:text="${ing.titre}"></p>
+							<p th:text="${profil.titre}"></p>
 						</div>
 						<ul>
 							<li>
@@ -176,11 +176,11 @@
 											class="form-control" placeholder="Le nom de l'entreprise">
 									</div>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-12">
 									<div class="form-group">
 										<label>Description</label>
-										<input th:value="${expérience.description}" type="text" name="description"
-											class="form-control" placeholder="Description du l'expérience">
+										<textarea style="height: 200px;" name="description"
+											class="form-control" placeholder="Description du l'expérience" th:value="${expérience.description}"></textarea>
 									</div>
 								</div>
 								<div class="col-md-12">
