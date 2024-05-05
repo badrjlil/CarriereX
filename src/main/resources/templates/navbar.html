@@ -102,7 +102,7 @@
                             <a href="/sign-up" class="signup-btn">S'inscrire</a>
                             <a href="/account" class="signin-btn">Se connecter</a>
                         </div>
-                        <div th:if="${session.userId != null}" class="other-option">
+                        <div th:unless="${session.userId == null}" class="other-option">
                             <a href="/account" class="signup-btn">Mon compte</a>
                             <a href="/sign-out" class="signin-btn">Se déconnecter</a>
                         </div>

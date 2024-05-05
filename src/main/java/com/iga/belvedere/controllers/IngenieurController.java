@@ -13,7 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.iga.belvedere.entities.Application;
 import com.iga.belvedere.entities.Catégorie;
 import com.iga.belvedere.entities.Compétence;
 import com.iga.belvedere.entities.Emploi;
@@ -24,6 +26,7 @@ import com.iga.belvedere.entities.Langue;
 import com.iga.belvedere.entities.Profil;
 import com.iga.belvedere.entities.Ville;
 import com.iga.belvedere.repositories.LangueRepository;
+import com.iga.belvedere.repositories.applicationRepository;
 import com.iga.belvedere.repositories.categorieRepository;
 import com.iga.belvedere.repositories.compétenceRepository;
 import com.iga.belvedere.repositories.emploiRepository;
@@ -56,6 +59,8 @@ public class IngenieurController {
 	private compétenceRepository compétenceRepo;
 	@Autowired
 	private LangueRepository langueRepo;
+	@Autowired
+	private applicationRepository applicationRepo;
 
 	@GetMapping("/find-job")
 	public String findjob(Model model) {
@@ -69,9 +74,6 @@ public class IngenieurController {
 	@GetMapping("/findJob")
 	public String findJob(@RequestParam String keyword, @RequestParam(required = false) Integer ville,
 			@RequestParam(required = false) Integer category, Model model) {
-		System.out.println("keyword: " + keyword);
-		System.out.println("location: " + ville);
-		System.out.println("category: " + category);
 		LocalDate date = LocalDate.now();
 		model.addAttribute("date", date);
 
@@ -86,9 +88,22 @@ public class IngenieurController {
 	}
 
 	@GetMapping("/job-details")
-	public String jobDetails(@RequestParam int id, Model model) {
+	public String jobDetails(HttpSession session, @RequestParam int id, Model model) {
 		Emploi emploi = repoEmploi.getById(id);
 		model.addAttribute("emploi", emploi);
+		if (session.getAttribute("userId") != null) {
+			Ingenieur ing = ingenieurRepo.getById((int) session.getAttribute("userId"));
+			Application app = applicationRepo.findByIngenieurAndEmploi(ing, emploi);
+			
+			if(app != null) {
+				model.addAttribute("applied", true);
+			}else {
+				model.addAttribute("applied", false);
+			}
+		}else {
+			model.addAttribute("applied", false);
+		}
+
 		return "job-details";
 	}
 
@@ -370,5 +385,36 @@ public class IngenieurController {
 			return "/sign-in";
 		}
 	}
+	
+	@PostMapping("/submit-application")
+	public String submit_application(HttpSession session, @RequestParam int id , @RequestParam(required = false) MultipartFile cv,
+			@RequestParam(required = false) MultipartFile lettreMotivation) {
+		if (session.getAttribute("userId") != null) {
+			Ingenieur ing = ingenieurRepo.getById((int) session.getAttribute("userId"));
+			Emploi emp = repoEmploi.getById(id);
+			Application application = new Application();
+			application.setIngenieur(ing);
+			application.setEmploi(emp);
+			java.util.Date currentDate = new java.util.Date();
+			Date sqlDate = new Date(currentDate.getTime());
+			application.setDateApplication(sqlDate);
+			try{
+				if(cv != null) {
+					application.setCv(cv.getBytes());
+					System.out.println("cd added");
+				}
+				if(lettreMotivation != null) {
+					application.setLettreMotivation(lettreMotivation.getBytes());
+					System.out.println("lettreMotivation added");
+				}
+				applicationRepo.save(application);
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			return "redirect:/";
+		} else {
+			return "/sign-in";
+		}
 
+	}
 }

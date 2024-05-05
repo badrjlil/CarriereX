@@ -1,7 +1,9 @@
 package com.iga.belvedere.entities;
 
-import jakarta.persistence.Entity;
+import java.util.List;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -13,15 +15,19 @@ public class Ingenieur extends Utilisateur {
 	@OneToOne
 	private Profil profil;
 
+	@OneToMany(mappedBy = "ingenieur")
+	private List<Application> applications;
+
 	public Ingenieur() {
 		super();
 	}
 
-	public Ingenieur(int age, String sexe, Profil profil) {
+	public Ingenieur(int age, String sexe, Profil profil, List<Application> applications) {
 		super();
 		this.age = age;
 		this.sexe = sexe;
 		this.profil = profil;
+		this.applications = applications;
 	}
 
 	public int getAge() {
@@ -46,6 +52,14 @@ public class Ingenieur extends Utilisateur {
 
 	public void setProfil(Profil profil) {
 		this.profil = profil;
+	}
+
+	public List<Application> getApplications() {
+		return applications;
+	}
+
+	public void setApplications(List<Application> applications) {
+		this.applications = applications;
 	}
 
 }
