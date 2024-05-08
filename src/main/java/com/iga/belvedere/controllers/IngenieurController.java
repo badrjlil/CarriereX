@@ -149,16 +149,14 @@ public class IngenieurController {
 
 	                return "account";
 	            } else {
-	                // Gérer le cas où le profil est nul
-	                return "error"; // Rediriger vers une page d'erreur appropriée
+	               
+	                return "error"; 
 	            }
 	        } else {
-	            // Gérer le cas où l'ingénieur n'est pas trouvé
-	            return "error"; // Rediriger vers une page d'erreur appropriée
+	            return "error";
 	        }
 	    } else {
-	        // Gérer le cas où userId n'est pas présent dans la session
-	        return "/sign-in"; // Rediriger vers la page de connexion
+	        return "/sign-in"; 
 	    }
 	}
 
@@ -191,14 +189,12 @@ public class IngenieurController {
 	            List<Compétence> existingCompetences = profil.getCompétences();
 	            String[] newCompetenceArray = competences.split(",");
 
-	            // Supprimer les compétences qui ne sont plus sélectionnées
 	            for (Compétence existingCompetence : existingCompetences) {
 	                if (!Arrays.asList(newCompetenceArray).contains(existingCompetence.getNom())) {
 	                    compétenceRepo.delete(existingCompetence);
 	                }
 	            }
 
-	            // Ajouter les nouvelles compétences
 	            for (String competenceName : newCompetenceArray) {
 	                String CompetenceName = competenceName.trim();
 	                if (existingCompetences.stream().noneMatch(c -> c.getNom().equals(CompetenceName))) {
@@ -212,14 +208,13 @@ public class IngenieurController {
 	            List<Langue> existingLangue = profil.getLangues();
 	            String[] newLangueArray = langues.split(",");
 
-	            // Supprimer les langues qui ne sont plus sélectionnées
+	            
 	            for (Langue existingLangues : existingLangue) {
 	                if (!Arrays.asList(newLangueArray).contains(existingLangues.getNom())) {
 	                    langueRepo.delete(existingLangues);
 	                }
 	            }
 
-	            // Ajouter les nouvelles langues
 	            for (String LangueNom : newLangueArray) {
 	                String LangueName = LangueNom.trim();
 	                if (existingLangue.stream().noneMatch(c -> c.getNom().equals(LangueName))) {
@@ -232,11 +227,10 @@ public class IngenieurController {
 
 	            return "redirect:/account";
 	        } else {
-	            // Gérer le cas où le profil est nul
+	            
 	            return "error";
 	        }
 	    } else {
-	        // Gérer le cas où userId n'est pas présent dans la session
 	        return "/sign-in";
 	    }
 	}
