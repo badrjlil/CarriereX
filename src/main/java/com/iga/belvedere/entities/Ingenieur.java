@@ -47,7 +47,10 @@ public class Ingenieur extends Utilisateur {
 	}
 
 	public Profil getProfil() {
-		return profil;
+	    if (profil == null) {
+	        profil = new Profil();
+	    }
+	    return profil;
 	}
 
 	public void setProfil(Profil profil) {

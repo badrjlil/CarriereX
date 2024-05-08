@@ -121,26 +121,47 @@ public class IngenieurController {
 
 	@GetMapping("/account")
 	public String account(Model model, HttpSession session) {
-		if (session.getAttribute("userId") != null) {
-			Ingenieur ing = ingenieurRepo.getById((int) session.getAttribute("userId"));
-			model.addAttribute("ing", ing);
+	    Integer userId = (Integer) session.getAttribute("userId");
+	    if (userId != null) {
+	        Ingenieur ing = ingenieurRepo.findById(userId).orElse(null);
+	        if (ing != null) {
+	            model.addAttribute("ing", ing);
 
-			Profil profil = profilRepo.findByIng(ing);
-			model.addAttribute("profil", profil);
+	            Profil profil = ing.getProfil();
+	            if (profil != null) {
+	                model.addAttribute("profil", profil);
 
-			List<Compétence> competences = ing.getProfil().getCompétences();
-			String competencesString = competences.stream().map(Compétence::getNom).collect(Collectors.joining(","));
-			model.addAttribute("competencesString", competencesString);
+	                List<Compétence> competences = profil.getCompétences();
+	                if (competences != null) {
+	                    String competencesString = competences.stream().map(Compétence::getNom).collect(Collectors.joining(","));
+	                    model.addAttribute("competencesString", competencesString);
+	                } else {
+	                    model.addAttribute("competencesString", "");
+	                }
 
-			List<Langue> langue = ing.getProfil().getLangues();
-			String languesString = langue.stream().map(Langue::getNom).collect(Collectors.joining(","));
-			model.addAttribute("languesString", languesString);
+	                List<Langue> langues = profil.getLangues();
+	                if (langues != null) {
+	                    String languesString = langues.stream().map(Langue::getNom).collect(Collectors.joining(","));
+	                    model.addAttribute("languesString", languesString);
+	                } else {
+	                    model.addAttribute("languesString", "");
+	                }
 
-			return "account";
-		} else {
-			return "/sign-in";
-		}
+	                return "account";
+	            } else {
+	                // Gérer le cas où le profil est nul
+	                return "error"; // Rediriger vers une page d'erreur appropriée
+	            }
+	        } else {
+	            // Gérer le cas où l'ingénieur n'est pas trouvé
+	            return "error"; // Rediriger vers une page d'erreur appropriée
+	        }
+	    } else {
+	        // Gérer le cas où userId n'est pas présent dans la session
+	        return "/sign-in"; // Rediriger vers la page de connexion
+	    }
 	}
+
 
 	@GetMapping("/sign-out")
 	public String sign_out(HttpSession session) {
@@ -150,66 +171,74 @@ public class IngenieurController {
 
 	@PostMapping("/saveBasicInfo")
 	public String saveBasicInfo(HttpSession session, @RequestParam String nom, @RequestParam String prenom,
-			@RequestParam String email, @RequestParam String telephone, @RequestParam String titre,@RequestParam String Category,
-			@RequestParam int age,@RequestParam int experience, @RequestParam String competences, @RequestParam String langues) {
-		if (session.getAttribute("userId") != null) {
-			Ingenieur ing = ingenieurRepo.getById((int) session.getAttribute("userId"));
-			Profil profil = profilRepo.findByIng(ing);
-			ing.setNom(nom);
-			ing.setPrenom(prenom);
-			ing.setEmail(email);
-			ing.setTelephone(telephone);
-			profil.setTitre(titre);
-			profil.setExperience(experience);
-			profil.setCategory(Category);
-			ing.setAge(age);
-			ingenieurRepo.save(ing);
+	        @RequestParam String email, @RequestParam String telephone, @RequestParam String titre, @RequestParam String Category,
+	        @RequestParam int age, @RequestParam int experience, @RequestParam String competences, @RequestParam String langues) {
+	    if (session.getAttribute("userId") != null) {
+	        Ingenieur ing = ingenieurRepo.getById((int) session.getAttribute("userId"));
+	        Profil profil = profilRepo.findByIng(ing);
+	        ing.setNom(nom);
+	        ing.setPrenom(prenom);
+	        ing.setEmail(email);
+	        ing.setTelephone(telephone);
+	        if (profil != null) {
+	            profil.setTitre(titre);
+	            profil.setExperience(experience);
+	            profil.setCategory(Category);
 
+	            ing.setAge(age);
+	            ingenieurRepo.save(ing);
 
-			List<Compétence> existingCompetences = profil.getCompétences();
-			String[] newCompetenceArray = competences.split(",");
+	            List<Compétence> existingCompetences = profil.getCompétences();
+	            String[] newCompetenceArray = competences.split(",");
 
-			// kimseh man la base de données dakchi li n9asnah
-			for (Compétence existingCompetence : existingCompetences) {
-				if (!Arrays.asList(newCompetenceArray).contains(existingCompetence.getNom())) {
-					compétenceRepo.delete(existingCompetence);
-				}
-			}
+	            // Supprimer les compétences qui ne sont plus sélectionnées
+	            for (Compétence existingCompetence : existingCompetences) {
+	                if (!Arrays.asList(newCompetenceArray).contains(existingCompetence.getNom())) {
+	                    compétenceRepo.delete(existingCompetence);
+	                }
+	            }
 
-			// kizid f la base de données dakchi li makayench
-			for (String competenceName : newCompetenceArray) {
-				String CompetenceName = competenceName.trim();
-				if (existingCompetences.stream().noneMatch(c -> c.getNom().equals(CompetenceName))) {
-					Compétence newCompetence = new Compétence();
-					newCompetence.setNom(CompetenceName);
-					newCompetence.setProfil(profil);
-					compétenceRepo.save(newCompetence);
-				}
-			}
+	            // Ajouter les nouvelles compétences
+	            for (String competenceName : newCompetenceArray) {
+	                String CompetenceName = competenceName.trim();
+	                if (existingCompetences.stream().noneMatch(c -> c.getNom().equals(CompetenceName))) {
+	                    Compétence newCompetence = new Compétence();
+	                    newCompetence.setNom(CompetenceName);
+	                    newCompetence.setProfil(profil);
+	                    compétenceRepo.save(newCompetence);
+	                }
+	            }
 
-			List<Langue> existingLangue = profil.getLangues();
-			String[] newLangueArray = langues.split(",");
+	            List<Langue> existingLangue = profil.getLangues();
+	            String[] newLangueArray = langues.split(",");
 
-			for (Langue existingLangues : existingLangue) {
-				if (!Arrays.asList(newLangueArray).contains(existingLangues.getNom())) {
-					langueRepo.delete(existingLangues);
-				}
-			}
+	            // Supprimer les langues qui ne sont plus sélectionnées
+	            for (Langue existingLangues : existingLangue) {
+	                if (!Arrays.asList(newLangueArray).contains(existingLangues.getNom())) {
+	                    langueRepo.delete(existingLangues);
+	                }
+	            }
 
-			for (String LangueNom : newLangueArray) {
-				String LangueName = LangueNom.trim();
-				if (existingLangue.stream().noneMatch(c -> c.getNom().equals(LangueName))) {
-					Langue newLangue = new Langue();
-					newLangue.setNom(LangueName);
-					newLangue.setProfil(profil);
-					langueRepo.save(newLangue);
-				}
-			}
+	            // Ajouter les nouvelles langues
+	            for (String LangueNom : newLangueArray) {
+	                String LangueName = LangueNom.trim();
+	                if (existingLangue.stream().noneMatch(c -> c.getNom().equals(LangueName))) {
+	                    Langue newLangue = new Langue();
+	                    newLangue.setNom(LangueName);
+	                    newLangue.setProfil(profil);
+	                    langueRepo.save(newLangue);
+	                }
+	            }
 
-			return "redirect:/account";
-		} else {
-			return "/sign-in";
-		}
+	            return "redirect:/account";
+	        } else {
+	            // Gérer le cas où le profil est nul
+	            return "error";
+	        }
+	    } else {
+	        // Gérer le cas où userId n'est pas présent dans la session
+	        return "/sign-in";
+	    }
 	}
 
 	@PostMapping("/saveAddress")
