@@ -135,4 +135,8 @@ public class myController {
 		
 		return "404";
 	}
+	@GetMapping("/dashboard")
+	public String dashbard() {
+		return "dashboard/employer-dashboard.html";
+	}
 }
