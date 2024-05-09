@@ -1,5 +1,6 @@
 package com.iga.belvedere.entities;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,6 +18,7 @@ public class Keyword {
     private String nom;
     
     @ManyToOne
+    (cascade = CascadeType.ALL)
     @JoinColumn(name = "emploi_id")
     private Emploi emploi;
 
@@ -27,6 +29,10 @@ public class Keyword {
 		this.emploi = emploi;
 	}
 	
+	public Keyword(String keyword) {
+	    this.nom = keyword;
+	}
+
 
 	public Keyword() {
 		super();

@@ -12,13 +12,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.iga.belvedere.entities.Catégorie;
 import com.iga.belvedere.entities.Emploi;
 import com.iga.belvedere.entities.Employeur;
+import com.iga.belvedere.entities.Keyword;
 import com.iga.belvedere.entities.Langue;
 import com.iga.belvedere.entities.Ville;
 import com.iga.belvedere.repositories.LangueRepository;
 import com.iga.belvedere.repositories.categorieRepository;
 import com.iga.belvedere.repositories.emploiRepository;
 import com.iga.belvedere.repositories.employeurRepository;
+
 import com.iga.belvedere.repositories.villeRepository;
+
+import com.iga.belvedere.repositories.keywordRepository;
+
 
 @Controller
 public class EmployeurController {
@@ -32,6 +37,8 @@ public class EmployeurController {
 	private LangueRepository langueRepo;
 	@Autowired
 	private villeRepository villeRepo;
+	@Autowired
+	private keywordRepository keywordRepo;
 
 
 	@GetMapping("/post-job")
@@ -50,17 +57,25 @@ public class EmployeurController {
 	}
 
 	@PostMapping("/saveEmploi")
-	public String saveEmploi(@RequestParam Catégorie catégorie,@RequestParam Langue langue, @RequestParam Ville ville,@ModelAttribute("newEmploi") Emploi emploi) {
-		Emploi emplois = new Emploi();
+
+	public String saveEmploi(@RequestParam Catégorie catégorie,@RequestParam Langue langue,@RequestParam Ville ville, @ModelAttribute("newEmploi") Emploi emploi,
+			@RequestParam String keywordsInput) {
+
 		Employeur employeur = employeurRepo.findById(1).orElse(null);
 		emploi.setEmployeur(employeur);
 		emploi.setCatégorie(catégorie);
 		emploi.setLangue(langue);
-		emploi.setVille(ville);
-		emploiRepo.save(emploi);
 
-		// employeur.setId(1);
-		// emplois.setEmployeur(employeur);
+		emploi.setVille(ville);
+
+		String[] keywords = keywordsInput.split(",");
+		for (String keywordStr : keywords) {
+		    Keyword keyword = new Keyword(keywordStr.trim());
+		    keyword.setEmploi(emploi);
+		    keywordRepo.save(keyword);
+		}
+
+		emploiRepo.save(emploi);
 
 		return "redirect:/";
 	}
