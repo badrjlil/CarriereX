@@ -121,11 +121,14 @@
 								placeholder="website.com">
 						</div>
 					</div>
+					
 					<div class="col-md-6">
 						<div class="form-group">
 							<label>Localisation</label>
-							<input type="text" class="form-control" id="exampleInput5" placeholder="g. London"
-								name="localisation" required>
+							<select class="ville" name="ville" th:object="${ville}">
+								<option th:each="v:${villes}" th:text="${v.nom}" th:value="${v.id}"></option>
+							</select>
+						
 						</div>
 					</div>
 					<div class="col-md-6">
@@ -169,13 +172,7 @@
 							</select>
 						</div>
 					</div>
-					<div class="col-md-6">
-						<div class="form-group">
-							<label>Date</label>
-							<input type="date" class="form-control" name="date" id="exampleInput8"
-								placeholder="" required>
-						</div>
-					</div>
+					
 					<div class="col-md-6">
 						<div class="form-group">
 							<label>Deadline</label>

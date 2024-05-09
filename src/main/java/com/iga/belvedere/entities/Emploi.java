@@ -77,6 +77,9 @@ public class Emploi {
 		this.catégorie = catégorie;
 		this.ville = ville;
 	}
+	
+
+	
 
 	public int getId() {
 		return id;
@@ -160,6 +163,7 @@ public class Emploi {
 
 	public Emploi() {
 		super();
+		 this.date = LocalDate.now();
 	}
 
 	public Catégorie getCatégorie() {
@@ -219,12 +223,12 @@ public class Emploi {
 	}
 
 	public LocalDate getDate() {
-		return date;
-	}
+        return date;
+    }
 
-	public void setDate(LocalDate date) {
-		this.date = date;
-	}
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
 
 	public Ville getVille() {
 		return ville;
