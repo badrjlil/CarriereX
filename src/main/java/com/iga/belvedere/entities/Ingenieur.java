@@ -12,8 +12,8 @@ public class Ingenieur extends Utilisateur {
 	private int age;
 	private String sexe;
 
-	@OneToOne
-	private Profil profil;
+	@OneToOne (mappedBy = "ingenieur")
+    private Profil profil;
 
 	@OneToMany(mappedBy = "ingenieur")
 	private List<Application> applications;
@@ -47,10 +47,7 @@ public class Ingenieur extends Utilisateur {
 	}
 
 	public Profil getProfil() {
-	    if (profil == null) {
-	        profil = new Profil();
-	    }
-	    return profil;
+		return profil;
 	}
 
 	public void setProfil(Profil profil) {

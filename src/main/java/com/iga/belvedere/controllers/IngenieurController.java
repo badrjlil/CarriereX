@@ -121,45 +121,26 @@ public class IngenieurController {
 
 	@GetMapping("/account")
 	public String account(Model model, HttpSession session) {
-	    Integer userId = (Integer) session.getAttribute("userId");
-	    if (userId != null) {
-	        Ingenieur ing = ingenieurRepo.findById(userId).orElse(null);
-	        if (ing != null) {
-	            model.addAttribute("ing", ing);
+		if (session.getAttribute("userId") != null) {
+			Ingenieur ing = ingenieurRepo.getById((int) session.getAttribute("userId"));
+			model.addAttribute("ing", ing);
 
-	            Profil profil = ing.getProfil();
-	            if (profil != null) {
-	                model.addAttribute("profil", profil);
+			Profil profil = profilRepo.findByIng(ing);
+			model.addAttribute("profil", profil);
 
-	                List<Compétence> competences = profil.getCompétences();
-	                if (competences != null) {
-	                    String competencesString = competences.stream().map(Compétence::getNom).collect(Collectors.joining(","));
-	                    model.addAttribute("competencesString", competencesString);
-	                } else {
-	                    model.addAttribute("competencesString", "");
-	                }
+			List<Compétence> competences = ing.getProfil().getCompétences();
+			String competencesString = competences.stream().map(Compétence::getNom).collect(Collectors.joining(","));
+			model.addAttribute("competencesString", competencesString);
 
-	                List<Langue> langues = profil.getLangues();
-	                if (langues != null) {
-	                    String languesString = langues.stream().map(Langue::getNom).collect(Collectors.joining(","));
-	                    model.addAttribute("languesString", languesString);
-	                } else {
-	                    model.addAttribute("languesString", "");
-	                }
+			List<Langue> langue = ing.getProfil().getLangues();
+			String languesString = langue.stream().map(Langue::getNom).collect(Collectors.joining(","));
+			model.addAttribute("languesString", languesString);
 
-	                return "account";
-	            } else {
-	               
-	                return "error"; 
-	            }
-	        } else {
-	            return "error";
-	        }
-	    } else {
-	        return "/sign-in"; 
-	    }
+			return "account";
+		} else {
+			return "/sign-in";
+		}
 	}
-
 
 	@GetMapping("/sign-out")
 	public String sign_out(HttpSession session) {
@@ -169,70 +150,66 @@ public class IngenieurController {
 
 	@PostMapping("/saveBasicInfo")
 	public String saveBasicInfo(HttpSession session, @RequestParam String nom, @RequestParam String prenom,
-	        @RequestParam String email, @RequestParam String telephone, @RequestParam String titre, @RequestParam String Category,
-	        @RequestParam int age, @RequestParam int experience, @RequestParam String competences, @RequestParam String langues) {
-	    if (session.getAttribute("userId") != null) {
-	        Ingenieur ing = ingenieurRepo.getById((int) session.getAttribute("userId"));
-	        Profil profil = profilRepo.findByIng(ing);
-	        ing.setNom(nom);
-	        ing.setPrenom(prenom);
-	        ing.setEmail(email);
-	        ing.setTelephone(telephone);
-	        if (profil != null) {
-	            profil.setTitre(titre);
-	            profil.setExperience(experience);
-	            profil.setCategory(Category);
+			@RequestParam String email, @RequestParam String telephone, @RequestParam String titre,@RequestParam String Category,
+			@RequestParam int age,@RequestParam int experience, @RequestParam String competences, @RequestParam String langues) {
+		if (session.getAttribute("userId") != null) {
+			Ingenieur ing = ingenieurRepo.getById((int) session.getAttribute("userId"));
+			Profil profil = profilRepo.findByIng(ing);
+			ing.setNom(nom);
+			ing.setPrenom(prenom);
+			ing.setEmail(email);
+			ing.setTelephone(telephone);
+			profil.setTitre(titre);
+			profil.setExperience(experience);
+			profil.setCategory(Category);
+			ing.setAge(age);
+			ingenieurRepo.save(ing);
 
-	            ing.setAge(age);
-	            ingenieurRepo.save(ing);
 
-	            List<Compétence> existingCompetences = profil.getCompétences();
-	            String[] newCompetenceArray = competences.split(",");
+			List<Compétence> existingCompetences = profil.getCompétences();
+			String[] newCompetenceArray = competences.split(",");
 
-	            for (Compétence existingCompetence : existingCompetences) {
-	                if (!Arrays.asList(newCompetenceArray).contains(existingCompetence.getNom())) {
-	                    compétenceRepo.delete(existingCompetence);
-	                }
-	            }
+			// kimseh man la base de données dakchi li n9asnah
+			for (Compétence existingCompetence : existingCompetences) {
+				if (!Arrays.asList(newCompetenceArray).contains(existingCompetence.getNom())) {
+					compétenceRepo.delete(existingCompetence);
+				}
+			}
 
-	            for (String competenceName : newCompetenceArray) {
-	                String CompetenceName = competenceName.trim();
-	                if (existingCompetences.stream().noneMatch(c -> c.getNom().equals(CompetenceName))) {
-	                    Compétence newCompetence = new Compétence();
-	                    newCompetence.setNom(CompetenceName);
-	                    newCompetence.setProfil(profil);
-	                    compétenceRepo.save(newCompetence);
-	                }
-	            }
+			// kizid f la base de données dakchi li makayench
+			for (String competenceName : newCompetenceArray) {
+				String CompetenceName = competenceName.trim();
+				if (existingCompetences.stream().noneMatch(c -> c.getNom().equals(CompetenceName))) {
+					Compétence newCompetence = new Compétence();
+					newCompetence.setNom(CompetenceName);
+					newCompetence.setProfil(profil);
+					compétenceRepo.save(newCompetence);
+				}
+			}
 
-	            List<Langue> existingLangue = profil.getLangues();
-	            String[] newLangueArray = langues.split(",");
+			List<Langue> existingLangue = profil.getLangues();
+			String[] newLangueArray = langues.split(",");
 
-	            
-	            for (Langue existingLangues : existingLangue) {
-	                if (!Arrays.asList(newLangueArray).contains(existingLangues.getNom())) {
-	                    langueRepo.delete(existingLangues);
-	                }
-	            }
+			for (Langue existingLangues : existingLangue) {
+				if (!Arrays.asList(newLangueArray).contains(existingLangues.getNom())) {
+					langueRepo.delete(existingLangues);
+				}
+			}
 
-	            for (String LangueNom : newLangueArray) {
-	                String LangueName = LangueNom.trim();
-	                if (existingLangue.stream().noneMatch(c -> c.getNom().equals(LangueName))) {
-	                    Langue newLangue = new Langue();
-	                    newLangue.setNom(LangueName);
-	                    newLangue.setProfil(profil);
-	                    langueRepo.save(newLangue);
-	                }
-	            }
+			for (String LangueNom : newLangueArray) {
+				String LangueName = LangueNom.trim();
+				if (existingLangue.stream().noneMatch(c -> c.getNom().equals(LangueName))) {
+					Langue newLangue = new Langue();
+					newLangue.setNom(LangueName);
+					newLangue.setProfil(profil);
+					langueRepo.save(newLangue);
+				}
+			}
 
-	            return "redirect:/account";
-	        } else {
-	            
-	            return "error";
-	        }
-	    } else {
-	        return "/sign-in";
-	    }
+			return "redirect:/account";
+		} else {
+			return "/sign-in";
+		}
 	}
 
 	@PostMapping("/saveAddress")
@@ -312,13 +289,17 @@ public class IngenieurController {
 	@PostMapping("/sign-up")
 	public String sign_up(@RequestParam String email, @RequestParam String password, @RequestParam String prenom,
 			@RequestParam String nom) {
-		Ingenieur ing = new Ingenieur();
-		ing.setPrenom(prenom);
-		ing.setNom(nom);
-		ing.setEmail(email);
-		ing.setPassword(password);
-		ingenieurRepo.save(ing);
-		return "redirect:/account";
+	    Ingenieur ing = new Ingenieur();
+	    ing.setPrenom(prenom);
+	    ing.setNom(nom);
+	    ing.setEmail(email);
+	    ing.setPassword(password);
+	    //ingenieurRepo.save(ing);
+	    Profil profil = new Profil();
+        profil.setIngenieur(ing);
+        ingenieurRepo.save(ing);
+        profilRepo.save(profil);
+	    return "redirect:/account";
 	}
 
 	@GetMapping("/formations")
