@@ -341,17 +341,16 @@
 												</div>
 											</div>
 
-													<div class="col-md-6">
-						<div class="form-group">
-
-							<label>Localisation</label>
-							<select class="ville" name="ville" th:object="${ville}">
-								<option th:each="v:${villes}" th:text="${v.nom}" th:value="${v.id}"></option>
+											<div class="col-lg-4 column-lg-full">
+												<div class="input-box">
+													<label class="label-text">Langue</label>
+													<div class="form-group user-chosen-select-container">
+														<select class="user-chosen-select"  name="langue" th:object="${langue}">
+															<option th:each="l:${langues}" th:text="${l.nom}" th:value="${l.id}"></option>
 							</select>
-
-							
-						</div>
-					</div>
+													</div>
+													<!-- end form-group -->
+												</div>
 											</div>
 											<div class="col-lg-4 column-lg-full">
 												<div class="input-box">
