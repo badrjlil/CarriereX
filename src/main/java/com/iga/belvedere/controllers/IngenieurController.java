@@ -232,11 +232,10 @@ public class IngenieurController {
 	public String saveFormation(HttpSession session, @RequestParam String niveau,@RequestParam String description, @RequestParam String spécialité,
 			@RequestParam String institution, @RequestParam Date debut, @RequestParam Date fin) {
 		if (session.getAttribute("userId") != null) {
+			
 			Integer userId = ((Integer) session.getAttribute("userId")).intValue();
-			Profil profil = profilRepo.findById(userId).orElse(null);
-			if (profil == null) {
-				return "/sign-in";
-			}
+			Ingenieur ing = ingenieurRepo.getById(userId);
+			Profil profil = profilRepo.findByIng(ing);//Id(userId).orElse(null);
 			Formation formation = new Formation();
 			formation.setNiveau(niveau);
 			formation.setSpécialité(spécialité);
@@ -258,7 +257,8 @@ public class IngenieurController {
 			@RequestParam String description, @RequestParam Date debut, @RequestParam Date fin) {
 		if (session.getAttribute("userId") != null) {
 			Integer userId = ((Integer) session.getAttribute("userId")).intValue();
-			Profil profil = profilRepo.findById(userId).orElse(null);
+			Ingenieur ing = ingenieurRepo.getById(userId);
+			Profil profil = profilRepo.findByIng(ing);
 			if (profil == null) {
 				return "/sign-in";
 			}
@@ -419,6 +419,11 @@ public class IngenieurController {
 		} else {
 			return "/sign-in";
 		}
-
+	}
+	
+	@GetMapping("emploiAppliqué")
+	public String emploiAppliqué() {
+		
+		return "emploiAppliqué";
 	}
 }
