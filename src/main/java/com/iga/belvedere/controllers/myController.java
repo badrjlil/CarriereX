@@ -125,18 +125,21 @@ public class myController {
 		return "terms-condition";
 	}
 	@GetMapping("/testimonial")
-	public String testimonial() {
-		
+	public String testimonial() {		
 		return "testimonial";
 	}
 	
 	@GetMapping("/404")
-	public String error404() {
-		
+	public String error404() {	
 		return "404";
 	}
 	@GetMapping("/dashboard")
 	public String dashbard() {
 		return "dashboard/employer-dashboard.html";
 	}
+	@GetMapping("/postJob")
+	public String postJobdashbard() {
+		return "dashboard/employer-dashboard-post-job.html";
+	}
+	
 }
