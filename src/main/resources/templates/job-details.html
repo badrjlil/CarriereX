@@ -115,40 +115,12 @@
 								</div>
 								<div class="details-text">
 									<h3>Description</h3>
-									<div th:text="${emploi.description}"></div>
-									<!--<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                        Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                        unknown printer took a galley of type and scrambled it to make a type specimen
-                                        book. It has survived not only five centuries,but also the leap into essentially
-                                        unchanged.</p>
-                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority
-                                        have suffered alteration in some form, by injected humour, or randomised words
-                                        which don't look even slightly believable.</p>-->
+									<div th:utext="${emploi.description}"></div>
 								</div>
 								<div class="details-text">
 									<h3>Exigences</h3>
 									<p></p>
-									<pre th:text="${emploi.exigences}">
-                                        <!--<li>
-                                            <i class="bx bx-check"></i>
-                                            Work experience
-                                        </li>
-                                        <li>
-                                            <i class="bx bx-check"></i>
-                                            Skills (soft skills and/or technical skills)
-                                        </li>
-                                        <li>
-                                            <i class="bx bx-check"></i>
-                                            WPersonal qualities and attributes.
-                                        </li>
-                                        <li>
-                                            <i class="bx bx-check"></i>
-                                            Support software roll-outs to production.
-                                        </li>
-                                        <li>
-                                            <i class="bx bx-check"></i>
-                                            Guide and mentor junior engineers. Serve as team lead if appropriate.
-                                        </li>-->
+									<pre th:utext="${emploi.exigences}">
                                     </pre>
 								</div>
 								<div class="details-text">

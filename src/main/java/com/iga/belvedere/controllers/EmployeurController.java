@@ -77,7 +77,7 @@ public class EmployeurController {
 
 		emploiRepo.save(emploi);
 
-		return "redirect:dashboard/employer-dashboard.html";
+		return "redirect:/dashboard";
 	
 	}
 
