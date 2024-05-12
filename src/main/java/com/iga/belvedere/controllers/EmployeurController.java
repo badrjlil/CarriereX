@@ -41,7 +41,7 @@ public class EmployeurController {
 	private keywordRepository keywordRepo;
 
 
-	@GetMapping("/post-job")
+	@GetMapping("/postJob")
 	public String Ajoutjob(Model model) {
 		Emploi newEmploi = new Emploi();
 		List<Employeur> employeurs = employeurRepo.findAll();
@@ -53,7 +53,7 @@ public class EmployeurController {
 		model.addAttribute("catégories", catégories);
 		model.addAttribute("langues", langues);
 		model.addAttribute("villes",villes);
-		return "post-job";
+		return "dashboard/employer-dashboard-post-job.html";
 	}
 
 	@PostMapping("/saveEmploi")
@@ -77,7 +77,8 @@ public class EmployeurController {
 
 		emploiRepo.save(emploi);
 
-		return "redirect:/";
+		return "redirect:dashboard/employer-dashboard.html";
+	
 	}
 
 	@GetMapping("/catagories")

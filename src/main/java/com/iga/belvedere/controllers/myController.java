@@ -147,10 +147,6 @@ public class myController {
 	public String dashbard() {
 		return "dashboard/employer-dashboard.html";
 	}
-	
-	@GetMapping("/postJob")
-	public String postJobdashbard() {
-		return "dashboard/employer-dashboard-post-job.html";
-	}
+
 	
 }
