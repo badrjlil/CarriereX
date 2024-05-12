@@ -91,15 +91,6 @@ public class IngenieurController {
 	@GetMapping("/job-details")
 	public String jobDetails(HttpSession session, @RequestParam int id, Model model) {
 		Emploi emploi = repoEmploi.getById(id);
-
-		if (emploi.getImageData() != null) {
-			String encodedImage = Base64.getEncoder().encodeToString(emploi.getImageData());
-			emploi.setEncodedImage(encodedImage);
-		}
-		if (emploi.getEmployeur().getImage() != null) {
-			String encodedImage = Base64.getEncoder().encodeToString(emploi.getEmployeur().getImage());
-			emploi.getEmployeur().setEncodedImage(encodedImage);
-		}
 		model.addAttribute("emploi", emploi);
 		if (session.getAttribute("userId") != null) {
 			Ingenieur ing = ingenieurRepo.getById((int) session.getAttribute("userId"));
@@ -439,12 +430,6 @@ public class IngenieurController {
 			model.addAttribute("ing", ing);
 			List<Application> applications = applicationRepo.findAllAppByIngenieur(ing);
 
-			applications.forEach(app -> {
-				if (app.getEmploi().getImageData() != null) {
-					String encodedImage = Base64.getEncoder().encodeToString(app.getEmploi().getImageData());
-					app.getEmploi().setEncodedImage(encodedImage);
-				}
-			});
 			model.addAttribute("applications", applications);
 		}
 

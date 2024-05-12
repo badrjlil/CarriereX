@@ -1,5 +1,6 @@
 package com.iga.belvedere.entities;
 
+import java.util.Base64;
 import java.util.List;
 import jakarta.persistence.*;
 
@@ -42,24 +43,14 @@ public class Employeur extends Utilisateur{
 		this.status = status;
 	}
 
-	public byte[] getImage() {
-		return image;
+	public String getImage() {
+		return Base64.getEncoder().encodeToString(this.image);
 	}
 
 	public void setImage(byte[] image) {
 		this.image = image;
 	}
-	
-	@Transient
-	private String encodedImage;
 
-	public String getEncodedImage() {
-	    return encodedImage;
-	}
-
-	public void setEncodedImage(String encodedImage) {
-	    this.encodedImage = encodedImage;
-	}
 	
 
 }

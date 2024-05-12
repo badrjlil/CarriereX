@@ -91,7 +91,7 @@
 									<div class="row align-items-center">
 										<div class="col-md-2">
 											<div class="company-logo">
-												<img th:src="@{'data:image/jpeg;base64,' + ${emploi.encodedImage}}" alt="logo">
+												<img th:src="@{'data:image/jpeg;base64,' + ${emploi.imageData}}" alt="logo">
 											</div>
 										</div>
 										<div class="col-md-10">
@@ -202,7 +202,7 @@
 					<div class="job-sidebar">
 						<h3>Posté par</h3>
 						<div class="posted-by">
-							<img style="width: 100px; height: 100px;" th:src="@{'data:image/jpeg;base64,' + ${emploi.employeur.encodedImage}}" alt="client image">
+							<img style="width: 100px; height: 100px;" th:src="@{'data:image/jpeg;base64,' + ${emploi.employeur.image}}" alt="client image">
 							<h4 th:text="${emploi.employeur.prenom} + ' ' +  ${emploi.employeur.nom}">Doe</h4>
 							<span th:text="${emploi.employeur.status}"></span>
 						</div>

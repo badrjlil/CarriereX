@@ -2,6 +2,7 @@ package com.iga.belvedere.entities;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.Base64;
 import java.util.List;
 
 import jakarta.persistence.*;
@@ -184,8 +185,8 @@ public class Emploi {
 		this.deadline = deadline;
 	}
 
-	public byte[] getImageData() {
-		return imageData;
+	public String getImageData() {
+		return Base64.getEncoder().encodeToString(this.imageData);
 	}
 
 	public void setImageData(byte[] imageData) {
@@ -248,15 +249,5 @@ public class Emploi {
 		this.applications = applications;
 	}
 	
-	@Transient
-	private String encodedImage;
-
-	public String getEncodedImage() {
-	    return encodedImage;
-	}
-
-	public void setEncodedImage(String encodedImage) {
-	    this.encodedImage = encodedImage;
-	}
 
 }
