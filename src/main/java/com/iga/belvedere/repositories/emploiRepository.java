@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.iga.belvedere.entities.Emploi;
+import com.iga.belvedere.entities.Employeur;
 import com.iga.belvedere.entities.Ville;
 
 public interface emploiRepository extends JpaRepository<Emploi, Integer>{
@@ -17,4 +18,7 @@ public interface emploiRepository extends JpaRepository<Emploi, Integer>{
 	
 	@Query("SELECT emp FROM Emploi emp WHERE emp.titre LIKE %:keyword% AND emp.ville.id = :ville")
 	public List<Emploi> findAllByKeyword(@Param("keyword") String keyword, @Param("ville") int ville);
+	
+	@Query("SELECT emp FROM Emploi emp WHERE emp.employeur = :employeur")
+	public List<Emploi> findAllByEmployeur(@Param("employeur") Employeur employeur);
 }

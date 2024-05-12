@@ -133,14 +133,18 @@
 				<div class="col-md-8">
 					<div class="account-details">
 						<h3>Les emplois appliqués</h3>
-						<div th:each="app : ${applications}" style="padding: 10px 0 10px 0; border: 2px solid black; border-radius: 50px; margin-top: 10px;">
-							<img th:src="@{'data:image/jpeg;base64,' + ${app.emploi.imageData}}" style="width: 50px; border-radius: 50%; margin-left: 20px;">
-							<a th:text="${app.dateApplication}"></a>
-							<a th:text="' - ' + ${app.emploi.titre}"></a>
-							<a th:text="' - (' + ${app.emploi.nomEntreprise} + ')'"></a>
-							<span>
-								<a th:href="'job-details?id=' + ${app.emploi.id}"><i class='bx bx-show'></i></a>
-							</span>
+						<div th:each="app : ${applications}" style="padding: 10px 0 10px 0;
+						 border: 2px solid black; border-radius: 50px; margin-top: 10px; display: flex; justify-content: space-between; 
+						 justify-items: center; padding: 10px 20px;">
+							<div >
+								<img th:src="@{'data:image/jpeg;base64,' + ${app.emploi.imageData}}" style="width: 50px; border-radius: 50%;">
+								<a th:text="${app.dateApplication}"></a>
+								<a th:text="' - ' + ${app.emploi.titre}"></a>
+								<a th:text="' - (' + ${app.emploi.nomEntreprise} + ')'"></a>
+							</div>
+							<div style="margin: auto 0; ">
+								<a style="font-size: 1.5em;" th:href="'job-details?id=' + ${app.emploi.id}"><i class='bx bx-show'></i></a>
+							</div>
 							
 						</div>
 					</div>

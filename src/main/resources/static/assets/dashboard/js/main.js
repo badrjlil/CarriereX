@@ -383,7 +383,7 @@ Author Email:   contact@tecydevs.com
         /*==== jqte text editor =====*/
         if ($(userTextEditor).length) {
             $(userTextEditor).jqte({
-                placeholder: "Rédigez votre texte ",
+                placeholder: "",
                 formats: [
                     ["p","Paragraph"],
                     ["h1","Heading 1"],

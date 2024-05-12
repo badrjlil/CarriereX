@@ -139,7 +139,7 @@ public class myController {
 	
 	@GetMapping("/dashboard")
 	public String dashbard() {
-		return "dashboard/employer-dashboard.html";
+		return "dashboard/index";
 	}
 
 	
