@@ -1,6 +1,7 @@
 package com.iga.belvedere.controllers;
 
 
+import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,12 @@ public class myController {
 		List<Catégorie> categories = catégorieRepo.findAll();
 		model.addAttribute("categories", categories);
 		List<Emploi> emplois = emploiRepo.findAll();
+		emplois.forEach(emp -> {
+            if (emp.getImageData() != null) {
+                String encodedImage = Base64.getEncoder().encodeToString(emp.getImageData());
+                emp.setEncodedImage(encodedImage);
+            }
+        });
 		model.addAttribute("emplois", emplois);
 		return "index";
 	}

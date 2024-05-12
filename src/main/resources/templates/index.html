@@ -123,15 +123,15 @@
 					</a>
 				</div>
 				<div th:if="${#lists.size(categories) > 6}" class="col-lg-3 col-md-4 col-sm-6">
-                    <a href="job-list.html">
-                        <div class="category-card">
-                            <br>
-                            <i class='bx bx-chevron-right'></i>
-                            <h3>Parcourir plus...</h3>
-                            <br>
-                        </div>
-                    </a>
-                </div>
+					<a href="job-list.html">
+						<div class="category-card">
+							<br>
+							<i class='bx bx-chevron-right'></i>
+							<h3>Parcourir plus...</h3>
+							<br>
+						</div>
+					</a>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -144,46 +144,45 @@
 				<p>Trouver un travail à l’ère d’Internet avec juste un CV à enregistrer et en un clic.</p>
 			</div>
 			<div class="row">
-	<div class="col-sm-6">
-					<div class="job-card" th:each="e : ${emplois}">
+				<div th:each="e : ${emplois}" class="col-sm-6">
+					<div class="job-card">
 						<div class="row align-items-center">
 							<div class="col-lg-3">
 								<div class="thumb-img">
 									<a href="job-details.html">
-										<img src="assets/img/company-logo/2.png" alt="company logo">
+										<img th:src="@{'data:image/jpeg;base64,' + ${e.encodedImage}}"
+											alt="company logo">
 									</a>
 								</div>
 							</div>
 							<div class="col-lg-6">
 								<div class="job-info">
 									<h3>
-										<a href="job-details.html" th:text="${e.titre}"></a>
+										<a th:href="'job-details?id=' + ${e.id}" th:text="${e.titre}"></a>
 									</h3>
-									
 									<ul>
-										
-										<li>Via <a href="#"th:text="${e.nomEntreprise}"></a></li>
+										<li>Via <a th:text="${e.nomEntreprise}"></a></li>
 										<li>
-											<i class="bx bx-location-plus" th:text="${e.ville.nom}"></i>
-											
+											<i class="bx bx-location-plus"></i>
+											<span th:text="${e.ville.nom}"></span>
 										</li>
 										<li>
-											<i class="bx bx-filter-alt" th:text="${e.Catégorie.nom}"></i>
-											
-										</li>
-										<li>
-											<i class="bx bx-briefcase" th:text="${e.type}"></i>
-									
+											<i class="bx bx-filter-alt"></i>
+											<span th:text="${e.catégorie.nom}"></span>
 										</li>
 									</ul>
 								</div>
 							</div>
 							<div class="col-lg-3">
 								<div class="job-save">
-									<a href="#">
-										<i class="bx bx-heart"></i>
+									<span th:text="${e.type}"></span>
+									<a th:href="'job-details?id=' + ${e.id}">
+										<i class="bx bx-show"></i>
 									</a>
-
+									<p>
+										<i class="bx bx-stopwatch"></i>
+										<a th:text="'Deadline : ' + ${e.deadline}"></a>
+									</p>
 								</div>
 							</div>
 						</div>
@@ -221,7 +220,7 @@
 				<div class="col-md-4 col-sm-6 offset-sm-3 offset-md-0">
 					<div class="use-text">
 						<span>3</span>
-						<a href="resume.html"><i class="flaticon-login" ></i></a>
+						<a href="resume.html"><i class="flaticon-login"></i></a>
 						<h3>Soumettre CV</h3>
 						<p>Envoyez votre CV pour postuler. </p>
 					</div>
@@ -350,375 +349,6 @@
 			</div>
 		</div>
 	</div>
-
-
-	<section class="pricing-section pb-70">
-		<div class="container">
-			<div class="section-title text-center">
-				<h2>Achetez nos forfaits </h2>
-			</div>
-			<div class="row">
-				<div class="col-lg-4 col-sm-6">
-					<div class="price-card">
-						<div class="price-top">
-							<h3>Gratuit</h3>
-							<i class="bx bx-user"></i>
-							<h2>0<sub>/Mois</sub></h2>
-						</div>
-						<div class="price-feature">
-							<ul>
-								<li>
-									<i class="bx bx-check"></i>
-									Apparaître dans les résultats
-								</li>
-								<li>
-									<i class="bx bx-check"></i>
-									<strong>Accepter l'application mobile</strong>
-								</li>
-								<li>
-									<i class="bx bx-check"></i>
-									Gérer directement les candidats
-								</li>
-							</ul>
-						</div>
-						<div class="price-btn">
-							<a href="post-job.html">Trouver un travail</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-sm-6">
-					<div class="price-card mt-12">
-						<div class="price-top">
-							<h3>Parrainer</h3>
-							<i class="bx bx-user"></i>
-							<h2>10<sub>/Mois</sub></h2>
-						</div>
-						<div class="price-feature">
-							<ul>
-								<li>
-									<i class="bx bx-check"></i>
-									Emplacement premium
-								</li>
-								<li>
-									<i class="bx bx-check"></i>
-									<strong>PPC sur votre travail</strong>
-								</li>
-								<li>
-									<i class="bx bx-check"></i>
-									Touchez plus de candidats
-								</li>
-								<li>
-									<i class="bx bx-check"></i>
-									Alertes d'emploi sur ordinateur et mobile
-								</li>
-							</ul>
-						</div>
-						<div class="price-btn">
-							<a href="post-job.html">Trouver un travail</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-sm-6 offset-sm-3 offset-lg-0">
-					<div class="price-card">
-						<div class="price-top">
-							<h3>Forfait Premium</h3>
-							<i class="bx bx-user"></i>
-							<h2>30<sub>/Mois</sub></h2>
-						</div>
-						<div class="price-feature">
-							<ul>
-								<li>
-									<i class="bx bx-check"></i>
-									Annonce d'emploi en ligne pendant six semaines
-								</li>
-								<li>
-									<i class="bx bx-check"></i>
-									<strong>Emplacement premium</strong>
-								</li>
-								<li>
-									<i class="bx bx-check"></i>
-									Alertes d'emploi sur ordinateur et mobile
-								</li>
-							</ul>
-						</div>
-						<div class="price-btn">
-							<a href="post-job.html">Trouver un travail</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-
-	<!-- <section class="candidate-section pb-100">
-        <div class="container">
-            <div class="section-title text-center">
-                <h2>Featured Candidates</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus</p>
-            </div>
-            <div class="condidate-slider owl-carousel owl-theme">
-                <div class="condidate-item">
-                    <div class="candidate-img">
-                        <img src="assets/img/candidate/1.jpg" alt="candidate image">
-                    </div>
-                    <div class="candidate-social">
-                        <a href="#" target="_blank"><i class="bx bxl-facebook"></i></a>
-                        <a href="#" target="_blank"><i class="bx bxl-twitter"></i></a>
-                        <a href="#" target="_blank"><i class="bx bxl-instagram"></i></a>
-                    </div>
-                    <div class="candidate-text">
-                        <h3><a href="candidate-details.html">Mibraj Alex</a></h3>
-                        <ul>
-                            <li>
-                                <i class="bx bx-filter-alt"></i>
-                                Construction & Property
-                            </li>
-                            <li>
-                                <i class="bx bx-location-plus"></i>
-                                Botchergate, Carlisle
-                            </li>
-                        </ul>
-                        <div class="bottom-text">
-                            <p>
-                                <i class="bx bx-stopwatch"></i>
-                                9D ago
-                            </p>
-                            <a href="#">
-                                <i class="bx bx-heart"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="condidate-item">
-                    <div class="candidate-img">
-                        <img src="assets/img/candidate/2.jpg" alt="candidate image">
-                    </div>
-                    <div class="candidate-social">
-                        <a href="#" target="_blank"><i class="bx bxl-facebook"></i></a>
-                        <a href="#" target="_blank"><i class="bx bxl-twitter"></i></a>
-                        <a href="#" target="_blank"><i class="bx bxl-instagram"></i></a>
-                    </div>
-                    <div class="candidate-text">
-                        <h3><a href="candidate-details.html">Felica Kareon</a></h3>
-                        <ul>
-                            <li>
-                                <i class="bx bx-filter-alt"></i>
-                                SEO Expart
-                            </li>
-                            <li>
-                                <i class="bx bx-location-plus"></i>
-                                Georgetown, USA
-                            </li>
-                        </ul>
-                        <div class="bottom-text">
-                            <p>
-                                <i class="bx bx-stopwatch"></i>
-                                8D ago
-                            </p>
-                            <a href="#">
-                                <i class="bx bx-heart"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="condidate-item">
-                    <div class="candidate-img">
-                        <img src="assets/img/candidate/3.jpg" alt="candidate image">
-                    </div>
-                    <div class="candidate-social">
-                        <a href="#" target="_blank"><i class="bx bxl-facebook"></i></a>
-                        <a href="#" target="_blank"><i class="bx bxl-twitter"></i></a>
-                        <a href="#" target="_blank"><i class="bx bxl-instagram"></i></a>
-                    </div>
-                    <div class="candidate-text">
-                        <h3><a href="candidate-details.html">Malisha Patel</a></h3>
-                        <ul>
-                            <li>
-                                <i class="bx bx-filter-alt"></i>
-                                Project Management
-                            </li>
-                            <li>
-                                <i class="bx bx-location-plus"></i>
-                                Madison, USA
-                            </li>
-                        </ul>
-                        <div class="bottom-text">
-                            <p>
-                                <i class="bx bx-stopwatch"></i>
-                                1D ago
-                            </p>
-                            <a href="#">
-                                <i class="bx bx-heart"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="condidate-item">
-                    <div class="candidate-img">
-                        <img src="assets/img/candidate/1.jpg" alt="candidate image">
-                    </div>
-                    <div class="candidate-social">
-                        <a href="#" target="_blank"><i class="bx bxl-facebook"></i></a>
-                        <a href="#" target="_blank"><i class="bx bxl-twitter"></i></a>
-                        <a href="#" target="_blank"><i class="bx bxl-instagram"></i></a>
-                    </div>
-                    <div class="candidate-text">
-                        <h3><a href="candidate-details.html">Mibraj Alex</a></h3>
-                        <ul>
-                            <li>
-                                <i class="bx bx-filter-alt"></i>
-                                Construction & Property
-                            </li>
-                            <li>
-                                <i class="bx bx-location-plus"></i>
-                                Botchergate, Carlisle
-                            </li>
-                        </ul>
-                        <div class="bottom-text">
-                            <p>
-                                <i class="bx bx-stopwatch"></i>
-                                9D ago
-                            </p>
-                            <a href="#">
-                                <i class="bx bx-heart"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="condidate-item">
-                    <div class="candidate-img">
-                        <img src="../assets/img/candidate/4.jpg" alt="candidate image">
-                    </div>
-                    <div class="candidate-social">
-                        <a href="#" target="_blank"><i class="bx bxl-facebook"></i></a>
-                        <a href="#" target="_blank"><i class="bx bxl-twitter"></i></a>
-                        <a href="#" target="_blank"><i class="bx bxl-instagram"></i></a>
-                    </div>
-                    <div class="candidate-text">
-                        <h3><a href="candidate-details.html">Quence Joes</a></h3>
-                        <ul>
-                            <li>
-                                <i class="bx bx-filter-alt"></i>
-                                Web Developer
-                            </li>
-                            <li>
-                                <i class="bx bx-location-plus"></i>
-                                Augusta, Maine
-                            </li>
-                        </ul>
-                        <div class="bottom-text">
-                            <p>
-                                <i class="bx bx-stopwatch"></i>
-                                8D ago
-                            </p>
-                            <a href="#">
-                                <i class="bx bx-heart"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="condidate-item">
-                    <div class="candidate-img">
-                        <img src="assets/img/candidate/2.jpg" alt="candidate image">
-                    </div>
-                    <div class="candidate-social">
-                        <a href="#" target="_blank"><i class="bx bxl-facebook"></i></a>
-                        <a href="#" target="_blank"><i class="bx bxl-twitter"></i></a>
-                        <a href="#" target="_blank"><i class="bx bxl-instagram"></i></a>
-                    </div>
-                    <div class="candidate-text">
-                        <h3><a href="candidate-details.html">Felica Kareon</a></h3>
-                        <ul>
-                            <li>
-                                <i class="bx bx-filter-alt"></i>
-                                SEO Expart
-                            </li>
-                            <li>
-                                <i class="bx bx-location-plus"></i>
-                                Georgetown, USA
-                            </li>
-                        </ul>
-                        <div class="bottom-text">
-                            <p>
-                                <i class="bx bx-stopwatch"></i>
-                                8D ago
-                            </p>
-                            <a href="#">
-                                <i class="bx bx-heart"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="condidate-item">
-                    <div class="candidate-img">
-                        <img src="assets/img/candidate/3.jpg" alt="candidate image">
-                    </div>
-                    <div class="candidate-social">
-                        <a href="#" target="_blank"><i class="bx bxl-facebook"></i></a>
-                        <a href="#" target="_blank"><i class="bx bxl-twitter"></i></a>
-                        <a href="#" target="_blank"><i class="bx bxl-instagram"></i></a>
-                    </div>
-                    <div class="candidate-text">
-                        <h3><a href="candidate-details.html">Malisa Petel</a></h3>
-                        <ul>
-                            <li>
-                                <i class="bx bx-filter-alt"></i>
-                                Project Management
-                            </li>
-                            <li>
-                                <i class="bx bx-location-plus"></i>
-                                Madison, USA
-                            </li>
-                        </ul>
-                        <div class="bottom-text">
-                            <p>
-                                <i class="bx bx-stopwatch"></i>
-                                1D ago
-                            </p>
-                            <a href="#">
-                                <i class="bx bx-heart"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="condidate-item">
-                    <div class="candidate-img">
-                        <img src="assets/img/candidate/4.jpg" alt="candidate image">
-                    </div>
-                    <div class="candidate-social">
-                        <a href="#" target="_blank"><i class="bx bxl-facebook"></i></a>
-                        <a href="#" target="_blank"><i class="bx bxl-twitter"></i></a>
-                        <a href="#" target="_blank"><i class="bx bxl-instagram"></i></a>
-                    </div>
-                    <div class="candidate-text">
-                        <h3><a href="candidate-details.html">Quence Joes</a></h3>
-                        <ul>
-                            <li>
-                                <i class="bx bx-filter-alt"></i>
-                                Web Developer
-                            </li>
-                            <li>
-                                <i class="bx bx-location-plus"></i>
-                                Augusta, Maine
-                            </li>
-                        </ul>
-                        <div class="bottom-text">
-                            <p>
-                                <i class="bx bx-stopwatch"></i>
-                                8D ago
-                            </p>
-                            <a href="#">
-                                <i class="bx bx-heart"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>-->
-
 
 	<section class="testimonial-section ptb-100">
 		<div class="container">
