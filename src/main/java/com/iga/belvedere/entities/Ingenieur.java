@@ -1,16 +1,23 @@
 package com.iga.belvedere.entities;
 
+import java.util.Base64;
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Transient;
 
 @Entity
 public class Ingenieur extends Utilisateur {
 
 	private int age;
 	private String sexe;
+	@Lob
+	@Column(columnDefinition = "mediumblob")
+	private byte[] image;
 
 	@OneToOne (mappedBy = "ingenieur")
     private Profil profil;
@@ -21,11 +28,12 @@ public class Ingenieur extends Utilisateur {
 	public Ingenieur() {
 		super();
 	}
-
-	public Ingenieur(int age, String sexe, Profil profil, List<Application> applications) {
+	
+	public Ingenieur(int age, String sexe, byte[] image, Profil profil, List<Application> applications) {
 		super();
 		this.age = age;
 		this.sexe = sexe;
+		this.image = image;
 		this.profil = profil;
 		this.applications = applications;
 	}
@@ -62,4 +70,11 @@ public class Ingenieur extends Utilisateur {
 		this.applications = applications;
 	}
 
+	public String getImage() {
+		return Base64.getEncoder().encodeToString(this.image);
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
 }

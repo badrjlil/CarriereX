@@ -86,7 +86,7 @@
 				<div class="col-md-4">
 					<div class="account-information">
 						<div class="profile-thumb">
-							<img src="assets/img/account.jpg" alt="account holder image">
+							<img th:src="@{'data:image/jpeg;base64,' + ${ing.image}}" alt="account holder image">
 							<h3 th:text="${ing.prenom} + ' ' + ${ing.nom}"></h3>
 							<p th:text="${ing.profil.titre}"></p>
 						</div>
