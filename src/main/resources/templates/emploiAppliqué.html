@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="zxx">
+
+
+<head>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+
+	<link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+
+	<link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
+
+	<link rel="stylesheet" href="assets/css/boxicon.min.css">
+
+	<link rel="stylesheet" href="assets/fonts/flaticon/flaticon.css">
+
+	<link rel="stylesheet" href="assets/css/magnific-popup.css">
+
+	<link rel="stylesheet" href="assets/css/meanmenu.css">
+
+	<link rel="stylesheet" href="assets/css/nice-select.css">
+
+	<link rel="stylesheet" href="assets/css/style.css">
+
+	<link rel="stylesheet" href="assets/css/dark.css">
+
+	<link rel="stylesheet" href="assets/css/responsive.css">
+
+	<title>Carri-rex</title>
+
+	<link rel="icon" type="image/png" href="assets/img/favicon.png">
+</head>
+
+<body>
+
+	<div class="loader-content">
+		<div class="d-table">
+			<div class="d-table-cell">
+				<div class="sk-circle">
+					<div class="sk-circle1 sk-child"></div>
+					<div class="sk-circle2 sk-child"></div>
+					<div class="sk-circle3 sk-child"></div>
+					<div class="sk-circle4 sk-child"></div>
+					<div class="sk-circle5 sk-child"></div>
+					<div class="sk-circle6 sk-child"></div>
+					<div class="sk-circle7 sk-child"></div>
+					<div class="sk-circle8 sk-child"></div>
+					<div class="sk-circle9 sk-child"></div>
+					<div class="sk-circle10 sk-child"></div>
+					<div class="sk-circle11 sk-child"></div>
+					<div class="sk-circle12 sk-child"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div th:replace="navbar ::html"></div>
+
+
+	<section class="page-title title-bg10">
+		<div class="d-table">
+			<div class="d-table-cell">
+				<h2>Profil</h2>
+				<ul>
+					<li>
+						<a href="/">Acceuil</a>
+					</li>
+					<li>Profil</li>
+				</ul>
+			</div>
+		</div>
+		<div class="lines">
+			<div class="line"></div>
+			<div class="line"></div>
+			<div class="line"></div>
+		</div>
+	</section>
+
+
+	<section class="account-section ptb-100">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="account-information">
+						<div class="profile-thumb">
+							<img src="assets/img/account.jpg" alt="account holder image">
+							<h3 th:text="${ing.prenom} + ' ' + ${ing.nom}"></h3>
+							<p th:text="${ing.profil.titre}"></p>
+						</div>
+						<ul>
+							<li>
+								<a href="#">
+									<i class="bx bx-user"></i>
+									Mon profil
+								</a>
+							</li>
+							<li>
+								<a href="/resume">
+									<i class="bx bxs-file-doc"></i>
+									Mon CV
+								</a>
+							</li>
+							<li>
+								<a href="emploiApplique" class="active">
+									<i class="bx bx-briefcase"></i>
+									Emploi appliqué
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<i class="bx bx-lock-alt"></i>
+									Changer le mot de passe
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<i class="bx bx-coffee-togo"></i>
+									Supprimer le compte
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<i class="bx bx-log-out"></i>
+									Se déconnecter
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-8">
+					<div class="account-details">
+						<h3>Les emplois appliqués</h3>
+						<div th:each="app : ${applications}" style="padding: 10px 0 10px 0; border: 2px solid black; border-radius: 50px; margin-top: 10px;">
+							<img th:src="@{'data:image/jpeg;base64,' + ${app.emploi.encodedImage}}" style="width: 50px; border-radius: 50%; margin-left: 20px;">
+							<a th:text="${app.dateApplication}"></a>
+							<a th:text="' - ' + ${app.emploi.titre}"></a>
+							<a th:text="' - (' + ${app.emploi.nomEntreprise} + ')'"></a>
+							<span>
+								<a th:href="'job-details?id=' + ${app.emploi.id}"><i class='bx bx-show'></i></a>
+							</span>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+	</section>
+
+
+	<div th:replace="footer ::html"></div>
+
+
+	<div class="top-btn">
+		<i class="bx bx-chevrons-up bx-fade-up"></i>
+	</div>
+
+
+	<script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/bootstrap.bundle.min.js"></script>
+
+	<script src="assets/js/owl.carousel.min.js"></script>
+
+	<script src="assets/js/jquery.nice-select.min.js"></script>
+
+	<script src="assets/js/jquery.magnific-popup.min.js"></script>
+
+	<script src="assets/js/jquery.ajaxchimp.min.js"></script>
+
+	<script src="assets/js/form-validator.min.js"></script>
+
+	<script src="assets/js/contact-form-script.js"></script>
+
+	<script src="assets/js/meanmenu.js"></script>
+
+	<script src="assets/js/custom.js"></script>
+</body>
+
+
+</html>

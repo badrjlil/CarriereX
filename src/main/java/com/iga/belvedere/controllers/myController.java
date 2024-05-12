@@ -13,9 +13,7 @@ import com.iga.belvedere.entities.Emploi;
 import com.iga.belvedere.entities.Ville;
 import com.iga.belvedere.repositories.categorieRepository;
 import com.iga.belvedere.repositories.emploiRepository;
-import com.iga.belvedere.repositories.employeurRepository;
 import com.iga.belvedere.repositories.villeRepository;
-
 
 @Controller
 public class myController {
@@ -39,49 +37,46 @@ public class myController {
 	
 	@GetMapping("/about")
 	public String about() {
-		
 		return "about";
 	}
+	
 	@GetMapping("/blog")
 	public String blog() {
-		
 		return "blog";
 	}
+	
 	@GetMapping("/blog-details")
 	public String blogdetails() {
-		
 		return "blog-details";
 	}
+	
 	@GetMapping("/blog-two")
 	public String blogtwo() {
-		
 		return "blog-two";
 	}
+	
 	@GetMapping("/candidate")
 	public String candidate() {
-		
 		return "candidate";
 	}
+	
 	@GetMapping("/candidate-details")
 	public String candidatedetails() {
-		
 		return "candidate-details";
 	}
 	
 	@GetMapping("/company")
 	public String company() {
-		
 		return "company";
 	}
+	
 	@GetMapping("/faq")
 	public String faq() {
-		
 		return "faq";
 	}
 
 	@GetMapping("/job-list")
 	public String jobList() {
-		
 		return "job-list";
 	}
 	
@@ -100,30 +95,37 @@ public class myController {
 	public String pricing() {
 		return "pricing";
 	}
+	
 	@GetMapping("/privacy")
 	public String privacy() {
 		return "privacy";
 	}
+	
 	@GetMapping("/privacy-policy")
 	public String privacypolicy() {
 		return "privacy-policy";
 	}
+	
 	@GetMapping("/reset-password")
 	public String password() {
 		return "reset-password";
 	}
+	
 	@GetMapping("/signup")
 	public String signup() {
 		return "signup";
 	}
+	
 	@GetMapping("/terms")
 	public String terms() {
 		return "terms";
 	}
+	
 	@GetMapping("/terms-condition")
 	public String termscondition() {
 		return "terms-condition";
 	}
+	
 	@GetMapping("/testimonial")
 	public String testimonial() {		
 		return "testimonial";
@@ -133,10 +135,12 @@ public class myController {
 	public String error404() {	
 		return "404";
 	}
+	
 	@GetMapping("/dashboard")
 	public String dashbard() {
 		return "dashboard/employer-dashboard.html";
 	}
+	
 	@GetMapping("/postJob")
 	public String postJobdashbard() {
 		return "dashboard/employer-dashboard-post-job.html";

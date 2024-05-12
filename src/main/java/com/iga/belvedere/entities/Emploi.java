@@ -24,7 +24,9 @@ public class Emploi {
 	private String description;
 	private Date deadline;
 	@Lob
+	@Column(columnDefinition = "mediumblob")
 	private byte[] imageData;
+	
 	private String website;
 	@Column(length = 1500)
 	private String exigences;
@@ -244,6 +246,17 @@ public class Emploi {
 
 	public void setApplications(List<Application> applications) {
 		this.applications = applications;
+	}
+	
+	@Transient
+	private String encodedImage;
+
+	public String getEncodedImage() {
+	    return encodedImage;
+	}
+
+	public void setEncodedImage(String encodedImage) {
+	    this.encodedImage = encodedImage;
 	}
 
 }

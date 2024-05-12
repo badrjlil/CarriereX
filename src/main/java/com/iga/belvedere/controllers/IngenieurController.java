@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.text.Normalizer.Form;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -405,11 +406,9 @@ public class IngenieurController {
 			try{
 				if(cv != null) {
 					application.setCv(cv.getBytes());
-					System.out.println("cd added");
 				}
 				if(lettreMotivation != null) {
 					application.setLettreMotivation(lettreMotivation.getBytes());
-					System.out.println("lettreMotivation added");
 				}
 				applicationRepo.save(application);
 			}catch (Exception e) {
@@ -421,8 +420,22 @@ public class IngenieurController {
 		}
 	}
 	
-	@GetMapping("emploiAppliqué")
-	public String emploiAppliqué() {
+	@GetMapping("emploiApplique")
+	public String emploiAppliqué(Model model, HttpSession session) {
+		if (session.getAttribute("userId") != null) {
+			Ingenieur ing = ingenieurRepo.getById((int)session.getAttribute("userId"));
+			model.addAttribute("ing", ing);
+			List<Application> applications = applicationRepo.findAllAppByIngenieur(ing);			
+            
+            applications.forEach(app -> {
+                if (app.getEmploi().getImageData() != null) {
+                    String encodedImage = Base64.getEncoder().encodeToString(app.getEmploi().getImageData());
+                    app.getEmploi().setEncodedImage(encodedImage);
+                }
+            });
+            model.addAttribute("applications", applications);
+		}
+		
 		
 		return "emploiAppliqué";
 	}
