@@ -8,23 +8,23 @@ import jakarta.persistence.*;
 @Table(name="employeur")
 public class Employeur extends Utilisateur{
 	
+	private String status;
+	@Lob
+	@Column(columnDefinition = "mediumblob")
+	private byte[] image;
 	
 	@OneToMany(mappedBy = "employeur")
 	private List<Emploi> emploi;
 
-	
-	
 	public Employeur() {
     }
 
-	
-
-	public Employeur(List<Emploi> emploi) {
+	public Employeur(String status, byte[] image, List<Emploi> emploi) {
 		super();
+		this.status = status;
+		this.image = image;
 		this.emploi = emploi;
 	}
-
-
 
 	public List<Emploi> getEmploi() {
 		return emploi;
@@ -34,8 +34,32 @@ public class Employeur extends Utilisateur{
 		this.emploi = emploi;
 	}
 
-	
+	public String getStatus() {
+		return status;
+	}
 
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
+	
+	@Transient
+	private String encodedImage;
+
+	public String getEncodedImage() {
+	    return encodedImage;
+	}
+
+	public void setEncodedImage(String encodedImage) {
+	    this.encodedImage = encodedImage;
+	}
 	
 
 }

@@ -91,17 +91,26 @@ public class IngenieurController {
 	@GetMapping("/job-details")
 	public String jobDetails(HttpSession session, @RequestParam int id, Model model) {
 		Emploi emploi = repoEmploi.getById(id);
+
+		if (emploi.getImageData() != null) {
+			String encodedImage = Base64.getEncoder().encodeToString(emploi.getImageData());
+			emploi.setEncodedImage(encodedImage);
+		}
+		if (emploi.getEmployeur().getImage() != null) {
+			String encodedImage = Base64.getEncoder().encodeToString(emploi.getEmployeur().getImage());
+			emploi.getEmployeur().setEncodedImage(encodedImage);
+		}
 		model.addAttribute("emploi", emploi);
 		if (session.getAttribute("userId") != null) {
 			Ingenieur ing = ingenieurRepo.getById((int) session.getAttribute("userId"));
 			Application app = applicationRepo.findByIngenieurAndEmploi(ing, emploi);
-			
-			if(app != null) {
+
+			if (app != null) {
 				model.addAttribute("applied", true);
-			}else {
+			} else {
 				model.addAttribute("applied", false);
 			}
-		}else {
+		} else {
 			model.addAttribute("applied", false);
 		}
 
@@ -151,8 +160,9 @@ public class IngenieurController {
 
 	@PostMapping("/saveBasicInfo")
 	public String saveBasicInfo(HttpSession session, @RequestParam String nom, @RequestParam String prenom,
-			@RequestParam String email, @RequestParam String telephone, @RequestParam String titre,@RequestParam String Category,
-			@RequestParam int age,@RequestParam int experience, @RequestParam String competences, @RequestParam String langues) {
+			@RequestParam String email, @RequestParam String telephone, @RequestParam String titre,
+			@RequestParam String Category, @RequestParam int age, @RequestParam int experience,
+			@RequestParam String competences, @RequestParam String langues) {
 		if (session.getAttribute("userId") != null) {
 			Ingenieur ing = ingenieurRepo.getById((int) session.getAttribute("userId"));
 			Profil profil = profilRepo.findByIng(ing);
@@ -165,7 +175,6 @@ public class IngenieurController {
 			profil.setCategory(Category);
 			ing.setAge(age);
 			ingenieurRepo.save(ing);
-
 
 			List<Compétence> existingCompetences = profil.getCompétences();
 			String[] newCompetenceArray = competences.split(",");
@@ -230,13 +239,14 @@ public class IngenieurController {
 	}
 
 	@PostMapping("/saveFormation")
-	public String saveFormation(HttpSession session, @RequestParam String niveau,@RequestParam String description, @RequestParam String spécialité,
-			@RequestParam String institution, @RequestParam Date debut, @RequestParam Date fin) {
+	public String saveFormation(HttpSession session, @RequestParam String niveau, @RequestParam String description,
+			@RequestParam String spécialité, @RequestParam String institution, @RequestParam Date debut,
+			@RequestParam Date fin) {
 		if (session.getAttribute("userId") != null) {
-			
+
 			Integer userId = ((Integer) session.getAttribute("userId")).intValue();
 			Ingenieur ing = ingenieurRepo.getById(userId);
-			Profil profil = profilRepo.findByIng(ing);//Id(userId).orElse(null);
+			Profil profil = profilRepo.findByIng(ing);// Id(userId).orElse(null);
 			Formation formation = new Formation();
 			formation.setNiveau(niveau);
 			formation.setSpécialité(spécialité);
@@ -290,17 +300,17 @@ public class IngenieurController {
 	@PostMapping("/sign-up")
 	public String sign_up(@RequestParam String email, @RequestParam String password, @RequestParam String prenom,
 			@RequestParam String nom) {
-	    Ingenieur ing = new Ingenieur();
-	    ing.setPrenom(prenom);
-	    ing.setNom(nom);
-	    ing.setEmail(email);
-	    ing.setPassword(password);
-	    //ingenieurRepo.save(ing);
-	    Profil profil = new Profil();
-        profil.setIngenieur(ing);
-        ingenieurRepo.save(ing);
-        profilRepo.save(profil);
-	    return "redirect:/account";
+		Ingenieur ing = new Ingenieur();
+		ing.setPrenom(prenom);
+		ing.setNom(nom);
+		ing.setEmail(email);
+		ing.setPassword(password);
+		// ingenieurRepo.save(ing);
+		Profil profil = new Profil();
+		profil.setIngenieur(ing);
+		ingenieurRepo.save(ing);
+		profilRepo.save(profil);
+		return "redirect:/account";
 	}
 
 	@GetMapping("/formations")
@@ -319,8 +329,9 @@ public class IngenieurController {
 	}
 
 	@PostMapping("/modifyFormation")
-	public String modifyFormation(Model model, @RequestParam int id, @RequestParam Date debut,@RequestParam String description, @RequestParam Date fin,
-			@RequestParam String institution, @RequestParam String spécialité, @RequestParam String niveau) {
+	public String modifyFormation(Model model, @RequestParam int id, @RequestParam Date debut,
+			@RequestParam String description, @RequestParam Date fin, @RequestParam String institution,
+			@RequestParam String spécialité, @RequestParam String niveau) {
 		Formation f = formationRepo.getById(id);
 		f.setDebut(debut);
 		f.setFin(fin);
@@ -346,7 +357,7 @@ public class IngenieurController {
 
 			Profil profil = profilRepo.findByIng(ing);
 			model.addAttribute("profil", profil);
-			
+
 			List<Expérience> expériences = expérienceRepo.findAllByProfil(ing.getProfil());
 			model.addAttribute("expériences", expériences);
 		}
@@ -390,9 +401,10 @@ public class IngenieurController {
 			return "/sign-in";
 		}
 	}
-	
+
 	@PostMapping("/submit-application")
-	public String submit_application(HttpSession session, @RequestParam int id , @RequestParam(required = false) MultipartFile cv,
+	public String submit_application(HttpSession session, @RequestParam int id,
+			@RequestParam(required = false) MultipartFile cv,
 			@RequestParam(required = false) MultipartFile lettreMotivation) {
 		if (session.getAttribute("userId") != null) {
 			Ingenieur ing = ingenieurRepo.getById((int) session.getAttribute("userId"));
@@ -403,15 +415,15 @@ public class IngenieurController {
 			java.util.Date currentDate = new java.util.Date();
 			Date sqlDate = new Date(currentDate.getTime());
 			application.setDateApplication(sqlDate);
-			try{
-				if(cv != null) {
+			try {
+				if (cv != null) {
 					application.setCv(cv.getBytes());
 				}
-				if(lettreMotivation != null) {
+				if (lettreMotivation != null) {
 					application.setLettreMotivation(lettreMotivation.getBytes());
 				}
 				applicationRepo.save(application);
-			}catch (Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			return "redirect:/";
@@ -419,24 +431,23 @@ public class IngenieurController {
 			return "/sign-in";
 		}
 	}
-	
+
 	@GetMapping("emploiApplique")
 	public String emploiAppliqué(Model model, HttpSession session) {
 		if (session.getAttribute("userId") != null) {
-			Ingenieur ing = ingenieurRepo.getById((int)session.getAttribute("userId"));
+			Ingenieur ing = ingenieurRepo.getById((int) session.getAttribute("userId"));
 			model.addAttribute("ing", ing);
-			List<Application> applications = applicationRepo.findAllAppByIngenieur(ing);			
-            
-            applications.forEach(app -> {
-                if (app.getEmploi().getImageData() != null) {
-                    String encodedImage = Base64.getEncoder().encodeToString(app.getEmploi().getImageData());
-                    app.getEmploi().setEncodedImage(encodedImage);
-                }
-            });
-            model.addAttribute("applications", applications);
+			List<Application> applications = applicationRepo.findAllAppByIngenieur(ing);
+
+			applications.forEach(app -> {
+				if (app.getEmploi().getImageData() != null) {
+					String encodedImage = Base64.getEncoder().encodeToString(app.getEmploi().getImageData());
+					app.getEmploi().setEncodedImage(encodedImage);
+				}
+			});
+			model.addAttribute("applications", applications);
 		}
-		
-		
+
 		return "emploiAppliqué";
 	}
 }

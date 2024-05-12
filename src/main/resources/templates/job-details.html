@@ -91,7 +91,7 @@
 									<div class="row align-items-center">
 										<div class="col-md-2">
 											<div class="company-logo">
-												<img src="assets/img/company-logo/1.png" alt="logo">
+												<img th:src="@{'data:image/jpeg;base64,' + ${emploi.encodedImage}}" alt="logo">
 											</div>
 										</div>
 										<div class="col-md-10">
@@ -184,8 +184,8 @@
 											class="default-btn applyNow">
 											Appliquer maintenant
 										</a>
-										<a style="cursor: not-allowed; background-color: darkgray;" th:unless="${applied == false}"
-											class="default-btn">
+										<a style="cursor: not-allowed; background-color: darkgray;"
+											th:unless="${applied == false}" class="default-btn">
 											Vous êtes déjà postulé à ce poste
 										</a>
 									</div>
@@ -202,9 +202,9 @@
 					<div class="job-sidebar">
 						<h3>Posté par</h3>
 						<div class="posted-by">
-							<img src="assets/img/client-1.png" alt="client image">
-							<h4>John Doe</h4>
-							<span>CEO of Tourt Design LTD</span>
+							<img style="width: 100px; height: 100px;" th:src="@{'data:image/jpeg;base64,' + ${emploi.employeur.encodedImage}}" alt="client image">
+							<h4 th:text="${emploi.employeur.prenom} + ' ' +  ${emploi.employeur.nom}">Doe</h4>
+							<span th:text="${emploi.employeur.status}"></span>
 						</div>
 					</div>
 					<div class="job-sidebar">
@@ -212,6 +212,7 @@
 						<iframe
 							src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387190.27991517034!2d-74.25987556253516!3d40.697670063539654!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sbd!4v1588772651198!5m2!1sen!2sbd"
 							frameborder="0"></iframe>
+
 					</div>
 					<div class="job-sidebar">
 						<h3>Mots clés</h3>
