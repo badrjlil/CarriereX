@@ -163,5 +163,10 @@ public class EmployeurController {
 		emploiRepo.delete(emp);
 		return "redirect:/gererEmplois";
 	}
+	
+	@GetMapping("/manageCandidate")
+	public String manageCandidate() {
+		return "dashboard/manage-candidate";
+	}
 
 }
