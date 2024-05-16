@@ -85,7 +85,7 @@
 										<div class="bread-details">
 											<div class="bread-candidate-detail d-flex align-items-center">
 												<div class="bread-img radius--rounded">
-													<img src="../assets/dashboard/images/small-team1.jpg" alt=""
+													<img th:src="@{'data:image/jpeg;base64,' + ${ing.image}}" alt=""
 														class="radius--rounded" />
 												</div>
 												<div class="bread-candidate-inner">
@@ -113,10 +113,6 @@
 													<button type="button" class="theme-btn me-1">
 														<i class="la la-cloud-download font-size-16"></i>
 														Télécharger CV
-													</button>
-													<button type="button" class="theme-btn me-1">
-														<i class="la la-cloud-download font-size-16"></i>
-														Télécharger Lettre de motivation
 													</button>
 												</li>
 											</ul>

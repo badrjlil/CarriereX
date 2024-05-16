@@ -1,0 +1,48 @@
+<div class="col-md-4">
+	<div class="account-information">
+		<div class="profile-thumb">
+			<img style="width: 100px; height: 100px; object-fit: cover; clip-path: inset(0 0 0 0);"
+				th:src="@{'data:image/jpeg;base64,' + ${ing.image}}" alt="account holder image">
+
+			<h3 th:text="${ing.prenom} + ' ' + ${ing.nom}"></h3>
+			<p th:text="${ing.profil.titre}"></p>
+			<form method="post" action="saveImage" enctype="multipart/form-data">
+				<label>Changer votre image</label>
+				<input class="form-control" name="image" type="file">
+				<input class="form-control" type="submit" value="Enregistrer">
+			</form>
+		</div>
+		<ul>
+			<li>
+				<a id="profil-nav-item" href="account">
+					<i class="bx bx-user"></i>
+					Mon profil
+				</a>
+			</li>
+			<li>
+				<a href="resume">
+					<i class="bx bxs-file-doc"></i>
+					Mon CV
+				</a>
+			</li>
+			<li>
+				<a id="emploi-nav-item" href="emploiApplique">
+					<i class="bx bx-briefcase"></i>
+					Emploi appliqué
+				</a>
+			</li>
+			<li>
+				<a id="password-nav-item" href="changePassword">
+					<i class="bx bx-lock-alt"></i>
+					Changer le mot de passe
+				</a>
+			</li>
+			<li>
+				<a href="sign-out">
+					<i class="bx bx-log-out"></i>
+					Se déconnecter
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>

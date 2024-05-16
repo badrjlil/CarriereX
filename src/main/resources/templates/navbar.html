@@ -1,114 +1,60 @@
-    <html><div class="navbar-area">
+<html>
+<div class="navbar-area is-sticky">
 
-        <div class="mobile-nav">
-            <a href="index.html" class="logo">
-                <img src="../assets/img/logo.png" alt="logo">
-            </a>
-        </div>
+	<div class="mobile-nav">
+		<a href="index.html" class="logo">
+			<img src="../assets/img/logo.png" alt="logo">
+		</a>
+	</div>
 
-        <div class="main-nav">
-            <div class="container">
-                <nav class="navbar navbar-expand-lg navbar-light">
-                    <a class="navbar-brand" href="/">
-                        <img src="../assets/img/logo.png" alt="logo" width="160">
-                    </a>
-                    <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
-                        <ul class="navbar-nav m-auto">
-                            <li class="nav-item">
-                                <a href="/" class="nav-link ">Acceuil</a>                     
-                            </li>
-                            <li class="nav-item">
-                                <a href="/about" class="nav-link">À propos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link dropdown-toggle">Emplois</a>
-                                <ul class="dropdown-menu">
-                                    <li class="nav-item">
-                                        <a href="/find-job" class="nav-link">Trouver un travail</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="/post-job" class="nav-link">Publier une offre</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="/job-grid" class="nav-link">Grille de tâches</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link dropdown-toggle">Candidats</a>
-                                <ul class="dropdown-menu">
-                                    <li class="nav-item">
-                                        <a href="/candidate" class="nav-link">Candidats</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="/candidate-details" class="nav-link">Détails des candidats</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link dropdown-toggle">Pages</a>
-                                <ul class="dropdown-menu">
-                                  
-                                    <li class="nav-item">
-                                        <a href="/pricing" class="nav-link">Tarifs</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link dropdown-toggle">Profil</a>
-                                        <ul class="dropdown-menu">
-                                            <li class="nav-item">
-                                                <a href="/account" class="nav-link">Compte</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="#" class="nav-link dropdown-toggle">Membre</a>
-                                                <ul class="dropdown-menu">
-                                                    <li class="nav-item">
-                                                        <a href="/reset-password" class="nav-link">réinitialiser le mot de passe</a>
-                                                    </li>
-                                                </ul>
-                                            <li>
-                                            <li class="nav-item">
-                                                <a href="/resume" class="nav-link">CV</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                   
-                                    <li class="nav-item">
-                                        <a href="/testimonial" class="nav-link">Témoignages</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="/faq" class="nav-link">FAQ</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="/catagories" class="nav-link">Catégories</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link dropdown-toggle">Blog</a>
-                                <ul class="dropdown-menu">
-                                    <li class="nav-item">
-                                        <a href="/blog" class="nav-link">Blog</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="/blog-details" class="nav-link">Détails du blog</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/contact" class="nav-link">Contact</a>
-                            </li>
-                        </ul>
-                        <div th:if="${session.userId == null}" class="other-option">
-                            <a href="/sign-up" class="signup-btn">S'inscrire</a>
-                            <a href="/account" class="signin-btn">Se connecter</a>
-                        </div>
-                        <div th:unless="${session.userId == null}" class="other-option">
-                            <a href="/account" class="signup-btn">Mon compte</a>
-                            <a href="/sign-out" class="signin-btn">Se déconnecter</a>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-        </div>
-    </div>
-    </html>
+	<div class="main-nav">
+		<div class="container">
+			<nav class="navbar navbar-expand-lg navbar-light">
+				<a class="navbar-brand" href="/">
+					<img src="../assets/img/logo.png" alt="logo" width="160">
+				</a>
+				<div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
+					<ul class="navbar-nav m-auto">
+						<li class="nav-item">
+							<a id="home-nav-item"  href="/" class="nav-link ">Acceuil</a>
+						</li>
+						<li class="nav-item">
+							<a id="find-job-nav-item" href="/find-job" class="nav-link">Trouver un emploi</a>
+						</li>
+						<li class="nav-item">
+							<a id="categories-nav-item" href="/catagories" class="nav-link">Domaines</a>
+						</li>
+						<li class="nav-item">
+							<a id="about-nav-item" href="/about" class="nav-link">À propos</a>
+						</li>
+						<li class="nav-item">
+							<a id="contact-nav-item" href="/contact" class="nav-link">Contact</a>
+						</li>
+						<li class="nav-item">
+							<a id="plus-nav-item"  href="#" class="nav-link dropdown-toggle">Plus</a>
+							<ul class="dropdown-menu">
+
+								<li class="nav-item">
+									<a href="/testimonial" class="nav-link">Témoignages</a>
+								</li>
+								<li class="nav-item">
+									<a href="/faq" class="nav-link">FAQ</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<div th:if="${session.userId == null}" class="other-option">
+						<a href="/sign-up" class="signup-btn">S'inscrire</a>
+						<a href="/account" class="signin-btn">Se connecter</a>
+					</div>
+					<div th:unless="${session.userId == null}" class="other-option">
+						<a href="/account" class="signup-btn">Mon compte</a>
+						<a href="/sign-out" class="signin-btn">Se déconnecter</a>
+					</div>
+				</div>
+			</nav>
+		</div>
+	</div>
+</div>
+
+</html>

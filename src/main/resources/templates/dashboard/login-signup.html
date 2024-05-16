@@ -54,13 +54,13 @@
 								<li class="nav-item">
 									<a class="nav-link theme-btn active" id="login-tab" data-bs-toggle="tab"
 										href="#login-nav" role="tab" aria-controls="login-nav" aria-selected="true">
-										<i class="la la-sign-in"></i> Login to Account
+										<i class="la la-sign-in"></i> Se connecter
 									</a>
 								</li>
 								<li class="nav-item">
 									<a class="nav-link theme-btn" id="signup-tab" data-bs-toggle="tab"
 										href="#signup-nav" role="tab" aria-controls="signup-nav" aria-selected="false">
-										<i class="la la-user"></i> Register Account
+										<i class="la la-user"></i> Créer compte
 									</a>
 								</li>
 							</ul>
@@ -76,23 +76,23 @@
 												<div class="row">
 													<div class="col-lg-12">
 														<div class="input-box">
-															<label class="label-text">Email Address</label>
+															<label class="label-text">Adresse email</label>
 															<div class="form-group">
 																<i class="la la-user form-icon"></i>
 																<input class="form-control" type="email" name="email"
-																	placeholder="Your email address" />
+																	placeholder="Votre adresse email" />
 															</div>
 														</div>
 													</div>
 													<!-- end col-lg-12 -->
 													<div class="col-lg-12">
 														<div class="input-box">
-															<label class="label-text">Password</label>
+															<label class="label-text">Mot de passe</label>
 															<div class="form-group">
 																<i class="la la-lock form-icon"></i>
 																<input class="form-control password-field"
 																	type="password" name="password"
-																	placeholder="Password" />
+																	placeholder="Mot de passe" />
 																<a href="javascript:void(0)" class="btn toggle-password"
 																	title="Toggle show/hide password">
 																	<i class="la la-eye eye-on"></i>
@@ -106,8 +106,7 @@
 														<div class="form-group">
 															<div>
 																<div>
-																	<a href="recover.html" class="color-text">Forgot
-																		password?</a>
+																	<a href="#" class="color-text">Mot de passe oubliée?</a>
 																</div>
 															</div>
 														</div>
@@ -117,14 +116,6 @@
 														<div class="btn-box margin-top-20px margin-bottom-10px">
 															<button class="theme-btn border-0" type="submit">Login Account</button>
 														</div>
-													</div>
-													<!-- end col-lg-12 -->
-													<div class="col-lg-12">
-														<p>
-															Don't have an account?
-															<a href="sign-up.html" class="color-text">
-																Create Account</a>
-														</p>
 													</div>
 													<!-- end col-lg-12 -->
 												</div>
@@ -142,25 +133,25 @@
 								<div class="billing-form-item mb-0">
 									<div class="billing-content">
 										<div class="contact-form-action">
-											<form method="post">
+											<form method="post" action="newEmployeur">
 												<div class="row">
 												</div>
 												<!-- end row -->
 												<div class="input-box">
-													<label class="label-text">First name</label>
+													<label class="label-text">Prénom</label>
 													<div class="form-group">
 														<i class="la la-user form-icon"></i>
-														<input class="form-control" type="text" name="text"
-															placeholder="First name" />
+														<input class="form-control" type="text" name="prenom"
+															placeholder="Prénom" />
 													</div>
 												</div>
 												<!-- input-box -->
 												<div class="input-box">
-													<label class="label-text">Last name</label>
+													<label class="label-text">Nom</label>
 													<div class="form-group">
 														<i class="la la-user form-icon"></i>
-														<input class="form-control" type="text" name="text"
-															placeholder="Last name" />
+														<input class="form-control" type="text" name="nom"
+															placeholder="Nom" />
 													</div>
 												</div>
 												<!-- input-box -->
@@ -169,38 +160,36 @@
 													<div class="form-group">
 														<i class="la la-envelope-o form-icon"></i>
 														<input class="form-control" type="email" name="email"
-															placeholder="Enter email address" />
+															placeholder="Entrer adresse email" />
 													</div>
 												</div>
 												<!-- input-box -->
 												<div class="input-box mb-3">
-													<label class="label-text">Password</label>
+													<label class="label-text">Mot de passe</label>
 													<div class="form-group mb-0">
 														<i class="la la-lock form-icon"></i>
 														<input class="form-control password-field" type="password"
-															name="password" placeholder="Password" />
+															name="password" placeholder="Mot de passe" />
 														<a href="javascript:void(0)" class="btn toggle-password"
 															title="Toggle show/hide password">
 															<i class="la la-eye eye-on"></i>
 															<i class="la la-eye-slash eye-off"></i>
 														</a>
 													</div>
-													<span class="mt-1">Must use 8-15 characters and one number or
-														symbol.</span>
 												</div>
 												<!-- input-box -->
 												<div class="input-box">
-													<label class="label-text">Confirm Password</label>
+													<label class="label-text">Confirmer mot de passe</label>
 													<div class="form-group">
 														<i class="la la-lock form-icon"></i>
 														<input class="form-control password-field" type="password"
-															name="password" placeholder="Confirm password" />
+															name="confirmPassword" placeholder="Confirmer mot de passe" />
 													</div>
 												</div>
 												<!-- input-box -->
 												<div class="btn-box margin-top-30px">
 													<button class="theme-btn border-0" type="submit">
-														Create Account
+														Créer compte
 													</button>
 												</div>
 											</form>

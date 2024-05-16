@@ -1,5 +1,8 @@
 package com.iga.belvedere.controllers;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,12 +10,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.iga.belvedere.entities.Application;
 import com.iga.belvedere.entities.Catégorie;
@@ -56,6 +62,8 @@ public class EmployeurController {
 	private ingenieurRepository ingenieurRepo;
 	@Autowired
 	private profilRepository profilRepo;
+	@Autowired
+	private ResourceLoader resourceLoader;
 
 	private static boolean verifyLogin(HttpSession session) {
 		if (session.getAttribute("empId") != null) {
@@ -68,7 +76,7 @@ public class EmployeurController {
 	@GetMapping("/dashboard")
 	public String dashbard(HttpSession session, Model model) {
 		if (verifyLogin(session)) {
-			Employeur emp = employeurRepo.getById((int)session.getAttribute("empId"));
+			Employeur emp = employeurRepo.getById((int) session.getAttribute("empId"));
 			model.addAttribute("emp", emp);
 			return "dashboard/index";
 		} else {
@@ -80,7 +88,7 @@ public class EmployeurController {
 	@GetMapping("/postJob")
 	public String Ajoutjob(Model model, HttpSession session) {
 		if (verifyLogin(session)) {
-			Employeur emp = employeurRepo.getById((int)session.getAttribute( "empId"));
+			Employeur emp = employeurRepo.getById((int) session.getAttribute("empId"));
 			model.addAttribute("emp", emp);
 			Emploi newEmploi = new Emploi();
 			List<Employeur> employeurs = employeurRepo.findAll();
@@ -92,7 +100,7 @@ public class EmployeurController {
 			model.addAttribute("catégories", catégories);
 			model.addAttribute("langues", langues);
 			model.addAttribute("villes", villes);
-			
+
 			return "dashboard/post-job";
 		} else {
 			return "redirect:/employeurLogin";
@@ -100,17 +108,20 @@ public class EmployeurController {
 	}
 
 	@PostMapping("/saveEmploi")
-
 	public String saveEmploi(@RequestParam Catégorie catégorie, @RequestParam Langue langue, @RequestParam Ville ville,
-			@ModelAttribute("newEmploi") Emploi emploi, @RequestParam String keywordsInput, HttpSession session) {
+			@ModelAttribute("newEmploi") Emploi emploi, @RequestParam String keywordsInput,
+			@RequestParam MultipartFile image, HttpSession session) {
 		if (verifyLogin(session)) {
-			Employeur employeur = employeurRepo.findById(1).orElse(null);
+			Employeur employeur = employeurRepo.getById((int) session.getAttribute("empId"));
 			emploi.setEmployeur(employeur);
 			emploi.setCatégorie(catégorie);
 			emploi.setLangue(langue);
-
 			emploi.setVille(ville);
-
+			try {
+				emploi.setImageData(image.getBytes());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			String[] keywords = keywordsInput.split(",");
 			for (String keywordStr : keywords) {
 				Keyword keyword = new Keyword(keywordStr.trim());
@@ -136,7 +147,7 @@ public class EmployeurController {
 	@GetMapping("/gererEmplois")
 	public String gererEmplois(Model model, HttpSession session) {
 		if (verifyLogin(session)) {
-			Employeur emp = employeurRepo.getById((int)session.getAttribute( "empId"));
+			Employeur emp = employeurRepo.getById((int) session.getAttribute("empId"));
 			model.addAttribute("emp", emp);
 			List<Emploi> emplois = emploiRepo.findAllByEmployeur(emp);
 			int totalApplications = 0;
@@ -154,7 +165,7 @@ public class EmployeurController {
 	@GetMapping("/modifyJob")
 	public String modifyJob(Model model, @RequestParam int id, HttpSession session) {
 		if (verifyLogin(session)) {
-			Employeur emp = employeurRepo.getById((int)session.getAttribute( "empId"));
+			Employeur emp = employeurRepo.getById((int) session.getAttribute("empId"));
 			model.addAttribute("emp", emp);
 			Emploi empl = emploiRepo.getById(id);
 			model.addAttribute("emploi", empl);
@@ -180,7 +191,8 @@ public class EmployeurController {
 			@RequestParam Langue langue, @RequestParam Ville ville, @RequestParam Catégorie catégorie,
 			@RequestParam String salaire_min, @RequestParam String salaire_max, @RequestParam int experience,
 			@RequestParam Date deadline, @RequestParam String keywordsInput, @RequestParam String exigences,
-			@RequestParam String description, HttpSession session) {
+			@RequestParam String description, @RequestParam(required = false) MultipartFile image,
+			HttpSession session) {
 		if (verifyLogin(session)) {
 			Emploi emploi = emploiRepo.getById(id);
 			Employeur employeur = employeurRepo.findById(1).orElse(null);
@@ -200,6 +212,14 @@ public class EmployeurController {
 			emploi.setLangue(langue);
 			emploi.setVille(ville);
 			emploi.setCatégorie(catégorie);
+
+			if (image != null) {
+				try {
+					emploi.setImageData(image.getBytes());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 
 			String[] keywords = keywordsInput.split(",");
 			for (String keywordStr : keywords) {
@@ -229,7 +249,7 @@ public class EmployeurController {
 	@GetMapping("/gererCandidats")
 	public String manageCandidate(Model model, HttpSession session) {
 		if (verifyLogin(session)) {
-			Employeur emp = employeurRepo.getById((int)session.getAttribute( "empId"));
+			Employeur emp = employeurRepo.getById((int) session.getAttribute("empId"));
 			model.addAttribute("emp", emp);
 			List<Application> apps = applicationRepo.findAll();
 			HashMap<Ingenieur, Application> uniqueApps = new HashMap<>();
@@ -252,7 +272,7 @@ public class EmployeurController {
 	@GetMapping("/candidats")
 	public String candidats(@RequestParam int id, Model model, HttpSession session) {
 		if (verifyLogin(session)) {
-			Employeur emp = employeurRepo.getById((int)session.getAttribute( "empId"));
+			Employeur emp = employeurRepo.getById((int) session.getAttribute("empId"));
 			model.addAttribute("emp", emp);
 			List<Application> apps = applicationRepo.findApplicationsByEmploiId(id);
 			model.addAttribute("apps", apps);
@@ -265,7 +285,7 @@ public class EmployeurController {
 	@GetMapping("/candidatDetails")
 	public String candidatDetails(@RequestParam int id, Model model, HttpSession session) {
 		if (verifyLogin(session)) {
-			Employeur emp = employeurRepo.getById((int)session.getAttribute( "empId"));
+			Employeur emp = employeurRepo.getById((int) session.getAttribute("empId"));
 			model.addAttribute("emp", emp);
 			Ingenieur candidat = ingenieurRepo.getById(id);
 			Profil profil = profilRepo.findByIng(candidat);
@@ -280,7 +300,7 @@ public class EmployeurController {
 	@GetMapping("/dashProfile")
 	public String dashProfile(HttpSession session, Model model) {
 		if (verifyLogin(session)) {
-			Employeur emp = employeurRepo.getById((int)session.getAttribute( "empId"));
+			Employeur emp = employeurRepo.getById((int) session.getAttribute("empId"));
 			model.addAttribute("emp", emp);
 			return "dashboard/dashboard-profile";
 		} else {
@@ -302,12 +322,10 @@ public class EmployeurController {
 	public String employeurLogin2(@RequestParam String email, @RequestParam String password, HttpSession session) {
 		Employeur emp = employeurRepo.fetchUser(email, password);
 		if (emp != null) {
-			System.out.println("found");
 			session.setAttribute("empId", emp.getId());
 			session.setAttribute("empFullName", emp.getPrenom() + " " + emp.getNom());
 			return "redirect:/dashboard";
 		} else {
-			System.out.println("not found");
 			return "redirect:/employeurLogin";
 		}
 	}
@@ -315,6 +333,55 @@ public class EmployeurController {
 	@GetMapping("/employeurLogout")
 	public String employeurLogout(HttpSession session) {
 		session.removeAttribute("empId");
+		return "redirect:/employeurLogin";
+	}
+
+	@GetMapping("changePass")
+	public String changePass(HttpSession session, Model model) {
+		if (verifyLogin(session)) {
+			Employeur emp = employeurRepo.getById((int) session.getAttribute("empId"));
+			model.addAttribute("emp", emp);
+			return "dashboard/change-password";
+		} else {
+			return "redirect:/employeurLogin";
+		}
+
+	}
+
+	@PostMapping("saveNewPass2")
+	public String saveNewPass2(HttpSession session, @RequestParam String currentPass, @RequestParam String newPass,
+			@RequestParam String confirmPass) {
+		if (verifyLogin(session)) {
+			Employeur emp = employeurRepo.getById((int) session.getAttribute("empId"));
+			if (emp.getPassword().equals(currentPass)) {
+				emp.setPassword(newPass);
+				employeurRepo.save(emp);
+				return "redirect:/dashboard";
+			}
+			return "redirect:/changePass";
+
+		} else {
+			return "redirect:/employeurLogin";
+		}
+
+	}
+
+	@PostMapping("/newEmployeur")
+	public String newEmployeur(@RequestParam String prenom, @RequestParam String nom, @RequestParam String email,
+			@RequestParam String password) {
+		Employeur emp = new Employeur();
+		emp.setPrenom(prenom);
+		emp.setNom(nom);
+		emp.setEmail(email);
+		emp.setPassword(password);
+		try {
+			Resource resource = resourceLoader.getResource("classpath:static/assets/img/profile-icon.png");
+			byte[] imageBytes = Files.readAllBytes(Path.of(resource.getURI()));
+			emp.setImage(imageBytes);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		employeurRepo.save(emp);
 		return "redirect:/employeurLogin";
 	}
 

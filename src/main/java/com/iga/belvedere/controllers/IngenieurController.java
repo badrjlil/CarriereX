@@ -1,14 +1,17 @@
 package com.iga.belvedere.controllers;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.Date;
-import java.text.Normalizer.Form;
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -62,6 +65,8 @@ public class IngenieurController {
 	private LangueRepository langueRepo;
 	@Autowired
 	private applicationRepository applicationRepo;
+	@Autowired
+	private ResourceLoader resourceLoader;
 
 	@GetMapping("/find-job")
 	public String findjob(Model model) {
@@ -123,7 +128,7 @@ public class IngenieurController {
 	@GetMapping("/account")
 	public String account(Model model, HttpSession session) {
 		if (session.getAttribute("userId") != null) {
-			Ingenieur ing = ingenieurRepo.getById((int) session.getAttribute("userId"));		
+			Ingenieur ing = ingenieurRepo.getById((int) session.getAttribute("userId"));
 			model.addAttribute("ing", ing);
 
 			Profil profil = profilRepo.findByIng(ing);
@@ -296,7 +301,14 @@ public class IngenieurController {
 		ing.setNom(nom);
 		ing.setEmail(email);
 		ing.setPassword(password);
-		// ingenieurRepo.save(ing);
+
+		try {
+			Resource resource = resourceLoader.getResource("classpath:static/assets/img/profile-icon.png");
+			byte[] imageBytes = Files.readAllBytes(Path.of(resource.getURI()));
+			ing.setImage(imageBytes);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		Profil profil = new Profil();
 		profil.setIngenieur(ing);
 		ingenieurRepo.save(ing);
@@ -435,4 +447,51 @@ public class IngenieurController {
 
 		return "emploiAppliqué";
 	}
+
+	@PostMapping("saveImage")
+	public String saveImage(HttpSession session, @RequestParam MultipartFile image) {
+		if (session.getAttribute("userId") != null) {
+			Ingenieur ing = ingenieurRepo.getById((int) session.getAttribute("userId"));
+			try {
+				ing.setImage(image.getBytes());
+				ingenieurRepo.save(ing);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return "redirect:/account";
+	}
+
+	@GetMapping("changePassword")
+	public String changePassword(HttpSession session, Model model) {
+		if (session.getAttribute("userId") != null) {
+			Ingenieur ing = ingenieurRepo.getById((int) session.getAttribute("userId"));
+			model.addAttribute("ing", ing);
+			return "change-password";
+		} else {
+			return "redirect:/account";
+		}
+
+	}
+	
+	@PostMapping("saveNewPassword")
+	public String saveNewPassword(HttpSession session, @RequestParam String currentPass, @RequestParam String newPass,
+			@RequestParam String confirmPass) {
+		if (session.getAttribute("userId") != null) {
+			Ingenieur ing = ingenieurRepo.getById((int) session.getAttribute("userId"));
+			System.out.println(ing.getPassword());
+			System.out.println(currentPass);
+			if(ing.getPassword().equals(currentPass)) {
+				ing.setPassword(newPass);
+				ingenieurRepo.save(ing);
+			}else {
+				return "redirect:/changePassword";
+			}
+			
+			return "redirect:/account";
+		} else {
+			return "redirect:/account";
+		}
+	}
+
 }

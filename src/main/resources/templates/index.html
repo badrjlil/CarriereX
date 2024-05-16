@@ -62,40 +62,19 @@
 			<div class="d-table-cell">
 				<div class="container">
 					<div class="banner-content text-center">
-						<p>Trouvez des emplois, des emplois et des opportunités de carrière</p>
+						<p>Trouvez des offres, des emplois et des opportunités de carrière</p>
 						<h1>Déposez votre CV et obtenez l'emploi de vos rêves !</h1>
-						<form class="banner-form" method="get" action="findJob">
-							<div class="row">
-								<div class="col-md-4">
-									<div class="form-group">
-										<label for="exampleInputEmail1">Mot-clé:</label>
-										<input type="text" class="form-control" id="exampleInputEmail1"
-											placeholder="Titre d'emploi" name="keyword">
-									</div>
-								</div>
-								<div class="col-md-4">
-									<div class="form-group">
-										<label for="exampleInputEmail2">Localisation:</label>
-										<input type="text" class="form-control" id="exampleInputEmail2"
-											placeholder="Ville ou État" name="location">
-									</div>
-								</div>
-								<div class="col-md-4">
-									<button type="submit" class="find-btn">
-										Trouver un travail
-										<i class="bx bx-search"></i>
+						<form class="banner-form">
+									<button class="find-btn">Trouver un emploi maintenant!
 									</button>
-
-								</div>
-							</div>
 						</form>
 						<ul class="keyword">
 							<li>Mots-clés tendance:</li>
-							<li><a href="#">Automobile,</a></li>
-							<li><a href="#">Éducation,</a></li>
-							<li><a href="#">Santé</a></li>
+							<li><a href="#">Software Engineer,</a></li>
+							<li><a href="#">Machine Learning,</a></li>
+							<li><a href="#">DevOps</a></li>
 							<li>et</li>
-							<li><a href="#">Ingénierie des soins</a></li>
+							<li><a href="#">Cyber Security</a></li>
 						</ul>
 					</div>
 				</div>
@@ -107,8 +86,8 @@
 	<section class="categories-section pt-100 pb-70">
 		<div class="container">
 			<div class="section-title text-center">
-				<h2>Choisissez votre catégorie</h2>
-				<p>Choisissez la catégorie principale qui décrit votre choix dans son ensemble et soyez précis.</p>
+				<h2>Choisissez votre domaine</h2>
+				<p>Choisissez le domaine principale qui décrit votre choix dans son ensemble et soyez précis.</p>
 			</div>
 			<div class="row">
 
@@ -150,8 +129,7 @@
 							<div class="col-lg-3">
 								<div class="thumb-img">
 									<a href="job-details.html">
-										<img th:src="@{'data:image/jpeg;base64,' + ${e.imageData}}"
-											alt="company logo">
+										<img th:src="@{'data:image/jpeg;base64,' + ${e.imageData}}" alt="company logo">
 									</a>
 								</div>
 							</div>
@@ -322,7 +300,7 @@
 								<h5 class="mt-0">À la recherche d'un emploi</h5>
 								<p>Votre prochain rôle pourrait être au sein de l'une de ces organisations de premier
 									plan</p>
-								<a href="job-list.html">
+								<a href="find-job">
 									Appliquer maintenant
 									<i class="bx bx-chevrons-right"></i>
 								</a>
@@ -338,7 +316,7 @@
 								<h5 class="mt-0">Vous recrutez ?</h5>
 								<p>Votre prochain rôle pourrait être au sein de l'une de ces organisations de premier
 									plan</p>
-								<a href="post-job.html">
+								<a href="employeurLogin">
 									Appliquer maintenant
 									<i class="bx bx-chevrons-right"></i>
 								</a>
@@ -400,114 +378,6 @@
 										indispensable pour trouver le job parfait.</p>
 								</div>
 							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-
-	<section class="blog-section pt-100 pb-70">
-		<div class="container">
-			<div class="section-title text-center">
-				<h2>Actualités, conseils et articles</h2>
-
-			</div>
-			<div class="row">
-				<div class="col-lg-4 col-sm-6">
-					<div class="blog-card">
-						<div class="blog-img">
-							<a href="blog-details.html">
-								<img src="assets/img/blog/1.jpg" alt="blog image">
-							</a>
-						</div>
-						<div class="blog-text">
-							<ul>
-								<li>
-									<i class="bx bxs-user"></i>
-									Admin
-								</li>
-								<li>
-									<i class="bx bx-calendar"></i>
-									7 Feb, 2021
-								</li>
-							</ul>
-							<h3>
-								<a href="blog-details.html">
-									How to Indroduce in Yourself in Job Interview?
-								</a>
-							</h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-								incididunt.</p>
-							<a href="blog-details.html" class="blog-btn">
-								Read More
-								<i class="bx bx-plus bx-spin"></i>
-							</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-sm-6">
-					<div class="blog-card">
-						<div class="blog-img">
-							<a href="blog-details.html">
-								<img src="assets/img/blog/2.jpg" alt="blog image">
-							</a>
-						</div>
-						<div class="blog-text">
-							<ul>
-								<li>
-									<i class="bx bxs-user"></i>
-									Admin
-								</li>
-								<li>
-									<i class="bx bx-calendar"></i>
-									7 Feb, 2021
-								</li>
-							</ul>
-							<h3>
-								<a href="blog-details.html">
-									Looking for Highly Motivated Product to Build
-								</a>
-							</h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-								incididunt.</p>
-							<a href="blog-details.html" class="blog-btn">
-								Read More
-								<i class="bx bx-plus bx-spin"></i>
-							</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-sm-6 offset-sm-3 offset-lg-0">
-					<div class="blog-card">
-						<div class="blog-img">
-							<a href="blog-details.html">
-								<img src="assets/img/blog/3.jpg" alt="blog image">
-							</a>
-						</div>
-						<div class="blog-text">
-							<ul>
-								<li>
-									<i class="bx bxs-user"></i>
-									Admin
-								</li>
-								<li>
-									<i class="bx bx-calendar"></i>
-									7 Feb, 2021
-								</li>
-							</ul>
-							<h3>
-								<a href="blog-details.html">
-									The Reason Why Software Develope is the Best Job
-								</a>
-							</h3>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-								incididunt.</p>
-							<a href="blog-details.html" class="blog-btn">
-								Read More
-								<i class="bx bx-plus bx-spin"></i>
-							</a>
 						</div>
 					</div>
 				</div>
