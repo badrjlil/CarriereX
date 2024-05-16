@@ -114,7 +114,7 @@
 
 				<div th:each="cat, iterStat : ${categories}" th:if="${iterStat.index} &lt; 7"
 					class="col-lg-3 col-md-4 col-sm-6">
-					<a href="#">
+					<a th:href="@{/offresCategorie?id=} + ${cat.id}">
 						<div class="category-card">
 							<i class="flaticon-accounting"></i>
 							<h3 th:text="${cat.nom}"></h3>
@@ -150,8 +150,7 @@
 							<div class="col-lg-3">
 								<div class="thumb-img">
 									<a href="job-details.html">
-										<img th:src="@{'data:image/jpeg;base64,' + ${e.imageData}}"
-											alt="company logo">
+										<img th:src="@{'data:image/jpeg;base64,' + ${e.imageData}}" alt="company logo">
 									</a>
 								</div>
 							</div>

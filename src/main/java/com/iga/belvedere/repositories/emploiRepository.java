@@ -21,4 +21,6 @@ public interface emploiRepository extends JpaRepository<Emploi, Integer>{
 	
 	@Query("SELECT emp FROM Emploi emp WHERE emp.employeur = :employeur")
 	public List<Emploi> findAllByEmployeur(@Param("employeur") Employeur employeur);
+	
+	  List<Emploi> findByCatégorieId(int catégorieId);
 }

@@ -2,6 +2,7 @@ package com.iga.belvedere.controllers;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -176,43 +177,54 @@ public class EmployeurController {
 	@PostMapping("/saveModifEmploi")
 
 	public String saveModifEmploi(@RequestParam int id, @RequestParam String titre, @RequestParam String nomEntreprise,
-			@RequestParam String website, @RequestParam String emailEntreprise, @RequestParam String type,
-			@RequestParam Langue langue, @RequestParam Ville ville, @RequestParam Catégorie catégorie,
-			@RequestParam String salaire_min, @RequestParam String salaire_max, @RequestParam int experience,
-			@RequestParam Date deadline, @RequestParam String keywordsInput, @RequestParam String exigences,
-			@RequestParam String description, HttpSession session) {
-		if (verifyLogin(session)) {
-			Emploi emploi = emploiRepo.getById(id);
-			Employeur employeur = employeurRepo.findById(1).orElse(null);
-			emploi.setEmployeur(employeur);
-			emploi.setTitre(titre);
-			emploi.setNomEntreprise(nomEntreprise);
-			emploi.setWebsite(website);
-			emploi.setEmailEntreprise(emailEntreprise);
-			emploi.setType(type);
-			emploi.setSalaire_min(Double.parseDouble(salaire_min));
-			emploi.setSalaire_max(Double.parseDouble(salaire_max));
-			emploi.setExperience(experience);
-			emploi.setDeadline(deadline);
-			emploi.setExigences(exigences);
-			emploi.setDescription(description);
+	        @RequestParam String website, @RequestParam String emailEntreprise, @RequestParam String type,
+	        @RequestParam Langue langue, @RequestParam Ville ville, @RequestParam Catégorie catégorie,
+	        @RequestParam String salaire_min, @RequestParam String salaire_max, @RequestParam int experience,
+	        @RequestParam Date deadline, @RequestParam String keywordsInput, @RequestParam String exigences,
+	        @RequestParam String description, HttpSession session) {
+	    if (verifyLogin(session)) {
+	        Emploi emploi = emploiRepo.getById(id);
+	        Employeur employeur = employeurRepo.findById(1).orElse(null);
+	        emploi.setEmployeur(employeur);
+	        emploi.setTitre(titre);
+	        emploi.setNomEntreprise(nomEntreprise);
+	        emploi.setWebsite(website);
+	        emploi.setEmailEntreprise(emailEntreprise);
+	        emploi.setType(type);
+	        emploi.setSalaire_min(Double.parseDouble(salaire_min));
+	        emploi.setSalaire_max(Double.parseDouble(salaire_max));
+	        emploi.setExperience(experience);
+	        emploi.setDeadline(deadline);
+	        emploi.setExigences(exigences);
+	        emploi.setDescription(description);
 
-			emploi.setLangue(langue);
-			emploi.setVille(ville);
-			emploi.setCatégorie(catégorie);
+	        emploi.setLangue(langue);
+	        emploi.setVille(ville);
+	        emploi.setCatégorie(catégorie);
 
-			String[] keywords = keywordsInput.split(",");
-			for (String keywordStr : keywords) {
-				Keyword keyword = new Keyword(keywordStr.trim());
-				keyword.setEmploi(emploi);
-				keywordRepo.save(keyword);
-			}
-			emploiRepo.save(emploi);
+	        
+	        List<Keyword> existingKeywords = keywordRepo.findByEmploi(emploi);
+	        String[] keywords = keywordsInput.split(",");
+	        for (Keyword existingKeyword : existingKeywords) {
+	            if (!Arrays.asList(keywords).contains(existingKeyword.getNom())) {
+	                keywordRepo.delete(existingKeyword);
+	            }
+	        }
+	        for (String keywordStr : keywords) {
+	            String trimmedKeyword = keywordStr.trim();
+	            if (existingKeywords.stream().noneMatch(k -> k.getNom().equals(trimmedKeyword))) {
+	                Keyword keyword = new Keyword(trimmedKeyword);
+	                keyword.setEmploi(emploi);
+	                keywordRepo.save(keyword);
+	            }
+	        }
 
-			return "redirect:/gererEmplois";
-		} else {
-			return "redirect:/employeurLogin";
-		}
+	        emploiRepo.save(emploi);
+
+	        return "redirect:/gererEmplois";
+	    } else {
+	        return "redirect:/employeurLogin";
+	    }
 	}
 
 	@GetMapping("/deleteJob")
@@ -316,6 +328,12 @@ public class EmployeurController {
 	public String employeurLogout(HttpSession session) {
 		session.removeAttribute("empId");
 		return "redirect:/employeurLogin";
+	}
+	
+	@GetMapping("/changePassword")
+	public String changePassword() {
+		
+		return "dashboard/change-password";
 	}
 
 }
