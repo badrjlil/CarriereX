@@ -294,6 +294,8 @@ public class EmployeurController {
 		if (verifyLogin(session)) {
 			Employeur emp = employeurRepo.getById((int)session.getAttribute( "empId"));
 			model.addAttribute("emp", emp);
+		    model.addAttribute("catégories", catégorieRepo.findAll());
+		    model.addAttribute("ville", villeRepo.findAll());
 			return "dashboard/dashboard-profile";
 		} else {
 			return "redirect:/employeurLogin";
@@ -336,4 +338,7 @@ public class EmployeurController {
 		return "dashboard/change-password";
 	}
 
+	
+
+	 
 }
