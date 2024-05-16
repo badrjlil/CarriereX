@@ -145,7 +145,7 @@ public class IngenieurController {
 
 	@GetMapping("/sign-out")
 	public String sign_out(HttpSession session) {
-		session.invalidate();
+		session.removeAttribute("userId");
 		return "redirect:/account";
 	}
 

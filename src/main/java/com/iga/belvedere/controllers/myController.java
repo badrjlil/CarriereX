@@ -1,7 +1,6 @@
 package com.iga.belvedere.controllers;
 
 
-import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -135,11 +134,6 @@ public class myController {
 	@GetMapping("/404")
 	public String error404() {	
 		return "404";
-	}
-	
-	@GetMapping("/dashboard")
-	public String dashbard() {
-		return "dashboard/index";
 	}
 
 	
