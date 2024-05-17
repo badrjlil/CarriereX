@@ -135,7 +135,7 @@ public class EmployeurController {
 			}
 			emploiRepo.save(emploi);
 
-			return "redirect:/dashboard";
+			return "redirect:/gererEmplois";
 		} else {
 			return "redirect:/employeurLogin";
 		}

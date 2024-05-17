@@ -83,65 +83,7 @@
 	<section class="account-section ptb-100">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-4">
-					<div class="account-information">
-						<div class="profile-thumb">
-							<img src="assets/img/account.jpg" alt="account holder image">
-							<h3 th:text="${ing.prenom} + ' ' + ${ing.nom}"></h3>
-							<p th:text="${profil.titre}"></p>
-						</div>
-						<ul>
-							<li>
-								<a href="#" class="active">
-									<i class="bx bx-user"></i>
-									Mon profil
-								</a>
-							</li>
-							<li>
-								<a href="/resume">
-									<i class="bx bxs-file-doc"></i>
-									Mon CV
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<i class="bx bx-briefcase"></i>
-									Emploi appliqué
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<i class="bx bx-envelope"></i>
-									Messages
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<i class="bx bx-heart"></i>
-									Emplois enregistrés
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<i class="bx bx-lock-alt"></i>
-									Changer le mot de passe
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<i class="bx bx-coffee-togo"></i>
-									Supprimer le compte
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<i class="bx bx-log-out"></i>
-									Se déconnecter
-								</a>
-							</li>
-						</ul>
-					</div>
-				</div>
+				<div th:replace="profile-navbar ::div"></div>
 				<div class="col-md-8">
 					<div class="account-details">
 						<h3>Mes formations</h3>
