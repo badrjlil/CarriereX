@@ -11,8 +11,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -214,7 +218,7 @@ public class EmployeurController {
 	        emploi.setVille(ville);
 	        emploi.setCatégorie(catégorie);
 
-			if (image != null) {
+			if (image.getSize() != 0) {
 				try {
 					emploi.setImageData(image.getBytes());
 				} catch (IOException e) {
@@ -398,5 +402,17 @@ public class EmployeurController {
 		employeurRepo.save(emp);
 		return "redirect:/employeurLogin";
 	}
+	
+	@GetMapping("/downloadCV")
+	public ResponseEntity<Resource> downloadFile(@RequestParam int id) throws IOException {
+		Application app = applicationRepo.getById(id);
+		byte[] cv = app.getCv();
+		ByteArrayResource resource = new ByteArrayResource(cv);
+        return ResponseEntity.ok()
+        		.contentType(MediaType.APPLICATION_PDF)
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"CV.pdf\"") // Set filename
+                .body(resource);
+
+    }
 
 }
