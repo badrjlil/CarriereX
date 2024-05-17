@@ -65,11 +65,6 @@ public class myController {
 		return "candidate-details";
 	}
 	
-	@GetMapping("/company")
-	public String company() {
-		return "company";
-	}
-	
 	@GetMapping("/faq")
 	public String faq() {
 		return "faq";
@@ -79,51 +74,16 @@ public class myController {
 	public String jobList() {
 		return "job-list";
 	}
-	
-	@GetMapping("/job-grid")
-	public String jobgrid() {
-		return "job-grid";
-	}
-	
+
 	@GetMapping("/contact")
 	public String contact() {
 		
 		return "contact";
 	}
 
-	@GetMapping("/pricing")
-	public String pricing() {
-		return "pricing";
-	}
-	
-	@GetMapping("/privacy")
-	public String privacy() {
-		return "privacy";
-	}
-	
-	@GetMapping("/privacy-policy")
-	public String privacypolicy() {
-		return "privacy-policy";
-	}
-	
-	@GetMapping("/reset-password")
-	public String password() {
-		return "reset-password";
-	}
-	
 	@GetMapping("/signup")
 	public String signup() {
 		return "signup";
-	}
-	
-	@GetMapping("/terms")
-	public String terms() {
-		return "terms";
-	}
-	
-	@GetMapping("/terms-condition")
-	public String termscondition() {
-		return "terms-condition";
 	}
 	
 	@GetMapping("/testimonial")
@@ -131,10 +91,5 @@ public class myController {
 		return "testimonial";
 	}
 	
-	@GetMapping("/404")
-	public String error404() {	
-		return "404";
-	}
 
-	
 }

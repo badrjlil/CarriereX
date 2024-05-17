@@ -113,11 +113,6 @@ public class IngenieurController {
 		return "job-details";
 	}
 
-	@GetMapping("/add-categorie")
-	public String addCat() {
-		return "add-categorie";
-	}
-
 	@PostMapping("/account")
 	public String sign_in(HttpSession session, @RequestParam String email, @RequestParam String password, Model model) {
 		Ingenieur ing = ingenieurRepo.fetchUser(email, password);
