@@ -494,4 +494,15 @@ public class IngenieurController {
 		}
 	}
 
+	
+	@GetMapping("/offresCategorie")
+	public String getOffresByCategorie(@RequestParam("id") int categorieId, Model model) {
+	    // Récupérer les offres pour la catégorie donnée depuis la base de données
+	    List<Emploi> offres = repoEmploi.findByCatégorieId(categorieId);
+	    
+	    // Ajouter les offres à l'objet Model pour les rendre accessibles dans le modèle de vue
+	    model.addAttribute("emplois", offres);
+	    
+	    return "searchCategorie"; // Nom de votre vue pour afficher les offres par catégorie
+	}
 }

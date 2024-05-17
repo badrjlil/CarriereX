@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -209,9 +210,9 @@ public class EmployeurController {
 			emploi.setExigences(exigences);
 			emploi.setDescription(description);
 
-			emploi.setLangue(langue);
-			emploi.setVille(ville);
-			emploi.setCatégorie(catégorie);
+	        emploi.setLangue(langue);
+	        emploi.setVille(ville);
+	        emploi.setCatégorie(catégorie);
 
 			if (image != null) {
 				try {
@@ -221,18 +222,29 @@ public class EmployeurController {
 				}
 			}
 
-			String[] keywords = keywordsInput.split(",");
-			for (String keywordStr : keywords) {
-				Keyword keyword = new Keyword(keywordStr.trim());
-				keyword.setEmploi(emploi);
-				keywordRepo.save(keyword);
-			}
-			emploiRepo.save(emploi);
+	        
+	        List<Keyword> existingKeywords = keywordRepo.findByEmploi(emploi);
+	        String[] keywords = keywordsInput.split(",");
+	        for (Keyword existingKeyword : existingKeywords) {
+	            if (!Arrays.asList(keywords).contains(existingKeyword.getNom())) {
+	                keywordRepo.delete(existingKeyword);
+	            }
+	        }
+	        for (String keywordStr : keywords) {
+	            String trimmedKeyword = keywordStr.trim();
+	            if (existingKeywords.stream().noneMatch(k -> k.getNom().equals(trimmedKeyword))) {
+	                Keyword keyword = new Keyword(trimmedKeyword);
+	                keyword.setEmploi(emploi);
+	                keywordRepo.save(keyword);
+	            }
+	        }
 
-			return "redirect:/gererEmplois";
-		} else {
-			return "redirect:/employeurLogin";
-		}
+	        emploiRepo.save(emploi);
+
+	        return "redirect:/gererEmplois";
+	    } else {
+	        return "redirect:/employeurLogin";
+	    }
 	}
 
 	@GetMapping("/deleteJob")
@@ -302,6 +314,8 @@ public class EmployeurController {
 		if (verifyLogin(session)) {
 			Employeur emp = employeurRepo.getById((int) session.getAttribute("empId"));
 			model.addAttribute("emp", emp);
+		    model.addAttribute("catégories", catégorieRepo.findAll());
+		    model.addAttribute("ville", villeRepo.findAll());
 			return "dashboard/dashboard-profile";
 		} else {
 			return "redirect:/employeurLogin";
