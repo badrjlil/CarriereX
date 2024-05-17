@@ -120,78 +120,15 @@
     <div class="category-style-two pb-70">
         <div class="container">
             <div class="section-title">
-                <h2>Catégorie d'emplois populaires</h2>
+                <h2 style="font-size: 35px;">Domaines d'emplois populaires</h2>
                   </div>
             <div class="row">
-                <div class="col-lg-3 col-sm-6">
+                <div class="col-lg-3 col-sm-6" th:each="cat : ${catégories}">
                     <a href="job-list.html">
-                        <div class="category-item">
-                            <i class="flaticon-wrench-and-screwdriver-in-cross"></i>
-                            <h3>Construction</h3>
-                            <p>6 nouveau travail</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <a href="job-list.html">
-                        <div class="category-item">
+                        <div style="height: 110px;" class="category-item">
                             <i class="flaticon-accounting"></i>
-                            <h3>Finance</h3>
-                            <p>8 nouveau travail</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <a href="job-list.html">
-                        <div class="category-item">
-                            <i class="flaticon-heart"></i>
-                            <h3>Soins de santé</h3>
-                            <p>9 nouveau travail</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <a href="job-list.html">
-                        <div class="category-item">
-                            <i class="flaticon-computer-1"></i>
-                            <h3>Graphic Design</h3>
-                            <p>6 nouveau travail</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <a href="job-list.html">
-                        <div class="category-item">
-                            <i class="flaticon-research"></i>
-                            <h3>Bancaire</h3>
-                            <p>5 nouveau travail</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <a href="job-list.html">
-                        <div class="category-item">
-                            <i class="flaticon-worker"></i>
-                            <h3>Automobile</h3>
-                            <p>12 nouveau travail</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <a href="job-list.html">
-                        <div class="category-item">
-                            <i class="flaticon-graduation-cap"></i>
-                            <h3>Éducation</h3>
-                            <p>15 nouveau travail</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-3  col-sm-6">
-                    <a href="job-list.html">
-                        <div class="category-item">
-                            <i class="flaticon-computer"></i>
-                            <h3>Data Analysis</h3>
-                            <p>5 nouveau travail</p>
+                            <h3 th:text="${cat.nom}">Finance</h3>
+                            <p th:text="${#lists.size(cat.emploi)} + ' nouveau travail'">8 nouveau travail</p>
                         </div>
                     </a>
                 </div>
@@ -206,283 +143,49 @@
                 <h2>Des emplois qui pourraient vous intéresser</h2>
                 </div>
             <div class="row">
-                <div class="col-md-6">
-                    <div class="job-card">
-                        <div class="row align-items-center">
-                            <div class="col-lg-3">
-                                <div class="thumb-img">
-                                    <a href="job-details.html">
-                                        <img src="assets/img/company-logo/1.png" alt="company logo">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="job-info">
-                                    <h3>
-                                        <a href="job-details.html">Post-Room Operate</a>
-                                    </h3>
-                                    <ul>
-                                        <li>Via <a href="#">Tourt Design LTD</a></li>
-                                        <li>
-                                            <i class="bx bx-location-plus"></i>
-                                            Wellesley Rd, London
-                                        </li>
-                                        <li>
-                                            <i class="bx bx-filter-alt"></i>
-                                            Accountancy
-                                        </li>
-                                        <li>
-                                            <i class="bx bx-briefcase"></i>
-                                            Freelance
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="job-save">
-                                    <span>Full Time</span>
-                                    <a href="#">
-                                        <i class="bx bx-heart"></i>
-                                    </a>
-                                    <p>
-                                        <i class="bx bx-stopwatch"></i>
-                                        1 Hr Ago
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="job-card">
-                        <div class="row align-items-center">
-                            <div class="col-lg-3">
-                                <div class="thumb-img">
-                                    <a href="job-details.html">
-                                        <img src="assets/img/company-logo/2.png" alt="company logo">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="job-info">
-                                    <h3>
-                                        <a href="job-details.html">Data Entry</a>
-                                    </h3>
-                                    <ul>
-                                        <li>Via <a href="#">Techno Inc.</a></li>
-                                        <li>
-                                            <i class="bx bx-location-plus"></i>
-                                            Street 40/A, London
-                                        </li>
-                                        <li>
-                                            <i class="bx bx-filter-alt"></i>
-                                            Data Entry
-                                        </li>
-                                        <li>
-                                            <i class="bx bx-briefcase"></i>
-                                            Freelance
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="job-save">
-                                    <a href="#">
-                                        <i class="bx bx-heart"></i>
-                                    </a>
-                                    <p>
-                                        <i class="bx bx-stopwatch"></i>
-                                        3 Hr Ago
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="job-card">
-                        <div class="row align-items-center">
-                            <div class="col-lg-3">
-                                <div class="thumb-img">
-                                    <a href="job-details.html">
-                                        <img src="assets/img/company-logo/3.png" alt="company logo">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="job-info">
-                                    <h3>
-                                        <a href="job-details.html">Graphic Designer</a>
-                                    </h3>
-                                    <ul>
-                                        <li>Via <a href="#">Devon Design</a></li>
-                                        <li>
-                                            <i class="bx bx-location-plus"></i>
-                                            West Sight, USA
-                                        </li>
-                                        <li>
-                                            <i class="bx bx-filter-alt"></i>
-                                            Graphics
-                                        </li>
-                                        <li>
-                                            <i class="bx bx-briefcase"></i>
-                                            Freelance
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="job-save">
-                                    <a href="#">
-                                        <i class="bx bx-heart"></i>
-                                    </a>
-                                    <p>
-                                        <i class="bx bx-stopwatch"></i>
-                                        4 Hr Ago
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="job-card">
-                        <div class="row align-items-center">
-                            <div class="col-lg-3">
-                                <div class="thumb-img">
-                                    <a href="job-details.html">
-                                        <img src="assets/img/company-logo/4.png" alt="company logo">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="job-info">
-                                    <h3>
-                                        <a href="job-details.html">Web Developer</a>
-                                    </h3>
-                                    <ul>
-                                        <li>Via <a href="#">MegaNews</a></li>
-                                        <li>
-                                            <i class="bx bx-location-plus"></i>
-                                            San Francisco, California
-                                        </li>
-                                        <li>
-                                            <i class="bx bx-filter-alt"></i>
-                                            Development
-                                        </li>
-                                        <li>
-                                            <i class="bx bx-briefcase"></i>
-                                            Freelance
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="job-save">
-                                    <a href="#">
-                                        <i class="bx bx-heart"></i>
-                                    </a>
-                                    <p>
-                                        <i class="bx bx-stopwatch"></i>
-                                        5 Hr Ago
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="job-card">
-                        <div class="row align-items-center">
-                            <div class="col-lg-3">
-                                <div class="thumb-img">
-                                    <a href="job-details.html">
-                                        <img src="assets/img/company-logo/5.png" alt="company logo">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="job-info">
-                                    <h3>
-                                        <a href="job-details.html">Digital Marketor</a>
-                                    </h3>
-                                    <ul>
-                                        <li>Via <a href="#">AB Marketer LTD</a></li>
-                                        <li>
-                                            <i class="bx bx-location-plus"></i>
-                                            Wellesley Rd, London
-                                        </li>
-                                        <li>
-                                            <i class="bx bx-filter-alt"></i>
-                                            Marketing
-                                        </li>
-                                        <li>
-                                            <i class="bx bx-briefcase"></i>
-                                            Freelance
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="job-save">
-                                    <a href="#">
-                                        <i class="bx bx-heart"></i>
-                                    </a>
-                                    <p>
-                                        <i class="bx bx-stopwatch"></i>
-                                        6 Hr Ago
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="job-card">
-                        <div class="row align-items-center">
-                            <div class="col-lg-3">
-                                <div class="thumb-img">
-                                    <a href="job-details.html">
-                                        <img src="assets/img/company-logo/6.png" alt="company logo">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="job-info">
-                                    <h3>
-                                        <a href="job-details.html">UI/UX Designer</a>
-                                    </h3>
-                                    <ul>
-                                        <li>Via <a href="#">Design Hunter</a></li>
-                                        <li>
-                                            <i class="bx bx-location-plus"></i>
-                                            Zoo Rd, London
-                                        </li>
-                                        <li>
-                                            <i class="bx bx-filter-alt"></i>
-                                            Accountancy
-                                        </li>
-                                        <li>
-                                            <i class="bx bx-briefcase"></i>
-                                            Freelance
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="job-save">
-                                    <a href="#">
-                                        <i class="bx bx-heart"></i>
-                                    </a>
-                                    <p>
-                                        <i class="bx bx-stopwatch"></i>
-                                        8 Hr Ago
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+				<div th:each="e : ${emplois}" class="col-sm-6">
+					<div class="job-card">
+						<div class="row align-items-center">
+							<div class="col-lg-3">
+								<div class="thumb-img">
+									<a href="job-details.html">
+										<img th:src="@{'data:image/jpeg;base64,' + ${e.imageData}}" alt="company logo">
+									</a>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="job-info">
+									<h3>
+										<a th:href="'job-details?id=' + ${e.id}" th:text="${e.titre}"></a>
+									</h3>
+									<ul>
+										<li>Via <a th:text="${e.nomEntreprise}"></a></li>
+										<li>
+											<i class="bx bx-location-plus"></i>
+											<span th:text="${e.ville.nom}"></span>
+										</li>
+										<li>
+											<i class="bx bx-filter-alt"></i>
+											<span th:text="${e.catégorie.nom}"></span>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="col-lg-3">
+								<div class="job-save">
+									<span th:text="${e.type}"></span>
+									<a th:href="'job-details?id=' + ${e.id}">
+										<i class="bx bx-show"></i>
+									</a>
+									<p>
+										<i class="bx bx-stopwatch"></i>
+										<a th:text="'Deadline : ' + ${e.deadline}"></a>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
             </div>
         </div>
     </section>

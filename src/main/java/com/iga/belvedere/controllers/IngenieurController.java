@@ -74,6 +74,8 @@ public class IngenieurController {
 		model.addAttribute("villes", villes);
 		List<Catégorie> catégories = repoCatégorie.findAll();
 		model.addAttribute("catégories", catégories);
+		List<Emploi> emplois = repoEmploi.findAll();
+		model.addAttribute("emplois", emplois);
 		return "find-job";
 	}
 

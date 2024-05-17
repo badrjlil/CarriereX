@@ -97,7 +97,7 @@
 						<div class="category-card">
 							<i class="flaticon-accounting"></i>
 							<h3 th:text="${cat.nom}"></h3>
-							<p>301 poste libre</p>
+							<p th:text="${#lists.size(cat.emploi)} + ' offre(s) libre'"></p>
 						</div>
 					</a>
 				</div>
