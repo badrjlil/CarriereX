@@ -76,6 +76,8 @@ public class IngenieurController {
 		model.addAttribute("catégories", catégories);
 		List<Emploi> emplois = repoEmploi.findAll();
 		model.addAttribute("emplois", emplois);
+	    int totalEmplois = catégories.stream().mapToInt(cat -> cat.getEmploi().size()).sum();
+	    model.addAttribute("totalEmplois", totalEmplois);
 		return "find-job";
 	}
 

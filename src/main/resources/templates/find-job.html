@@ -3,147 +3,154 @@
 
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
 
-    <link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
+	<link rel="stylesheet" href="assets/css/owl.carousel.min.css">
 
-    <link rel="stylesheet" href="assets/css/boxicon.min.css">
+	<link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
 
-    <link rel="stylesheet" href="assets/fonts/flaticon/flaticon.css">
+	<link rel="stylesheet" href="assets/css/boxicon.min.css">
 
-    <link rel="stylesheet" href="assets/css/magnific-popup.css">
+	<link rel="stylesheet" href="assets/fonts/flaticon/flaticon.css">
 
-    <link rel="stylesheet" href="assets/css/meanmenu.css">
+	<link rel="stylesheet" href="assets/css/magnific-popup.css">
 
-    <link rel="stylesheet" href="assets/css/nice-select.css">
+	<link rel="stylesheet" href="assets/css/meanmenu.css">
 
-    <link rel="stylesheet" href="assets/css/style.css">
+	<link rel="stylesheet" href="assets/css/nice-select.css">
 
-    <link rel="stylesheet" href="assets/css/dark.css">
+	<link rel="stylesheet" href="assets/css/style.css">
 
-    <link rel="stylesheet" href="assets/css/responsive.css">
+	<link rel="stylesheet" href="assets/css/dark.css">
 
-    <title>CarrièreX - Trouver une offre d'emploi</title>
+	<link rel="stylesheet" href="assets/css/responsive.css">
 
-    <link rel="icon" type="image/png" href="assets/img/favicon.png">
+	<title>CarrièreX - Trouver une offre d'emploi</title>
+
+	<link rel="icon" type="image/png" href="assets/img/favicon.png">
 </head>
 
 <body>
 
-    <div class="loader-content">
-        <div class="d-table">
-            <div class="d-table-cell">
-                <div class="sk-circle">
-                    <div class="sk-circle1 sk-child"></div>
-                    <div class="sk-circle2 sk-child"></div>
-                    <div class="sk-circle3 sk-child"></div>
-                    <div class="sk-circle4 sk-child"></div>
-                    <div class="sk-circle5 sk-child"></div>
-                    <div class="sk-circle6 sk-child"></div>
-                    <div class="sk-circle7 sk-child"></div>
-                    <div class="sk-circle8 sk-child"></div>
-                    <div class="sk-circle9 sk-child"></div>
-                    <div class="sk-circle10 sk-child"></div>
-                    <div class="sk-circle11 sk-child"></div>
-                    <div class="sk-circle12 sk-child"></div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="loader-content">
+		<div class="d-table">
+			<div class="d-table-cell">
+				<div class="sk-circle">
+					<div class="sk-circle1 sk-child"></div>
+					<div class="sk-circle2 sk-child"></div>
+					<div class="sk-circle3 sk-child"></div>
+					<div class="sk-circle4 sk-child"></div>
+					<div class="sk-circle5 sk-child"></div>
+					<div class="sk-circle6 sk-child"></div>
+					<div class="sk-circle7 sk-child"></div>
+					<div class="sk-circle8 sk-child"></div>
+					<div class="sk-circle9 sk-child"></div>
+					<div class="sk-circle10 sk-child"></div>
+					<div class="sk-circle11 sk-child"></div>
+					<div class="sk-circle12 sk-child"></div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
- <div th:replace="navbar ::html"></div>
+	<div th:replace="navbar ::html"></div>
 
 
-    <section class="page-title title-bg2">
-        <div class="d-table">
-            <div class="d-table-cell">
-                <h2>Trouver un travail</h2>
-                <ul>
-                    <li>
-                        <a href="/">Acceuil</a>
-                    </li>
-                    <li>Trouver un travail</li>
-                </ul>
-            </div>
-        </div>
-        <div class="lines">
-            <div class="line"></div>
-            <div class="line"></div>
-            <div class="line"></div>
-        </div>
-    </section>
+	<section class="page-title title-bg2">
+		<div class="d-table">
+			<div class="d-table-cell">
+				<h2>Trouver un travail</h2>
+				<ul>
+					<li>
+						<a href="/">Acceuil</a>
+					</li>
+					<li>Trouver un travail</li>
+				</ul>
+			</div>
+		</div>
+		<div class="lines">
+			<div class="line"></div>
+			<div class="line"></div>
+			<div class="line"></div>
+		</div>
+	</section>
 
 
-    <div class="find-section ptb-100">
-        <div class="container">
-            <form method="get" action="findJob" class="find-form mt-0">
-                <div class="row">
-                    <div class="col-lg-3">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="exampleInputEmail1"
-                                placeholder="Titre du poste ou mot-clé" name="keyword">
-                            <i class="bx bx-search-alt"></i>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <!--div class="form-group">
+	<div class="find-section ptb-100">
+		<div class="container">
+			<form method="get" action="findJob" class="find-form mt-0">
+				<div class="row">
+					<div class="col-lg-3">
+						<div class="form-group">
+							<input type="text" class="form-control" id="exampleInputEmail1"
+								placeholder="Titre du poste ou mot-clé" name="keyword">
+							<i class="bx bx-search-alt"></i>
+						</div>
+					</div>
+					<div class="col-lg-3">
+						<!--div class="form-group">
                             <input type="text" class="form-control" id="exampleInputEmail2" placeholder="Localisation" name="location">
                             <i class="bx bx-location-plus"></i>
                         </div-->
 						<select name="ville" th:object="${ville}">
-                            <option th:each="ville:${villes}" th:text="${ville.nom}" th:value="${ville.id}"></option>
-                        </select>
-                    </div>
-                    <div class="col-lg-3">
-                        <select class="category" name="category" th:object="${catégories}">
-                            <option th:each="cat:${catégories}" th:text="${cat.nom}" th:value="${cat.id}"></option>
-                        </select>
-                    </div>
-                    <div class="col-lg-3">
-                        <button type="submit" class="find-btn">
+							<option th:each="ville:${villes}" th:text="${ville.nom}" th:value="${ville.id}"></option>
+						</select>
+					</div>
+					<div class="col-lg-3">
+						<select class="category" name="category" th:object="${catégories}">
+							<option th:each="cat:${catégories}" th:text="${cat.nom}" th:value="${cat.id}"></option>
+						</select>
+					</div>
+					<div class="col-lg-3">
+						<button type="submit" class="find-btn">
 							Trouver un travail
-                            <i class="bx bx-search"></i>
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
+							<i class="bx bx-search"></i>
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
 
 
-    <div class="category-style-two pb-70">
-        <div class="container">
-            <div class="section-title">
-                <h2 style="font-size: 35px;">Domaines d'emplois populaires</h2>
-                  </div>
-            <div class="row">
-                <div class="col-lg-3 col-sm-6" th:each="cat : ${catégories}">
-                    <a href="job-list.html">
-                        <div style="height: 110px;" class="category-item">
-                            <i class="flaticon-accounting"></i>
-                            <h3 th:text="${cat.nom}">Finance</h3>
-                            <p th:text="${#lists.size(cat.emploi)} + ' nouveau travail'">8 nouveau travail</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="category-style-two pb-70">
+		<div class="container">
+			<div class="section-title">
+				<h2 style="font-size: 35px;">Domaines d'emplois populaires</h2>
+			</div>
+			<div class="row">
+				<div class="col-lg-3 col-sm-6" th:each="cat, iterStat : ${catégories}" th:if="${iterStat.index} &lt; 7">
+					<a th:href="'offresCategorie?id=' + ${cat.id}">
+						<div style="height: 110px;" class="category-item">
+							<i class="flaticon-accounting"></i>
+							<h3 th:text="${cat.nom}"></h3>
+							<p th:text="${#lists.size(cat.emploi)} + ' nouveau travail'"></p>
+						</div>
+					</a>
+				</div>
+				<div style="display: flex; justify-content: center; align-items: center; height: 110px;" class="col-lg-3 col-sm-6" th:if="${#lists.size(catégories) > 6}">
+					<a style="line-height: 100%;" href="catagories">
+						<div >
+							<h3>Parcourir plus >></h3>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
-    <section class="job-section pb-70">
-        <div class="container">
-            <div class="section-title text-center">
-                <h2>Des emplois qui pourraient vous intéresser</h2>
-                </div>
-            <div class="row">
-				<div th:each="e : ${emplois}" class="col-sm-6">
+	<section class="job-section pb-70">
+		<div class="container">
+			<div class="section-title text-center">
+				<h2>Des emplois qui pourraient vous intéresser</h2>
+			</div>
+			<div class="row">
+				<div th:each="e, iterStat : ${emplois}" th:if="${iterStat.index} &lt; 6" class="col-sm-6">
 					<div class="job-card">
 						<div class="row align-items-center">
 							<div class="col-lg-3">
@@ -186,31 +193,36 @@
 						</div>
 					</div>
 				</div>
-            </div>
-        </div>
-    </section>
+				<div th:if="${#lists.size(emplois) > 6}" class="col-sm-12 section-title text-center">
+					<a href="#">
+						<h3>Afficher plus >></h3>
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
 
- <div th:replace="footer ::html"></div>
+	<div th:replace="footer ::html"></div>
 
-    <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
+	<script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/bootstrap.bundle.min.js"></script>
 
-    <script src="assets/js/owl.carousel.min.js"></script>
+	<script src="assets/js/owl.carousel.min.js"></script>
 
-    <script src="assets/js/jquery.nice-select.min.js"></script>
+	<script src="assets/js/jquery.nice-select.min.js"></script>
 
-    <script src="assets/js/jquery.magnific-popup.min.js"></script>
+	<script src="assets/js/jquery.magnific-popup.min.js"></script>
 
-    <script src="assets/js/jquery.ajaxchimp.min.js"></script>
+	<script src="assets/js/jquery.ajaxchimp.min.js"></script>
 
-    <script src="assets/js/form-validator.min.js"></script>
+	<script src="assets/js/form-validator.min.js"></script>
 
-    <script src="assets/js/contact-form-script.js"></script>
+	<script src="assets/js/contact-form-script.js"></script>
 
-    <script src="assets/js/meanmenu.js"></script>
+	<script src="assets/js/meanmenu.js"></script>
 
-    <script src="assets/js/custom.js"></script>
+	<script src="assets/js/custom.js"></script>
 </body>
 
 

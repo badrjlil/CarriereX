@@ -83,8 +83,8 @@
  <section class="categories-section pt-100 pb-70">
 		<div class="container">
 			<div class="section-title text-center">
-				<h2>Choisissez votre catégorie</h2>
-				<p>Choisissez la catégorie principale qui décrit votre choix dans son ensemble et soyez précis.</p>
+				<h2>Choisissez votre domaine</h2>
+				<p>Choisissez le domaine principale qui décrit votre choix dans son ensemble et soyez précis.</p>
 			</div>
 			<div class="row">
 				<div class="col-lg-3 col-md-4 col-sm-6" th:each="c : ${categories}">
@@ -92,6 +92,7 @@
 						<div class="category-card">
 							<i class="flaticon-accounting"></i>
 							<h3 th:text="${c.nom}"></h3>
+							<p th:text="${#lists.size(c.emploi)} + ' offre(s) libre'"></p>
 						</div>
 					</a>
 				</div>

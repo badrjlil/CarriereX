@@ -65,8 +65,8 @@
 						<p>Trouvez des offres, des emplois et des opportunités de carrière</p>
 						<h1>Déposez votre CV et obtenez l'emploi de vos rêves !</h1>
 						<form class="banner-form">
-									<a href="find-job" class="find-btn">Trouver un emploi maintenant!
-									</a>
+							<a href="find-job" class="find-btn">Trouver un emploi maintenant!
+							</a>
 						</form>
 						<ul class="keyword">
 							<li>Mots-clés tendance:</li>
@@ -102,7 +102,7 @@
 					</a>
 				</div>
 				<div th:if="${#lists.size(categories) > 6}" class="col-lg-3 col-md-4 col-sm-6">
-					<a href="job-list.html">
+					<a href="catagories">
 						<div class="category-card">
 							<br>
 							<i class='bx bx-chevron-right'></i>
@@ -123,7 +123,7 @@
 				<p>Trouver un travail à l’ère d’Internet avec juste un CV à enregistrer et en un clic.</p>
 			</div>
 			<div class="row">
-				<div th:each="e : ${emplois}" class="col-sm-6">
+				<div th:each="e, iterStat : ${emplois}" th:if="${iterStat.index} &lt; 6" class="col-sm-6">
 					<div class="job-card">
 						<div class="row align-items-center">
 							<div class="col-lg-3">
@@ -165,6 +165,9 @@
 							</div>
 						</div>
 					</div>
+				</div>
+				<div th:if="${#lists.size(emplois) > 6}" class="col-sm-12 section-title text-center">
+					<a href="#"><h3>Afficher plus >></h3></a>
 				</div>
 			</div>
 		</div>
