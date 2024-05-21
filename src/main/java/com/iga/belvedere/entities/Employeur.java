@@ -16,6 +16,9 @@ public class Employeur extends Utilisateur{
 	
 	@OneToMany(mappedBy = "employeur")
 	private List<Emploi> emploi;
+	
+	@OneToMany(mappedBy = "employeur")
+	private List<Cours> cours;
 
 	public Employeur() {
     }
@@ -50,6 +53,15 @@ public class Employeur extends Utilisateur{
 	public void setImage(byte[] image) {
 		this.image = image;
 	}
+
+	public List<Cours> getCours() {
+		return cours;
+	}
+
+	public void setCours(List<Cours> cours) {
+		this.cours = cours;
+	}
+	
 
 	
 

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -27,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.iga.belvedere.entities.Application;
 import com.iga.belvedere.entities.Catégorie;
+import com.iga.belvedere.entities.Cours;
 import com.iga.belvedere.entities.Emploi;
 import com.iga.belvedere.entities.Employeur;
 import com.iga.belvedere.entities.Ingenieur;
@@ -37,6 +39,7 @@ import com.iga.belvedere.entities.Ville;
 import com.iga.belvedere.repositories.LangueRepository;
 import com.iga.belvedere.repositories.applicationRepository;
 import com.iga.belvedere.repositories.categorieRepository;
+import com.iga.belvedere.repositories.coursRepository;
 import com.iga.belvedere.repositories.emploiRepository;
 import com.iga.belvedere.repositories.employeurRepository;
 import com.iga.belvedere.repositories.ingenieurRepository;
@@ -69,6 +72,8 @@ public class EmployeurController {
 	private profilRepository profilRepo;
 	@Autowired
 	private ResourceLoader resourceLoader;
+	@Autowired
+	private coursRepository coursRepo;
 
 	private static boolean verifyLogin(HttpSession session) {
 		if (session.getAttribute("empId") != null) {
@@ -214,9 +219,9 @@ public class EmployeurController {
 			emploi.setExigences(exigences);
 			emploi.setDescription(description);
 
-	        emploi.setLangue(langue);
-	        emploi.setVille(ville);
-	        emploi.setCatégorie(catégorie);
+			emploi.setLangue(langue);
+			emploi.setVille(ville);
+			emploi.setCatégorie(catégorie);
 
 			if (image.getSize() != 0) {
 				try {
@@ -226,29 +231,28 @@ public class EmployeurController {
 				}
 			}
 
-	        
-	        List<Keyword> existingKeywords = keywordRepo.findByEmploi(emploi);
-	        String[] keywords = keywordsInput.split(",");
-	        for (Keyword existingKeyword : existingKeywords) {
-	            if (!Arrays.asList(keywords).contains(existingKeyword.getNom())) {
-	                keywordRepo.delete(existingKeyword);
-	            }
-	        }
-	        for (String keywordStr : keywords) {
-	            String trimmedKeyword = keywordStr.trim();
-	            if (existingKeywords.stream().noneMatch(k -> k.getNom().equals(trimmedKeyword))) {
-	                Keyword keyword = new Keyword(trimmedKeyword);
-	                keyword.setEmploi(emploi);
-	                keywordRepo.save(keyword);
-	            }
-	        }
+			List<Keyword> existingKeywords = keywordRepo.findByEmploi(emploi);
+			String[] keywords = keywordsInput.split(",");
+			for (Keyword existingKeyword : existingKeywords) {
+				if (!Arrays.asList(keywords).contains(existingKeyword.getNom())) {
+					keywordRepo.delete(existingKeyword);
+				}
+			}
+			for (String keywordStr : keywords) {
+				String trimmedKeyword = keywordStr.trim();
+				if (existingKeywords.stream().noneMatch(k -> k.getNom().equals(trimmedKeyword))) {
+					Keyword keyword = new Keyword(trimmedKeyword);
+					keyword.setEmploi(emploi);
+					keywordRepo.save(keyword);
+				}
+			}
 
-	        emploiRepo.save(emploi);
+			emploiRepo.save(emploi);
 
-	        return "redirect:/gererEmplois";
-	    } else {
-	        return "redirect:/employeurLogin";
-	    }
+			return "redirect:/gererEmplois";
+		} else {
+			return "redirect:/employeurLogin";
+		}
 	}
 
 	@GetMapping("/deleteJob")
@@ -267,8 +271,9 @@ public class EmployeurController {
 		if (verifyLogin(session)) {
 			Employeur emp = employeurRepo.getById((int) session.getAttribute("empId"));
 			model.addAttribute("emp", emp);
-			List<Application> apps = applicationRepo.findAll();
-			HashMap<Ingenieur, Application> uniqueApps = new HashMap<>();
+			//List<Application> apps = applicationRepo.findAll();
+			List<Application> apps = applicationRepo.findAllByEmployeur(emp);
+			/*HashMap<Ingenieur, Application> uniqueApps = new HashMap<>();
 			for (Application app : apps) {
 				Ingenieur engineer = app.getIngenieur();
 				if (!uniqueApps.containsKey(engineer)) {
@@ -277,7 +282,7 @@ public class EmployeurController {
 			}
 			List<Application> filteredApps = new ArrayList<>(uniqueApps.values());
 			apps.clear();
-			apps.addAll(filteredApps);
+			apps.addAll(filteredApps);*/
 			model.addAttribute("apps", apps);
 			return "dashboard/manage-candidates";
 		} else {
@@ -318,8 +323,8 @@ public class EmployeurController {
 		if (verifyLogin(session)) {
 			Employeur emp = employeurRepo.getById((int) session.getAttribute("empId"));
 			model.addAttribute("emp", emp);
-		    model.addAttribute("catégories", catégorieRepo.findAll());
-		    model.addAttribute("ville", villeRepo.findAll());
+			model.addAttribute("catégories", catégorieRepo.findAll());
+			model.addAttribute("ville", villeRepo.findAll());
 			return "dashboard/dashboard-profile";
 		} else {
 			return "redirect:/employeurLogin";
@@ -402,17 +407,110 @@ public class EmployeurController {
 		employeurRepo.save(emp);
 		return "redirect:/employeurLogin";
 	}
-	
+
 	@GetMapping("/downloadCV")
 	public ResponseEntity<Resource> downloadFile(@RequestParam int id) throws IOException {
 		Application app = applicationRepo.getById(id);
 		byte[] cv = app.getCv();
 		ByteArrayResource resource = new ByteArrayResource(cv);
-        return ResponseEntity.ok()
-        		.contentType(MediaType.APPLICATION_PDF)
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"CV.pdf\"") // Set filename
-                .body(resource);
+		return ResponseEntity.ok().contentType(MediaType.APPLICATION_PDF)
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"CV.pdf\"") // Set filename
+				.body(resource);
 
-    }
+	}
+
+	@GetMapping("/newCours")
+	public String newCourse(HttpSession session, Model model) {
+		if (verifyLogin(session)) {
+			Employeur emp = employeurRepo.getById((int) session.getAttribute("empId"));
+			model.addAttribute("emp", emp);
+			return "dashboard/post-cours";
+		} else {
+			return "redirect:/employeurLogin";
+		}
+	}
+
+	@PostMapping("/addCours")
+	public String addCours(HttpSession session, @RequestParam String titre, @RequestParam String contenu,
+			@RequestParam MultipartFile image) {
+		if (verifyLogin(session)) {
+			Employeur emp = employeurRepo.getById((int) session.getAttribute("empId"));
+			Cours c = new Cours();
+			c.setTitre(titre);
+			c.setContenu(contenu);
+			c.setDate(Date.valueOf(LocalDate.now()));
+			c.setEmployeur(emp);
+			try {
+				c.setImage(image.getBytes());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			coursRepo.save(c);
+			return "redirect:/newCours";
+		} else {
+			return "redirect:/employeurLogin";
+		}
+	}
+
+	@GetMapping("/manageCours")
+	public String manageCours(HttpSession session, Model model) {
+		if (verifyLogin(session)) {
+			Employeur emp = employeurRepo.getById((int) session.getAttribute("empId"));
+			model.addAttribute("emp", emp);
+			List<Cours> cours = coursRepo.findAllByEmployeur(emp);
+			model.addAttribute("cours", cours);
+			return "dashboard/manage-cours";
+		} else {
+			return "redirect:/employeurLogin";
+		}
+		
+	}
+	
+	@GetMapping("/modifyCours")
+	public String modifyCours(HttpSession session, @RequestParam int id, Model model) {
+		if (verifyLogin(session)) {
+			Employeur emp = employeurRepo.getById((int) session.getAttribute("empId"));
+			Cours c = coursRepo.getById(id);
+			model.addAttribute("c", c);
+			model.addAttribute("emp", emp);
+			return "dashboard/modify-cours";
+		} else {
+			return "redirect:/employeurLogin";
+		}
+		
+	}
+	
+	@PostMapping("/saveModifCours")
+	public String saveModifCours(HttpSession session, @RequestParam(required = false) MultipartFile image,
+			@RequestParam String contenu, @RequestParam int id, @RequestParam String titre) {
+		if (verifyLogin(session)) {
+			Employeur emp = employeurRepo.getById((int) session.getAttribute("empId"));
+			Cours c = coursRepo.getById(id);
+			c.setContenu(contenu);
+			c.setTitre(titre);
+			if (image.getSize() != 0) {
+				try {
+					c.setImage(image.getBytes());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			coursRepo.save(c);
+			return "redirect:/manageCours";
+		} else {
+			return "redirect:/employeurLogin";
+		}		
+	}
+	
+	@GetMapping("/deleteCours")
+	public String deleteCours(HttpSession session, @RequestParam int id) {
+		if (verifyLogin(session)) {
+			Employeur emp = employeurRepo.getById((int) session.getAttribute("empId"));
+			coursRepo.delete(coursRepo.getById(id));
+			return "redirect:/manageCours";
+		} else {
+			return "redirect:/employeurLogin";
+		}
+	}
 
 }

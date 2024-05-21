@@ -22,7 +22,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.iga.belvedere.entities.Application;
 import com.iga.belvedere.entities.Catégorie;
 import com.iga.belvedere.entities.Compétence;
+import com.iga.belvedere.entities.Cours;
 import com.iga.belvedere.entities.Emploi;
+import com.iga.belvedere.entities.Employeur;
 import com.iga.belvedere.entities.Expérience;
 import com.iga.belvedere.entities.Formation;
 import com.iga.belvedere.entities.Ingenieur;
@@ -33,6 +35,7 @@ import com.iga.belvedere.repositories.LangueRepository;
 import com.iga.belvedere.repositories.applicationRepository;
 import com.iga.belvedere.repositories.categorieRepository;
 import com.iga.belvedere.repositories.compétenceRepository;
+import com.iga.belvedere.repositories.coursRepository;
 import com.iga.belvedere.repositories.emploiRepository;
 import com.iga.belvedere.repositories.expérienceRepository;
 import com.iga.belvedere.repositories.formationRepository;
@@ -67,6 +70,8 @@ public class IngenieurController {
 	private applicationRepository applicationRepo;
 	@Autowired
 	private ResourceLoader resourceLoader;
+	@Autowired
+	private coursRepository coursRepo;
 
 	@GetMapping("/find-job")
 	public String findjob(Model model) {
@@ -504,4 +509,36 @@ public class IngenieurController {
 	    
 	    return "searchCategorie"; // Nom de votre vue pour afficher les offres par catégorie
 	}
+	
+	@GetMapping("/cours")
+	public String cours(Model model) {
+		List<Cours> cours = coursRepo.findAll();
+		List<Cours> popCours = coursRepo.getPopularCourses();
+		model.addAttribute("cours", cours);
+		model.addAttribute("popC", popCours);
+		return "cours";
+	}
+	
+	@GetMapping("/detailsCours")
+	public String detailsCcours(@RequestParam int id, Model model) {
+		Cours c = coursRepo.getById(id);
+		c.setVues(c.getVues() + 1 );
+		coursRepo.save(c);
+		List<Cours> popCours = coursRepo.getPopularCourses();
+		model.addAttribute("popC", popCours);
+		model.addAttribute("c", c);
+		return "details-cours";
+	}
+	
+	@PostMapping("/findCours")
+	public String findCours(@RequestParam String keyword, Model model) {
+		List<Cours> cours = coursRepo.findByKeyword(keyword);
+		model.addAttribute("cours", cours);
+		List<Cours> popCours = coursRepo.getPopularCourses();
+		model.addAttribute("popC", popCours);
+		return "cours";
+		
+	}
+	
+	
 }

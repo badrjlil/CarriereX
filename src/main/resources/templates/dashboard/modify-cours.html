@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="content-type" />
+	<meta content="TechyDevs" name="author" />
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<meta content="ie=edge" http-equiv="X-UA-Compatible" />
+	<title>Carrière X - Nouveau emploi</title>
+	<!-- Favicon -->
+	<link href="images/favicon.png" rel="icon" />
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,300,400,500,700,&amp;display=swap"
+		rel="stylesheet" />
+	<!-- Template CSS Files -->
+	<link href="../assets/dashboard/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="../assets/dashboard/css/line-awesome.css" rel="stylesheet" />
+	<link href="../assets/dashboard/css/owl.carousel.min.css" rel="stylesheet" />
+	<link href="../assets/dashboard/css/owl.theme.default.min.css" rel="stylesheet" />
+	<link href="../assets/dashboard/css/magnific-popup.css" rel="stylesheet" />
+	<link href="../assets/dashboard/css/daterangepicker.css" rel="stylesheet" />
+	<link href="../assets/dashboard/css/jquery-ui.css" rel="stylesheet" />
+	<link href="../assets/dashboard/css/chosen.min.css" rel="stylesheet" />
+	<link href="../assets/dashboard/css/jquery-te-1.4.0.min.css" rel="stylesheet" />
+	<link href="../assets/dashboard/css/style.css" rel="stylesheet" />
+</head>
+
+<body>
+	<!-- start per-loader -->
+	<div class="loader-container">
+		<div class="loader-circle">
+			<div class="loader">
+				<div class="loader-dot"></div>
+				<div class="loader-dot"></div>
+				<div class="loader-dot"></div>
+				<div class="loader-dot"></div>
+				<div class="loader-dot"></div>
+				<div class="loader-dot"></div>
+			</div>
+		</div>
+	</div>
+	<!-- end per-loader -->
+
+	<!-- ==================== START DASHBOARD AREA ==================== -->
+
+	<section class="dashboard-area">
+
+		<div th:replace="dashboard\navbar ::div"></div>
+
+		<!-- end dashboard-sidebar -->
+		<div class="dashboard-content-wrap">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="breadcrumb-content d-flex flex-wrap justify-content-between align-items-center">
+							<div class="section-heading">
+								<h2 class="sec__title">Publier une offre</h2>
+							</div>
+							<!-- end section-heading -->
+							<ul class="list-items d-flex align-items-center">
+								<li class="active__list-item">
+									<a href="index-2.html">Acceuil</a>
+								</li>
+								<li class="active__list-item">Tableau de bord</li>
+								<li>Publier une offre</li>
+							</ul>
+						</div>
+						<!-- end breadcrumb-content -->
+					</div>
+					<!-- end col-lg-12 -->
+				</div>
+				<!-- end row -->
+				<div class="row mt-5">
+					<div class="col-lg-12">
+						<div class="billing-form-item">
+							<div class="billing-title-wrap">
+								<h3 class="widget-title pb-0">Informations générales</h3>
+								<div class="title-shape margin-top-10px"></div>
+							</div>
+							<!-- billing-title-wrap -->
+							<div class="billing-content">
+								<div class="contact-form-action">
+									<form method="post" th:action="@{/saveModifCours}" enctype="multipart/form-data">
+										<div class="row">
+
+											<!-- end col-lg-4 -->
+											<div class="col-lg-6 column-lg-full">
+												<div class="input-box">
+													<label class="label-text">Titre de cours</label>
+													<div class="form-group">
+														<span class="la la-briefcase form-icon"></span>
+														<input class="form-control" name="titre"
+															placeholder="Titre du cours" type="text" th:value="${c.titre}"/>
+													</div>
+												</div>
+											</div>
+											<div class="col-lg-6 column-lg-full">
+												<div class="input-box">
+													<label class="label-text">Image</label>
+													<div class="form-group">
+														<span class="la la-pencil-square-o form-icon"></span>
+														<input class="form-control" name="image" type="file" />
+													</div>
+												</div>
+											</div>
+											<!-- end col-lg-4 -->
+
+
+											<div class="col-lg-12">
+												<div class="input-box">
+													<label class="label-text">Contenu</label>
+													<div class="form-group mb-0">
+														<textarea class="message-control form-control user-text-editor"
+															name="contenu">[[${c.contenu}]]</textarea>
+													</div>
+												</div>
+											</div>
+											<!-- end col-lg-12 -->
+										</div>
+										<!-- end row -->
+
+								</div>
+								<!-- end contact-form-action -->
+							</div>
+							<!-- end billing-content -->
+						</div>
+
+					</div>
+					<!-- end col-lg-12 -->
+				</div>
+				<!-- end row -->
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="form-group">
+
+						</div>
+						<div class="btn-box mt-4">
+							<button class="theme-btn border-0" type="submit">
+								<i class="la la-plus"></i> Publier le cours
+							</button>
+						</div>
+						<!-- end btn-box -->
+					</div>
+					<!-- end col-lg-12 -->
+				</div>
+				<input type="hidden" name="id" th:value="${c.id}">
+				</form> <!-- end row -->
+			</div>
+			<!-- end container-fluid -->
+		</div>
+	</section>
+	<!-- end dashboard-area -->
+	<!-- ================================
+    END DASHBOARD AREA
+================================= -->
+	<!-- start back-to-top -->
+	<div id="back-to-top">
+		<i class="la la-angle-up" title="Go top"></i>
+	</div>
+	<!-- end back-to-top -->
+	<!-- Template JS Files -->
+	<script src="../assets/dashboard/js/jquery-3.7.1.min.js"></script>
+	<script src="../assets/dashboard/js/jquery-ui.js"></script>
+	<script src="../assets/dashboard/js/bootstrap.bundle.min.js"></script>
+	<script src="../assets/dashboard/js/owl.carousel.min.js"></script>
+	<script src="../assets/dashboard/js/jquery.magnific-popup.min.js"></script>
+	<script src="../assets/dashboard/js/isotope-3.0.6.min.js"></script>
+	<script src="../assets/dashboard/js/chosen.min.js"></script>
+	<script src="../assets/dashboard/js/moment.min.js"></script>
+	<script src="../assets/dashboard/js/daterangepicker.js"></script>
+	<script src="../assets/dashboard/js/purecounter.js"></script>
+	<script src="../assets/dashboard/js/progresscircle.js"></script>
+	<script src="../assets/dashboard/js/jquery.MultiFile.min.js"></script>
+	<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYzby4yYDVaXPmtu4jZAGR258K6IYwjIY&amp;libraries"></script>
+	<script src="../assets/dashboard/js/gmap-script.js"></script>
+	<script src="../assets/dashboard/js/jquery-te-1.4.0.min.js"></script>
+	<script src="../assets/dashboard/js/main.js"></script>
+</body>
+
+</html>

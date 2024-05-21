@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="zxx">
+
+
+<head>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+
+	<link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+
+	<link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
+
+	<link rel="stylesheet" href="assets/css/boxicon.min.css">
+
+	<link rel="stylesheet" href="assets/fonts/flaticon/flaticon.css">
+
+	<link rel="stylesheet" href="assets/css/magnific-popup.css">
+
+	<link rel="stylesheet" href="assets/css/meanmenu.css">
+
+	<link rel="stylesheet" href="assets/css/nice-select.css">
+
+	<link rel="stylesheet" href="assets/css/style.css">
+
+	<link rel="stylesheet" href="assets/css/dark.css">
+
+	<link rel="stylesheet" href="assets/css/responsive.css">
+
+	<title>Jovie - Job Board & Portal HTML Template</title>
+
+	<link rel="icon" type="image/png" href="assets/img/favicon.png">
+</head>
+
+<body>
+
+	<div class="loader-content">
+		<div class="d-table">
+			<div class="d-table-cell">
+				<div class="sk-circle">
+					<div class="sk-circle1 sk-child"></div>
+					<div class="sk-circle2 sk-child"></div>
+					<div class="sk-circle3 sk-child"></div>
+					<div class="sk-circle4 sk-child"></div>
+					<div class="sk-circle5 sk-child"></div>
+					<div class="sk-circle6 sk-child"></div>
+					<div class="sk-circle7 sk-child"></div>
+					<div class="sk-circle8 sk-child"></div>
+					<div class="sk-circle9 sk-child"></div>
+					<div class="sk-circle10 sk-child"></div>
+					<div class="sk-circle11 sk-child"></div>
+					<div class="sk-circle12 sk-child"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+ <div th:replace="navbar ::html"></div>
+
+	<section class="page-title title-bg22">
+		<div class="d-table">
+			<div class="d-table-cell">
+				<h2 th:text="${c.titre}"></h2>
+				<ul>
+					<li>
+						<a href="index.html">Accueil</a>
+					</li>
+					<li>Cours</li>
+					<li th:text="${c.titre}"></li>
+				</ul>
+			</div>
+		</div>
+		<div class="lines">
+			<div class="line"></div>
+			<div class="line"></div>
+			<div class="line"></div>
+		</div>
+	</section>
+
+
+	<section class="blog-details-area ptb-100">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4">
+					<div class="blog-widget blog-search">
+						<form action="findCours" method="post">
+							<div class="form-group">
+								<input type="text" name="keyword" class="form-control" placeholder="Chercher">
+								<button>
+									<i class="bx bx-search-alt-2"></i>
+								</button>
+							</div>
+						</form>
+					</div>
+					<div class="blog-widget">
+						<h3>Articles populaires</h3>
+						<article th:each="pC, iterStat : ${popC}" class="popular-post" th:if="${iterStat.index} &lt; 7">
+							<a href="blog-details.html" class="blog-thumb">
+								<img th:src="@{'data:image/jpeg;base64,' + ${pC.image}}" alt="blog image">
+							</a>
+							<div class="info">
+								<time th:datetime="${#dates.format(pC.date, 'yyyy-MM-dd')}" th:text="${#dates.format(pC.date, 'MMM dd, yyyy')}"></time>
+								<h4>
+									<a th:href="'detailsCours?id=' + ${c.id}" th:text="${pC.titre}"></a>
+								</h4>
+							</div>
+						</article>
+					</div>
+
+				</div>
+				<div class="col-lg-8">
+					<div class="blog-dedails-text">
+						<div class="blog-details-img">
+							<img th:src="@{'data:image/jpeg;base64,' + ${c.image}}" alt="blog details image">
+						</div>
+						<div class="blog-meta">
+							<ul>
+								<li>
+									<i class="bx bxs-user"></i>
+									<span th:text="${c.employeur.prenom} + ' ' + ${c.employeur.nom}"></span>
+								</li>
+								<li>
+									<i class="bx bx-calendar"></i>
+									<span th:text="${c.date}"></span>
+								</li>
+							</ul>
+						</div>
+						<h3 class="post-title" th:text="${c.titre}"></h3>
+						<p th:utext="${c.contenu}"></p>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+ <div th:replace="footer ::html"></div>
+
+
+	<script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/bootstrap.bundle.min.js"></script>
+
+	<script src="assets/js/owl.carousel.min.js"></script>
+
+	<script src="assets/js/jquery.nice-select.min.js"></script>
+
+	<script src="assets/js/jquery.magnific-popup.min.js"></script>
+
+	<script src="assets/js/jquery.ajaxchimp.min.js"></script>
+
+	<script src="assets/js/form-validator.min.js"></script>
+
+	<script src="assets/js/contact-form-script.js"></script>
+
+	<script src="assets/js/meanmenu.js"></script>
+
+	<script src="assets/js/custom.js"></script>
+</body>
+
+</html>
