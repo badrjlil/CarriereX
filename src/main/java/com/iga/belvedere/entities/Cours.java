@@ -20,7 +20,7 @@ public class Cours {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String titre;
-	@Column(length = 5000)
+	@Column(length = 100000)
 	private String contenu;
 	private Date date;
 	private int vues;

@@ -91,5 +91,10 @@ public class myController {
 		return "testimonial";
 	}
 	
+	@GetMapping("/bot")
+	public String bot() {
+		return "bot";
+	}
+	
 
 }

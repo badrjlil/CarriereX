@@ -24,7 +24,6 @@ import com.iga.belvedere.entities.Catégorie;
 import com.iga.belvedere.entities.Compétence;
 import com.iga.belvedere.entities.Cours;
 import com.iga.belvedere.entities.Emploi;
-import com.iga.belvedere.entities.Employeur;
 import com.iga.belvedere.entities.Expérience;
 import com.iga.belvedere.entities.Formation;
 import com.iga.belvedere.entities.Ingenieur;

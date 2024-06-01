@@ -19,6 +19,6 @@ public interface coursRepository extends JpaRepository<Cours, Integer>{
 	@Query("SELECT c FROM Cours c WHERE titre LIKE %:keyword%")
 	List<Cours> findByKeyword(@Param("keyword") String keyword);
 	
-	@Query("SELECT c FROM Cours c WHERE c.employeur = :employeur")
+	@Query("SELECT c FROM Cours c WHERE c.employeur = :employeur ORDER BY c.id DESC")
 	List<Cours> findAllByEmployeur(@Param("employeur") Employeur employeur);
 }
