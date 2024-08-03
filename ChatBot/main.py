@@ -5,6 +5,11 @@ from langchain_core.runnables import RunnablePassthrough
 from langchain_openai import ChatOpenAI
 from flask import Flask, request, jsonify
 import tiktoken
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
 
 from flask_cors import CORS
 
@@ -66,7 +71,8 @@ def count_tokens(text, model='gpt-4'):
     encoding = tiktoken.encoding_for_model(model)
     return len(encoding.encode(text))
 
-llm = ChatOpenAI(api_key='sk-proj-JYNq7ESs9KKeAovDltnyT3BlbkFJMzvgqfj12AQaqN7CKRBe')
+api_key = os.getenv('OPENAI_API_KEY')
+llm = ChatOpenAI(api_key=api_key)
 
 
 sql_chain = (
